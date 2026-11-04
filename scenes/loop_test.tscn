@@ -1,0 +1,220 @@
+[gd_scene format=3 uid="uid://cleruqcye7jp8"]
+
+[ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_lxbkj"]
+[ext_resource type="Script" uid="uid://7nip60xpkvny" path="res://scripts/checkpoint.gd" id="2_bkf63"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/kart.tscn" id="3_tldlq"]
+[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="4_rgicp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qa7hb"]
+size = Vector2(3200, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vs5sm"]
+size = Vector2(3200, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vr0y"]
+size = Vector2(300, 1800)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3ac5"]
+size = Vector2(300, 1800)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bm101"]
+size = Vector2(1800, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_400wk"]
+size = Vector2(3240, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_724tk"]
+size = Vector2(3240, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uam3e"]
+size = Vector2(40, 2440)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwnrd"]
+size = Vector2(40, 2440)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dv8h"]
+size = Vector2(1200, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyuh4"]
+size = Vector2(400, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncc3k"]
+size = Vector2(40, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrhko"]
+size = Vector2(400, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d233t"]
+size = Vector2(40, 400)
+
+[node name="LoopTest" type="Node2D" unique_id=103491392]
+
+[node name="GrassBackground" type="ColorRect" parent="." unique_id=386720517]
+offset_right = 3200.0
+offset_bottom = 2400.0
+color = Color(0.18, 0.49, 0.2, 1)
+
+[node name="RoadTop" type="ColorRect" parent="." unique_id=847281596]
+offset_left = 300.0
+offset_top = 300.0
+offset_right = 2900.0
+offset_bottom = 700.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="RoadBottom" type="ColorRect" parent="." unique_id=950871678]
+offset_left = 300.0
+offset_top = 1700.0
+offset_right = 2900.0
+offset_bottom = 2100.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="RoadLeft" type="ColorRect" parent="." unique_id=985852458]
+offset_left = 300.0
+offset_top = 700.0
+offset_right = 700.0
+offset_bottom = 1700.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="RoadRight" type="ColorRect" parent="." unique_id=1235410296]
+offset_left = 2500.0
+offset_top = 700.0
+offset_right = 2900.0
+offset_bottom = 1700.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="InnerGrass" type="ColorRect" parent="." unique_id=1888692994]
+offset_left = 700.0
+offset_top = 700.0
+offset_right = 2500.0
+offset_bottom = 1700.0
+color = Color(0.18, 0.49, 0.2, 1)
+
+[node name="InnerWallVisual" type="ColorRect" parent="." unique_id=1277653778]
+offset_left = 1000.0
+offset_top = 1000.0
+offset_right = 2200.0
+offset_bottom = 1400.0
+color = Color(0.12, 0.14, 0.13, 1)
+
+[node name="StartLineVisual" type="ColorRect" parent="." unique_id=2097774124]
+offset_left = 300.0
+offset_top = 1490.0
+offset_right = 700.0
+offset_bottom = 1510.0
+
+[node name="GrassOuterTop" type="Area2D" parent="." unique_id=970915271]
+script = ExtResource("1_lxbkj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrassOuterTop" unique_id=346678860]
+position = Vector2(1600, 150)
+shape = SubResource("RectangleShape2D_qa7hb")
+
+[node name="GrassOuterBottom" type="Area2D" parent="." unique_id=1250485614]
+script = ExtResource("1_lxbkj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrassOuterBottom" unique_id=1642486484]
+position = Vector2(1600, 2250)
+shape = SubResource("RectangleShape2D_vs5sm")
+
+[node name="GrassOuterLeft" type="Area2D" parent="." unique_id=1063518441]
+script = ExtResource("1_lxbkj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrassOuterLeft" unique_id=1672511193]
+position = Vector2(150, 1200)
+shape = SubResource("RectangleShape2D_4vr0y")
+
+[node name="GrassOuterRight" type="Area2D" parent="." unique_id=1512654700]
+script = ExtResource("1_lxbkj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrassOuterRight" unique_id=344307094]
+position = Vector2(3050, 1200)
+shape = SubResource("RectangleShape2D_s3ac5")
+
+[node name="GrassInner" type="Area2D" parent="." unique_id=674888883]
+script = ExtResource("1_lxbkj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrassInner" unique_id=1528838167]
+position = Vector2(1600, 1200)
+shape = SubResource("RectangleShape2D_bm101")
+
+[node name="Walls" type="StaticBody2D" parent="." unique_id=650986432]
+
+[node name="WallOuterTop" type="CollisionShape2D" parent="Walls" unique_id=1375735111]
+position = Vector2(1600, -20)
+shape = SubResource("RectangleShape2D_400wk")
+
+[node name="WallOuterBottom" type="CollisionShape2D" parent="Walls" unique_id=1155916711]
+position = Vector2(1600, 2420)
+shape = SubResource("RectangleShape2D_724tk")
+
+[node name="WallOuterLeft" type="CollisionShape2D" parent="Walls" unique_id=1957751512]
+position = Vector2(-20, 1200)
+shape = SubResource("RectangleShape2D_uam3e")
+
+[node name="WallOuterRight" type="CollisionShape2D" parent="Walls" unique_id=67412880]
+position = Vector2(3220, 1200)
+shape = SubResource("RectangleShape2D_qwnrd")
+
+[node name="WallInner" type="CollisionShape2D" parent="Walls" unique_id=1381679170]
+position = Vector2(1600, 1200)
+shape = SubResource("RectangleShape2D_7dv8h")
+
+[node name="Checkpoint0" type="Area2D" parent="." unique_id=2099498199]
+position = Vector2(500, 1500)
+script = ExtResource("2_bkf63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint0" unique_id=1809219741]
+shape = SubResource("RectangleShape2D_jyuh4")
+
+[node name="Checkpoint1" type="Area2D" parent="." unique_id=243049813]
+position = Vector2(1600, 500)
+script = ExtResource("2_bkf63")
+index = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint1" unique_id=30771229]
+shape = SubResource("RectangleShape2D_ncc3k")
+
+[node name="Checkpoint2" type="Area2D" parent="." unique_id=2079284323]
+position = Vector2(2700, 1200)
+script = ExtResource("2_bkf63")
+index = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint2" unique_id=378294876]
+shape = SubResource("RectangleShape2D_mrhko")
+
+[node name="Checkpoint3" type="Area2D" parent="." unique_id=1636268479]
+position = Vector2(1600, 1900)
+script = ExtResource("2_bkf63")
+index = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint3" unique_id=230900634]
+shape = SubResource("RectangleShape2D_d233t")
+
+[node name="Kart" parent="." unique_id=645485632 instance=ExtResource("3_tldlq")]
+position = Vector2(500, 1600)
+
+[node name="Camera2D" type="Camera2D" parent="Kart" unique_id=185868938]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 12.0
+
+[node name="RaceManager" type="Node" parent="." unique_id=1595580689]
+script = ExtResource("4_rgicp")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=146248970]
+
+[node name="LapLabel" type="Label" parent="UI" unique_id=654104206]
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 41.0
+offset_bottom = 53.0
+scale = Vector2(2, 2)
+text = "Volta 1/3"
+
+[node name="CountdownLabel" type="Label" parent="UI" unique_id=261985604]
+offset_left = 540.0
+offset_top = 280.0
+offset_right = 541.0
+offset_bottom = 303.0
+scale = Vector2(3, 3)
+text = "3"

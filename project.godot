@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BlueRacconGames"
-run/main_scene="res://scenes/track_test.tscn"
+run/main_scene="res://scenes/loop_test.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
