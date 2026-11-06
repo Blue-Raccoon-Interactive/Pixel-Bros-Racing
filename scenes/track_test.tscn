@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cw1t7cmh6geyp"]
 
 [ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_6d3gk"]
-[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/kart.tscn" id="2_yjyj3"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="2_yjyj3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cl38"]
 size = Vector2(600, 4000)
@@ -198,7 +198,7 @@ shape = SubResource("RectangleShape2D_d2u15")
 [node name="Kart" parent="." unique_id=645485632 instance=ExtResource("2_yjyj3")]
 position = Vector2(0, 3700)
 
-[node name="Camera2D" type="Camera2D" parent="Kart" unique_id=613574535]
+[node name="Camera2D2" type="Camera2D" parent="Kart" unique_id=613574535]
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 12.0

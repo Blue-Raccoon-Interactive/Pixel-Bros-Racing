@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cleruqcye7jp8"]
 
 [ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_lxbkj"]
-[ext_resource type="Script" uid="uid://7nip60xpkvny" path="res://scripts/checkpoint.gd" id="2_bkf63"]
-[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/kart.tscn" id="3_tldlq"]
+[ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race/checkpoint.tscn" id="2_tldlq"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="3_tldlq"]
 [ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="4_rgicp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qa7hb"]
@@ -35,19 +35,7 @@ size = Vector2(40, 2440)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dv8h"]
 size = Vector2(1200, 400)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyuh4"]
-size = Vector2(400, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncc3k"]
-size = Vector2(40, 400)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrhko"]
-size = Vector2(400, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d233t"]
-size = Vector2(40, 400)
-
-[node name="LoopTest" type="Node2D" unique_id=103491392]
+[node name="Main" type="Node2D" unique_id=103491392]
 
 [node name="GrassBackground" type="ColorRect" parent="." unique_id=386720517]
 offset_right = 3200.0
@@ -159,47 +147,33 @@ shape = SubResource("RectangleShape2D_qwnrd")
 position = Vector2(1600, 1200)
 shape = SubResource("RectangleShape2D_7dv8h")
 
-[node name="Checkpoint0" type="Area2D" parent="." unique_id=2099498199]
-position = Vector2(500, 1500)
-script = ExtResource("2_bkf63")
+[node name="Checkpoint1" parent="Walls" unique_id=769904758 instance=ExtResource("2_tldlq")]
+position = Vector2(510.99994, 1470)
+rotation = -1.5815487
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint0" unique_id=1809219741]
-shape = SubResource("RectangleShape2D_jyuh4")
+[node name="Checkpoint2" parent="Walls" unique_id=461042340 instance=ExtResource("2_tldlq")]
+position = Vector2(1559, 528)
+checkpoint_order = 2
 
-[node name="Checkpoint1" type="Area2D" parent="." unique_id=243049813]
-position = Vector2(1600, 500)
-script = ExtResource("2_bkf63")
-index = 1
+[node name="Checkpoint3" parent="Walls" unique_id=2097864405 instance=ExtResource("2_tldlq")]
+position = Vector2(2699, 1222)
+rotation = -1.5448492
+checkpoint_order = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint1" unique_id=30771229]
-shape = SubResource("RectangleShape2D_ncc3k")
-
-[node name="Checkpoint2" type="Area2D" parent="." unique_id=2079284323]
-position = Vector2(2700, 1200)
-script = ExtResource("2_bkf63")
-index = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint2" unique_id=378294876]
-shape = SubResource("RectangleShape2D_mrhko")
-
-[node name="Checkpoint3" type="Area2D" parent="." unique_id=1636268479]
-position = Vector2(1600, 1900)
-script = ExtResource("2_bkf63")
-index = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint3" unique_id=230900634]
-shape = SubResource("RectangleShape2D_d233t")
+[node name="Checkpoint4" parent="Walls" unique_id=1732438250 instance=ExtResource("2_tldlq")]
+position = Vector2(1605, 1920)
+checkpoint_order = 4
 
 [node name="Kart" parent="." unique_id=645485632 instance=ExtResource("3_tldlq")]
 position = Vector2(500, 1600)
 
-[node name="Camera2D" type="Camera2D" parent="Kart" unique_id=185868938]
+[node name="Camera2D2" type="Camera2D" parent="Kart" unique_id=185868938]
+position = Vector2(-2, 1)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 12.0
 
-[node name="RaceManager" type="Node" parent="." unique_id=1595580689]
-script = ExtResource("4_rgicp")
+[node name="World" type="Node2D" parent="." unique_id=1859591178]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=146248970]
 
@@ -218,3 +192,10 @@ offset_right = 541.0
 offset_bottom = 303.0
 scale = Vector2(3, 3)
 text = "3"
+
+[node name="RaceManager" type="Node" parent="." unique_id=1836289108 node_paths=PackedStringArray("kart", "lap_label", "countdown_label", "checkpoints")]
+script = ExtResource("4_rgicp")
+kart = NodePath("../Kart")
+lap_label = NodePath("../UI/LapLabel")
+countdown_label = NodePath("../UI/CountdownLabel")
+checkpoints = [NodePath("../Walls/Checkpoint1"), NodePath("../Walls/Checkpoint2"), NodePath("../Walls/Checkpoint3"), NodePath("../Walls/Checkpoint4")]

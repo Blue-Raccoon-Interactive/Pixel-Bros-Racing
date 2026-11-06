@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://igjhxnorje63"]
+
+[node name="Track01" type="Node2D" unique_id=769989602]
+
+[node name="Environment" type="Node2D" parent="." unique_id=8505473]
+
+[node name="Grass" type="TileMap" parent="Environment" unique_id=27884455]
+format = 2
+
+[node name="Road" type="TileMap" parent="Environment" unique_id=1015923908]
+format = 2
+
+[node name="Decoration" type="Node2D" parent="Environment" unique_id=1029123441]
+
+[node name="Collisions" type="Node2D" parent="." unique_id=619184355]
+
+[node name="Walls" type="StaticBody2D" parent="Collisions" unique_id=2133589836]
+
+[node name="Checkpoints" type="Node2D" parent="." unique_id=751840223]
+
+[node name="StartLine" type="Area2D" parent="Checkpoints" unique_id=1825678369]
+
+[node name="Waypoints" type="Node2D" parent="." unique_id=82638343]

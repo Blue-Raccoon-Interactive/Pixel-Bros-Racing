@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cupa125qbwakg"]
 
-[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/kart.tscn" id="1_errlg"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="1_errlg"]
 
 [node name="Test" type="Node2D" unique_id=1264687107]
 
 [node name="Kart" parent="." unique_id=645485632 instance=ExtResource("1_errlg")]
 
-[node name="Camera2D" type="Camera2D" parent="Kart" unique_id=622853091]
+[node name="Camera2D2" type="Camera2D" parent="Kart" unique_id=622853091]
 position_smoothing_enabled = true

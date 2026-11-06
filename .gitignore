@@ -2,3 +2,9 @@
 .godot/
 *.translation
 /android/
+.DS_Store
+Thumbs.db   
+
+#editores
+.vscode/
+.idea/
