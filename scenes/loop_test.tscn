@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_lxbkj"]
 [ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race/checkpoint.tscn" id="2_tldlq"]
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="3_tldlq"]
-[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="4_rgicp"]
+[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scenes/race/race_manager.gd" id="4_rgicp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qa7hb"]
 size = Vector2(3200, 300)

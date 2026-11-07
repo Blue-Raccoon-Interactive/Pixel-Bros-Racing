@@ -1,4 +1,3 @@
-
 extends Node
 
 signal lap_completed(lap: int)
@@ -18,6 +17,15 @@ var is_finished: bool = false
 # Guarda o próximo checkpoint esperado para cada kart.
 # A chave é o ID da instância do kart.
 var _next_checkpoint_by_kart: Dictionary = {}
+
+# Voltas já completadas por kart (ID da instância -> quantidade).
+var _laps_by_kart: Dictionary = {}
+
+# Karts que já terminaram a corrida (ID da instância -> true).
+var _finished_karts: Dictionary = {}
+
+# Karts que passaram por todos os checkpoints e só falta recruzar o 1.
+var _sequence_done_by_kart: Dictionary = {}
 
 
 func _ready() -> void:
@@ -103,10 +111,14 @@ func _start_countdown() -> void:
 
 
 func _on_checkpoint_passed(checkpoint_order: int, passed_kart: Node2D) -> void:
-	if is_finished or passed_kart == null:
+	if passed_kart == null:
 		return
 
 	var kart_id: int = passed_kart.get_instance_id()
+
+	# Kart que já terminou a corrida não conta mais nada.
+	if _finished_karts.has(kart_id):
+		return
 
 	# Cada kart começa esperando o checkpoint 1.
 	if not _next_checkpoint_by_kart.has(kart_id):
@@ -116,26 +128,43 @@ func _on_checkpoint_passed(checkpoint_order: int, passed_kart: Node2D) -> void:
 
 	# Ignora checkpoints atravessados fora da sequência.
 	if checkpoint_order != expected_checkpoint:
-		print(
-            "Checkpoint ignorado! Esperado: %d | Recebido: %d"
-			% [expected_checkpoint, checkpoint_order]
-		)
 		return
-
-	print(
-        "Kart passou corretamente pelo checkpoint %d!"
-		% checkpoint_order
-	)
 
 	# Avança para o próximo checkpoint.
 	var next_order: int = checkpoint_order + 1
 
-	# Depois do ultimo, a sequencia volta ao checkpoint 1.
+	# Passou pelo último: a sequência está completa, falta cruzar a linha (checkpoint 1).
 	if next_order > checkpoints.size():
 		next_order = 1
-		print("Sequência de checkpoints concluída!")
+		_sequence_done_by_kart[kart_id] = true
+
+	# Cruzou o checkpoint 1 com a sequência completa: fecha a volta.
+	if checkpoint_order == 1 and _sequence_done_by_kart.get(kart_id, false):
+		_sequence_done_by_kart[kart_id] = false
+		_complete_lap(passed_kart, kart_id)
 
 	_next_checkpoint_by_kart[kart_id] = next_order
+
+
+func _complete_lap(passed_kart: Node2D, kart_id: int) -> void:
+	var laps_done: int = int(_laps_by_kart.get(kart_id, 0)) + 1
+	_laps_by_kart[kart_id] = laps_done
+
+	var is_player: bool = passed_kart == kart
+
+	if is_player:
+		current_lap = laps_done + 1
+		_update_lap_label()
+
+	lap_completed.emit(laps_done)
+
+	if laps_done >= total_laps:
+		_finished_karts[kart_id] = true
+
+		if is_player:
+			is_finished = true
+			race_finished.emit()
+			_on_race_finished()
 
 
 func _on_race_finished() -> void:
