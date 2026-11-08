@@ -1,16 +1,14 @@
 [gd_scene format=3 uid="uid://igjhxnorje63"]
 
-[ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race_components/checkpoint.tscn" id="1_dg2ty"]
-[ext_resource type="Script" uid="uid://cxubdt72xkbaj" path="res://scripts/race_track.gd" id="1_pduj1"]
-
-[node name="TrackBase" type="Node2D" unique_id=769989602]
-script = ExtResource("1_pduj1")
+[node name="Track01" type="Node2D" unique_id=769989602]
 
 [node name="Environment" type="Node2D" parent="." unique_id=8505473]
 
-[node name="Grass" type="TileMapLayer" parent="Environment" unique_id=1267353110]
+[node name="Grass" type="TileMap" parent="Environment" unique_id=27884455]
+format = 2
 
-[node name="Road" type="TileMapLayer" parent="Environment" unique_id=587595590]
+[node name="Road" type="TileMap" parent="Environment" unique_id=1015923908]
+format = 2
 
 [node name="Decoration" type="Node2D" parent="Environment" unique_id=1029123441]
 
@@ -18,12 +16,8 @@ script = ExtResource("1_pduj1")
 
 [node name="Walls" type="StaticBody2D" parent="Collisions" unique_id=2133589836]
 
+[node name="Checkpoints" type="Node2D" parent="." unique_id=751840223]
+
+[node name="StartLine" type="Area2D" parent="Checkpoints" unique_id=1825678369]
+
 [node name="Waypoints" type="Node2D" parent="." unique_id=82638343]
-
-[node name="StartPositions" type="Node2D" parent="." unique_id=1211222828]
-
-[node name="Marker2D" type="Marker2D" parent="StartPositions" unique_id=751285506]
-
-[node name="Checkpoints" type="Node2D" parent="." unique_id=1279138388]
-
-[node name="Checkpoint" parent="Checkpoints" unique_id=461042340 instance=ExtResource("1_dg2ty")]

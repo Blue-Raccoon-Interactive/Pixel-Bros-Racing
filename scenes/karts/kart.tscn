@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://xajx7fi7oihb"]
 
-[ext_resource type="Script" uid="uid://dihtjpcplqehs" path="res://scripts/Kart.gd" id="1_wj5qd"]
+[ext_resource type="Script" uid="uid://duu45u5ksg5mo" path="res://scripts/kart.gd" id="1_wj5qd"]
 [ext_resource type="Texture2D" uid="uid://cvf2icsk8cs33" path="res://assets/sprites/carros/kart_animados_game-spritesheet.png" id="2_wj5qd"]
-[ext_resource type="Script" uid="uid://bt6nmm8qi5g5e" path="res://scripts/PlayerController.gd" id="3_wj5qd"]
+[ext_resource type="Script" uid="uid://bt6nmm8qi5g5e" path="res://scenes/karts/PlayerController.gd" id="3_wj5qd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_47k7a"]
 atlas = ExtResource("2_wj5qd")
@@ -86,7 +86,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkfhg"]
-size = Vector2(105, 90)
+size = Vector2(120, 120)
 
 [node name="Kart" type="CharacterBody2D" unique_id=645485632]
 script = ExtResource("1_wj5qd")
@@ -99,13 +99,10 @@ sprite_frames = SubResource("SpriteFrames_d2kgv")
 animation = &"accelerating"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=318088492]
-position = Vector2(-0.5, 3)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_mkfhg")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1770979512]
-process_callback = 0
-position_smoothing_enabled = true
-position_smoothing_speed = 12.0
 
 [node name="PlayerController" type="Node" parent="." unique_id=1194744494 node_paths=PackedStringArray("kart")]
 script = ExtResource("3_wj5qd")

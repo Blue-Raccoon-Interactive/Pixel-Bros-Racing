@@ -24,9 +24,6 @@ extends CharacterBody2D
 ## Multiplicador da velocidade máxima conforme o piso.
 var surface_multiplier: float = 1.0
 
-## Zonas de piso (grama etc.) em que o kart está agora.
-var _surface_zones: Array[GrassZone] = []
-
 ## Comandos recebidos do controlador.
 var steer_input: float = 0.0
 var throttle_input: float = 0.0
@@ -40,27 +37,6 @@ var _was_colliding: bool = false
 func set_controls(steering: float, throttle: float) -> void:
 	steer_input = clampf(steering, -1.0, 1.0)
 	throttle_input = clampf(throttle, -1.0, 1.0)
-	
-	## Chamado pelas zonas de piso quando o kart entra.
-func enter_surface(zone: GrassZone) -> void:
-	if not _surface_zones.has(zone):
-		_surface_zones.append(zone)
-	_update_surface_multiplier()
-
-
-## Chamado pelas zonas de piso quando o kart sai.
-func exit_surface(zone: GrassZone) -> void:
-	_surface_zones.erase(zone)
-	_update_surface_multiplier()
-
-
-# Vale a zona mais lenta; sem zona nenhuma, velocidade normal.
-func _update_surface_multiplier() -> void:
-	var result: float = 1.0
-	for zone in _surface_zones:
-		if is_instance_valid(zone):
-			result = minf(result, zone.multiplier)
-	surface_multiplier = result
 
 
 func _ready() -> void:

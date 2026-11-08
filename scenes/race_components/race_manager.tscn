@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://ongfw257dkpu"]
-
-[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="1_mu5he"]
-
-[node name="RaceManager" type="Node2D" unique_id=691014879]
-
-[node name="RaceManager" type="Node" parent="." unique_id=1265610671]
-script = ExtResource("1_mu5he")

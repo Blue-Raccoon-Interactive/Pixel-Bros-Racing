@@ -1,26 +1,3 @@
 [gd_scene format=3 uid="uid://758i5vi4dbj2"]
 
-[ext_resource type="Script" uid="uid://dmk7t5tpg0fpf" path="res://scripts/hud.gd" id="1_0mwgc"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_2dj1m"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_mu5he"]
-
-[node name="Hud" type="CanvasLayer" unique_id=1128216421]
-script = ExtResource("1_0mwgc")
-
-[node name="LapLabel" type="Label" parent="." unique_id=785976717]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Volta 1/3"
-label_settings = SubResource("LabelSettings_2dj1m")
-
-[node name="CountdownLabel" type="Label" parent="." unique_id=680239084]
-offset_left = 540.0
-offset_top = 280.0
-offset_right = 580.0
-offset_bottom = 303.0
-scale = Vector2(3, 3)
-label_settings = SubResource("LabelSettings_mu5he")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Hud" type="Node2D" unique_id=872746585]
