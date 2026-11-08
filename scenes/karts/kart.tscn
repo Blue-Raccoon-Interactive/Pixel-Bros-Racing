@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xajx7fi7oihb"]
 
-[ext_resource type="Script" uid="uid://duu45u5ksg5mo" path="res://scripts/kart.gd" id="1_wj5qd"]
+[ext_resource type="Script" uid="uid://c64kyyw8emdpd" path="res://scripts/kart.gd" id="1_wj5qd"]
 [ext_resource type="Texture2D" uid="uid://cvf2icsk8cs33" path="res://assets/sprites/carros/kart_animados_game-spritesheet.png" id="2_wj5qd"]
 [ext_resource type="Script" uid="uid://bt6nmm8qi5g5e" path="res://scenes/karts/PlayerController.gd" id="3_wj5qd"]
 
@@ -94,7 +94,6 @@ script = ExtResource("1_wj5qd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1540636759]
 texture_filter = 1
 position = Vector2(-0.4999962, 2.9999971)
-scale = Vector2(3.71875, 3.75)
 sprite_frames = SubResource("SpriteFrames_d2kgv")
 animation = &"accelerating"
 
@@ -103,6 +102,7 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_mkfhg")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1770979512]
+zoom = Vector2(2, 2)
 
 [node name="PlayerController" type="Node" parent="." unique_id=1194744494 node_paths=PackedStringArray("kart")]
 script = ExtResource("3_wj5qd")
