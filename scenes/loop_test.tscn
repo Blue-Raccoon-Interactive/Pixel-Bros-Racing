@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cleruqcye7jp8"]
 
 [ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_lxbkj"]
-[ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race/checkpoint.tscn" id="2_tldlq"]
+[ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race_components/checkpoint.tscn" id="2_tldlq"]
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="3_tldlq"]
-[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scenes/race/race_manager.gd" id="4_rgicp"]
+[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="4_rgicp"]
+[ext_resource type="PackedScene" uid="uid://758i5vi4dbj2" path="res://scenes/ui/hud.tscn" id="5_bkf63"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qa7hb"]
 size = Vector2(3200, 300)
@@ -153,49 +154,23 @@ rotation = -1.5815487
 
 [node name="Checkpoint2" parent="Walls" unique_id=461042340 instance=ExtResource("2_tldlq")]
 position = Vector2(1559, 528)
-checkpoint_order = 2
 
 [node name="Checkpoint3" parent="Walls" unique_id=2097864405 instance=ExtResource("2_tldlq")]
 position = Vector2(2699, 1222)
 rotation = -1.5448492
-checkpoint_order = 3
 
 [node name="Checkpoint4" parent="Walls" unique_id=1732438250 instance=ExtResource("2_tldlq")]
 position = Vector2(1605, 1920)
-checkpoint_order = 4
 
 [node name="Kart" parent="." unique_id=645485632 instance=ExtResource("3_tldlq")]
 position = Vector2(500, 1600)
 
-[node name="Camera2D2" type="Camera2D" parent="Kart" unique_id=185868938]
-position = Vector2(-2, 1)
-process_callback = 0
-position_smoothing_enabled = true
-position_smoothing_speed = 12.0
-
 [node name="World" type="Node2D" parent="." unique_id=1859591178]
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=146248970]
-
-[node name="LapLabel" type="Label" parent="UI" unique_id=654104206]
-offset_left = 40.0
-offset_top = 30.0
-offset_right = 41.0
-offset_bottom = 53.0
-scale = Vector2(2, 2)
-text = "Volta 1/3"
-
-[node name="CountdownLabel" type="Label" parent="UI" unique_id=261985604]
-offset_left = 540.0
-offset_top = 280.0
-offset_right = 541.0
-offset_bottom = 303.0
-scale = Vector2(3, 3)
-text = "3"
-
-[node name="RaceManager" type="Node" parent="." unique_id=1836289108 node_paths=PackedStringArray("kart", "lap_label", "countdown_label", "checkpoints")]
+[node name="RaceManager" type="Node" parent="." unique_id=1836289108 node_paths=PackedStringArray("kart", "checkpoints")]
 script = ExtResource("4_rgicp")
 kart = NodePath("../Kart")
-lap_label = NodePath("../UI/LapLabel")
-countdown_label = NodePath("../UI/CountdownLabel")
 checkpoints = [NodePath("../Walls/Checkpoint1"), NodePath("../Walls/Checkpoint2"), NodePath("../Walls/Checkpoint3"), NodePath("../Walls/Checkpoint4")]
+
+[node name="Huds" parent="." unique_id=1128216421 node_paths=PackedStringArray("race_manager") instance=ExtResource("5_bkf63")]
+race_manager = NodePath("../RaceManager")

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://caq2i2y3xa2iy"]
+
+[ext_resource type="PackedScene" uid="uid://c57omk220b885" path="res://scenes/race/race_test.tscn" id="1_ujjtn"]
+[ext_resource type="PackedScene" uid="uid://8ny0mr18hv3x" path="res://scenes/tracks/track_03.tscn" id="2_4nel2"]
+
+[node name="Race" unique_id=459071553 instance=ExtResource("1_ujjtn")]
+track_scene = ExtResource("2_4nel2")

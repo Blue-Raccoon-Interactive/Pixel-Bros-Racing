@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c57omk220b885"]
+
+[ext_resource type="Script" uid="uid://4iytw148d3t6" path="res://scripts/race.gd" id="1_klov7"]
+[ext_resource type="PackedScene" uid="uid://igjhxnorje63" path="res://scenes/tracks/track_base.tscn" id="2_nu3q4"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="3_5fysc"]
+[ext_resource type="PackedScene" uid="uid://758i5vi4dbj2" path="res://scenes/ui/hud.tscn" id="4_coa1d"]
+[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="5_asmxe"]
+
+[node name="Race" type="Node2D" unique_id=459071553]
+script = ExtResource("1_klov7")
+track_scene = ExtResource("2_nu3q4")
+
+[node name="Kart" parent="." unique_id=645485632 instance=ExtResource("3_5fysc")]
+
+[node name="Hud" parent="." unique_id=1128216421 node_paths=PackedStringArray("race_manager") instance=ExtResource("4_coa1d")]
+race_manager = NodePath("../RaceManager")
+
+[node name="RaceManager" type="Node" parent="." unique_id=2064843915 node_paths=PackedStringArray("kart")]
+script = ExtResource("5_asmxe")
+kart = NodePath("../Kart")
