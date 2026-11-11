@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="BlueRacconGames"
+config/name="Pixel Bros Racing"
 run/main_scene="uid://b536ric75d64t"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
