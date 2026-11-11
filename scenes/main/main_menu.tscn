@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bmiywmavq70vx" path="res://scripts/main_menu.gd" id="1_byqcc"]
 [ext_resource type="Texture2D" uid="uid://bhpk2p6exfkeu" path="res://assets/background/Background.PNG" id="2_w6ykx"]
 [ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="3_hiibk"]
+[ext_resource type="Script" uid="uid://ikcmjerxhtgs" path="res://scenes/main/sound_controller.gd" id="4_hiibk"]
+[ext_resource type="AudioStream" uid="uid://bnilhpip3t0ef" path="res://assets/music/AudioLibrary_youtubeStudio.mp3" id="4_w6ykx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4dqq"]
 texture = ExtResource("2_w6ykx")
@@ -64,6 +66,18 @@ corner_radius_bottom_left = 16
 shadow_size = 5
 shadow_offset = Vector2(0, 3.25)
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_croyj"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_x0i38"]
+color = Color(0.29770717, 0.18612564, 0.99999684, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_3wrye"]
+color = Color(0.29803923, 0.18431373, 1, 1)
+thickness = 6
+
 [node name="MainMenu" type="Control" unique_id=98838141]
 layout_mode = 3
 anchors_preset = 15
@@ -75,7 +89,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_byqcc")
 
-[node name="Panel" type="Panel" parent="." unique_id=1788314375]
+[node name="Background" type="Panel" parent="." unique_id=1788314375]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_f4dqq")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=271873517]
+[node name="MainButtons" type="VBoxContainer" parent="." unique_id=271873517]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -99,7 +113,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 9
 
-[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=962535633]
+[node name="StartButton" type="Button" parent="MainButtons" unique_id=962535633]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -114,7 +128,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_w6ykx")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
 text = "Start Game"
 
-[node name="Options" type="Button" parent="VBoxContainer" unique_id=1086592535]
+[node name="Options" type="Button" parent="MainButtons" unique_id=1086592535]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -130,7 +144,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
 text = "Options
 "
 
-[node name="Exit" type="Button" parent="VBoxContainer" unique_id=1024311922]
+[node name="Exit" type="Button" parent="MainButtons" unique_id=1024311922]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -167,6 +181,78 @@ text = "Pixel Bros Racing"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[node name="Options" type="Panel" parent="." unique_id=1040268482]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -268.5
+offset_top = -423.0
+offset_right = 268.5
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Options" unique_id=2034316223]
+layout_mode = 0
+offset_left = 168.5
+offset_top = 16.0
+offset_right = 354.5
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 32
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Options" unique_id=1817532802]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.75
+offset_top = 75.5
+offset_right = 150.75
+offset_bottom = 145.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_f4dqq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f4dqq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nm0l4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
+text = "Back"
+
+[node name="HSlider" type="HSlider" parent="Options" unique_id=2086362840]
+layout_mode = 0
+offset_left = 120.5
+offset_top = 70.0
+offset_right = 403.0
+offset_bottom = 173.0
+theme_override_styles/slider = SubResource("StyleBoxLine_croyj")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_x0i38")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_3wrye")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("4_hiibk")
+audio_bus_name = "Music"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1270417609]
+stream = ExtResource("4_w6ykx")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="MainButtons/StartButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainButtons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MainButtons/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Options/Exit" to="." method="_on_backoptions_pressed"]
+[connection signal="value_changed" from="Options/HSlider" to="Options/HSlider" method="_on_value_changed"]
