@@ -86,7 +86,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkfhg"]
-size = Vector2(105, 90)
+size = Vector2(18, 20)
 
 [node name="Kart" type="CharacterBody2D" unique_id=645485632]
 script = ExtResource("1_wj5qd")
@@ -98,11 +98,10 @@ sprite_frames = SubResource("SpriteFrames_d2kgv")
 animation = &"accelerating"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=318088492]
-position = Vector2(-0.5, 3)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_mkfhg")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1770979512]
-
 zoom = Vector2(2, 2)
 process_callback = 0
 position_smoothing_enabled = true
