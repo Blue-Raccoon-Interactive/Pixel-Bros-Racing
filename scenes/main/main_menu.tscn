@@ -5,6 +5,8 @@
 [ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="3_hiibk"]
 [ext_resource type="Script" uid="uid://ikcmjerxhtgs" path="res://scenes/main/sound_controller.gd" id="4_hiibk"]
 [ext_resource type="AudioStream" uid="uid://bnilhpip3t0ef" path="res://assets/music/AudioLibrary_youtubeStudio.mp3" id="4_w6ykx"]
+[ext_resource type="Script" uid="uid://o55vggxoe2gl" path="res://scenes/main/full_screen_control.gd" id="5_swlpu"]
+[ext_resource type="Script" uid="uid://babulurphihh5" path="res://scenes/main/scale_control.gd" id="6_nm0l4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4dqq"]
 texture = ExtResource("2_w6ykx")
@@ -231,12 +233,26 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_nm0l4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
 text = "Back"
 
-[node name="HSlider" type="HSlider" parent="Options" unique_id=2086362840]
-layout_mode = 0
-offset_left = 120.5
-offset_top = 70.0
-offset_right = 403.0
-offset_bottom = 173.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Options" unique_id=129474501]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -89.5
+offset_right = 183.0
+offset_bottom = 52.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Options/VBoxContainer" unique_id=757368892]
+layout_mode = 2
+
+[node name="MusicControl" type="HSlider" parent="Options/VBoxContainer/BoxContainer" unique_id=2086362840]
+layout_mode = 2
+size_flags_vertical = 4
 theme_override_styles/slider = SubResource("StyleBoxLine_croyj")
 theme_override_styles/grabber_area = SubResource("StyleBoxLine_x0i38")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_3wrye")
@@ -246,13 +262,36 @@ value = 1.0
 script = ExtResource("4_hiibk")
 audio_bus_name = "Music"
 
+[node name="FullScreenControl" type="CheckButton" parent="Options/VBoxContainer" unique_id=595659506]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "Fullscreen"
+script = ExtResource("5_swlpu")
+
+[node name="ScaleControl" type="OptionButton" parent="Options/VBoxContainer" unique_id=2036200279]
+layout_mode = 2
+size_flags_vertical = 4
+selected = 0
+item_count = 4
+popup/item_0/text = "100%"
+popup/item_0/id = 0
+popup/item_1/text = "75%"
+popup/item_1/id = 1
+popup/item_2/text = "50%"
+popup/item_2/id = 2
+popup/item_3/text = "25%"
+popup/item_3/id = 3
+script = ExtResource("6_nm0l4")
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1270417609]
 stream = ExtResource("4_w6ykx")
 autoplay = true
-bus = &"Music"
 
 [connection signal="pressed" from="MainButtons/StartButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainButtons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MainButtons/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="Options/Exit" to="." method="_on_backoptions_pressed"]
-[connection signal="value_changed" from="Options/HSlider" to="Options/HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="Options/VBoxContainer/BoxContainer/MusicControl" to="Options/VBoxContainer/BoxContainer/MusicControl" method="_on_value_changed"]
+[connection signal="toggled" from="Options/VBoxContainer/FullScreenControl" to="Options/VBoxContainer/FullScreenControl" method="_on_toggled"]
+[connection signal="item_selected" from="Options/VBoxContainer/ScaleControl" to="Options/VBoxContainer/ScaleControl" method="_on_item_selected"]
