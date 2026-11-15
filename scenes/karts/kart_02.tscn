@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="1_e6jf3"]
 [ext_resource type="Texture2D" uid="uid://dasobubruvsh8" path="res://assets/sprites/carros/kart_car_2camadas_AVANCANDO.png" id="2_enj6e"]
+[ext_resource type="Texture2D" uid="uid://bxlf01tf3atlj" path="res://assets/sprites/carros/carros_parados/carro_02.png" id="2_r47an"]
 [ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_r47an"]
 [ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_5rcup"]
 [ext_resource type="Texture2D" uid="uid://bhmcreyer3r1m" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_ss4w4"]
@@ -145,6 +146,7 @@ size = Vector2(20, 25)
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_e6jf3")]
 kart_name = "Tanque"
 archetype = "Juggernaut"
+kart_sprite_texture = ExtResource("2_r47an")
 max_speed = 390.0
 acceleration = 460.0
 brake_force = 450.0

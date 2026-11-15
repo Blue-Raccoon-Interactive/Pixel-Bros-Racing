@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dyh6sc3hldxlq"]
 
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="1_e6jf3"]
+[ext_resource type="Texture2D" uid="uid://cl6axjb7g0px7" path="res://assets/sprites/carros/carros_parados/carro_08.png" id="2_3bqyo"]
 [ext_resource type="Texture2D" uid="uid://dasobubruvsh8" path="res://assets/sprites/carros/kart_car_2camadas_AVANCANDO.png" id="2_enj6e"]
 [ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_r47an"]
 [ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_5rcup"]
@@ -146,6 +147,7 @@ size = Vector2(9, 25)
 scale = Vector2(1.5, 1.5)
 kart_name = "Esportivo F1"
 archetype = "Time-Trialist"
+kart_sprite_texture = ExtResource("2_3bqyo")
 max_speed = 480.0
 acceleration = 430.0
 brake_force = 450.0
