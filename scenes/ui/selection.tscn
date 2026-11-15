@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://cmqih2pr61w6b" path="res://assets/sprites/ui/podium_right.png" id="4_m37p4"]
 [ext_resource type="Texture2D" uid="uid://bsrr4bbex4fnp" path="res://assets/sprites/ui/Holofote.png" id="5_6r1ha"]
 [ext_resource type="Texture2D" uid="uid://bc3vxwylda6s6" path="res://assets/sprites/ui/tracks_panel.png" id="6_qqkct"]
+[ext_resource type="Texture2D" uid="uid://bq4obyi1x1bu0" path="res://assets/sprites/ui/Seta direita.png" id="8_qqkct"]
+[ext_resource type="Texture2D" uid="uid://cp2wcttsf6eqv" path="res://assets/sprites/ui/Seta esquerda.png" id="9_tkd11"]
+[ext_resource type="Texture2D" uid="uid://dgkuxegf4dahm" path="res://assets/sprites/ui/Dicas de teclas.png" id="10_xvrlp"]
+[ext_resource type="Texture2D" uid="uid://tmdwrvwhth4m" path="res://assets/sprites/ui/Título.png" id="11_rv2dv"]
 
 [node name="Selection" type="Control" unique_id=1462546679]
 layout_mode = 3
@@ -34,35 +38,40 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.017
 anchor_bottom = 0.031000001
-offset_left = 204.00002
-offset_top = 437.0
-offset_right = 403.32
-offset_bottom = 565.76
+offset_left = 115.0
+offset_top = 450.0
+offset_right = 314.32
+offset_bottom = 578.76
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("2_ew0wu")
 
 [node name="TextureRect" type="TextureRect" parent="Control/Podium_left" unique_id=1564325694]
+texture_filter = 1
 layout_mode = 0
-offset_left = 68.88889
-offset_top = -77.77778
-offset_right = 108.88889
-offset_bottom = -37.77778
+offset_left = 65.55556
+offset_top = -61.11111
+offset_right = 125.55555
+offset_bottom = -1.1111107
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Podium_center" type="TextureRect" parent="Control" unique_id=1393930473]
 layout_mode = 0
-offset_left = 384.0
-offset_top = 384.0
-offset_right = 584.0
-offset_bottom = 574.0
+offset_left = 295.0
+offset_top = 398.0
+offset_right = 495.0
+offset_bottom = 588.0
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_awt6l")
 
 [node name="TextureRect" type="TextureRect" parent="Control/Podium_center" unique_id=539687240]
+texture_filter = 1
 layout_mode = 0
-offset_left = 26.66666
-offset_top = -110.0
-offset_right = 161.11108
-offset_bottom = -15.555542
+offset_left = 55.0
+offset_top = -90.0
+offset_right = 145.0
+expand_mode = 1
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/Podium_center" unique_id=209131501]
 layout_mode = 1
@@ -136,27 +145,28 @@ text = "Kart_name"
 
 [node name="Podium_right" type="TextureRect" parent="Control" unique_id=785766301]
 layout_mode = 0
-offset_left = 565.0
-offset_top = 465.00003
-offset_right = 765.0
-offset_bottom = 565.0
+offset_left = 475.00006
+offset_top = 476.00003
+offset_right = 675.00006
+offset_bottom = 576.0
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("4_m37p4")
 
 [node name="TextureRect" type="TextureRect" parent="Control/Podium_right" unique_id=1662124486]
+texture_filter = 1
 layout_mode = 0
-offset_left = 76.66667
-offset_top = -74.44448
-offset_right = 116.66667
-offset_bottom = -34.44448
+offset_left = 69.99994
+offset_top = -58.888924
+offset_right = 129.99994
+offset_bottom = 1.1110764
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Holofote" type="TextureRect" parent="." unique_id=328909231]
-visible = false
 layout_mode = 0
-offset_left = 295.0
-offset_top = -9.0
-offset_right = 695.0
-offset_bottom = 491.0
+offset_left = 213.0
+offset_right = 613.0
+offset_bottom = 500.0
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("5_6r1ha")
 
@@ -174,3 +184,35 @@ grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("6_qqkct")
+
+[node name="Right" type="TextureRect" parent="." unique_id=1391941530]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 253.0
+offset_right = 740.0
+offset_bottom = 353.0
+texture = ExtResource("8_qqkct")
+
+[node name="Left" type="TextureRect" parent="." unique_id=1039514752]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 253.0
+offset_right = 88.0
+offset_bottom = 353.0
+texture = ExtResource("9_tkd11")
+
+[node name="Tips" type="TextureRect" parent="." unique_id=2102297495]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 601.0
+offset_right = 696.0
+offset_bottom = 614.0
+texture = ExtResource("10_xvrlp")
+
+[node name="Title" type="TextureRect" parent="." unique_id=1495724397]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 34.0
+offset_right = 434.0
+offset_bottom = 59.0
+texture = ExtResource("11_rv2dv")

@@ -20,5 +20,5 @@ const TRACKS := [
 ]
 
 var selected_kart: int = 3
-var selected_track: int = 1
+var selected_track: int = 2
 var has_selection: bool = false
