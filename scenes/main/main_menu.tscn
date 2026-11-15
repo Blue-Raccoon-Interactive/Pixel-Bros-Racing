@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="3_hiibk"]
 [ext_resource type="Script" uid="uid://ikcmjerxhtgs" path="res://scenes/main/sound_controller.gd" id="4_hiibk"]
 [ext_resource type="Script" uid="uid://o55vggxoe2gl" path="res://scenes/main/full_screen_control.gd" id="5_swlpu"]
-[ext_resource type="AudioStream" uid="uid://c2obuow8cfgok" path="res://scripts/musica_teste2.mp3" id="6_swlpu"]
+[ext_resource type="AudioStream" uid="uid://c2obuow8cfgok" path="res://sound/music/musica_teste2.mp3" id="6_swlpu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4dqq"]
 texture = ExtResource("2_w6ykx")
