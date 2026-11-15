@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://co43hf5jrvwvi"]
+
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="1_y2f2i"]
+[ext_resource type="Texture2D" uid="uid://dasobubruvsh8" path="res://assets/sprites/carros/kart_car_2camadas_AVANCANDO.png" id="2_f106p"]
+[ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_4db6y"]
+[ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_v6iam"]
+[ext_resource type="Texture2D" uid="uid://bhmcreyer3r1m" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_wimd2"]
+[ext_resource type="Texture2D" uid="uid://cp3l0ur2v3yky" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_pc8r2"]
+[ext_resource type="Texture2D" uid="uid://c4vphg0ta6lya" path="res://assets/sprites/carros/kart_car_2camadas_PARADO.png" id="7_rcfrf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un8r0"]
+atlas = ExtResource("2_f106p")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yt4f"]
+atlas = ExtResource("2_f106p")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aonph"]
+atlas = ExtResource("2_f106p")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0iuu"]
+atlas = ExtResource("3_4db6y")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32smv"]
+atlas = ExtResource("3_4db6y")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei610"]
+atlas = ExtResource("3_4db6y")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwjgn"]
+atlas = ExtResource("4_v6iam")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yv5y"]
+atlas = ExtResource("4_v6iam")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljh07"]
+atlas = ExtResource("4_v6iam")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tidbx"]
+atlas = ExtResource("5_wimd2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_br054"]
+atlas = ExtResource("6_pc8r2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgerc"]
+atlas = ExtResource("7_rcfrf")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_om7jw"]
+atlas = ExtResource("7_rcfrf")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unwjb"]
+atlas = ExtResource("7_rcfrf")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k30cy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_un8r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yt4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aonph")
+}],
+"loop": 1,
+"name": &"accelerating",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0iuu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32smv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei610")
+}],
+"loop": 1,
+"name": &"braking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwjgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yv5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljh07")
+}],
+"loop": 1,
+"name": &"reverse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tidbx")
+}],
+"loop": 1,
+"name": &"steering_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br054")
+}],
+"loop": 1,
+"name": &"steering_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgerc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_om7jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unwjb")
+}],
+"loop": 1,
+"name": &"stopping",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tnp6r"]
+radius = 11.0
+height = 24.0
+
+[node name="Kart" unique_id=645485632 instance=ExtResource("1_y2f2i")]
+kart_name = "Morcego Roxo"
+archetype = "Cornering Master"
+max_speed = 410.0
+acceleration = 360.0
+rotation_speed = 2.8
+friction = 170.0
+grip = 1000.0
+steer_full_speed = 100.0
+wall_speed_factor = 0.85
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
+sprite_frames = SubResource("SpriteFrames_k30cy")
+animation = &"accelerating"
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_tnp6r")
