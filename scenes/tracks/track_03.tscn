@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://b1kgdho5qmdd4" path="res://scenes/tracks/grass_zone.tscn" id="4_u8etl"]
 [ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race_components/checkpoint.tscn" id="4_uxg0h"]
 [ext_resource type="Texture2D" uid="uid://f8c3tmsfdy8j" path="res://assets/sprites/grass/3.png" id="5_flswa"]
-[ext_resource type="PackedScene" uid="uid://dyh6sc3hldxlq" path="res://scenes/karts/kart_02.tscn" id="10_6bph2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_llenm"]
 texture = ExtResource("2_atjuj")
@@ -206,6 +205,3 @@ polygon = PackedVector2Array(1258, 1331, 1255, 1538, 2206, 1536, 2204, -1566, 11
 
 [node name="GramaExteriorCima" type="CollisionPolygon2D" parent="Grama" index="5" unique_id=1427281865]
 polygon = PackedVector2Array(-1205, -1564, -1220, -1009, -1289, -981, -937, 249, 186, -1133, 266, -1158, 327, -1154, 654, -949, 1169, -947, 1217, -973, 1186, -1026, 1160, -1567)
-
-[node name="Kart" parent="." index="7" unique_id=645485632 instance=ExtResource("10_6bph2")]
-position = Vector2(-500, 0)
