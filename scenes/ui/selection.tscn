@@ -1,5 +1,13 @@
 [gd_scene format=3 uid="uid://6bdcyfy6dwp"]
 
+[ext_resource type="Script" uid="uid://cp1x6kjclbfuq" path="res://scenes/ui/selection.gd" id="1_ew0wu"]
+[ext_resource type="Texture2D" uid="uid://6mppy80prffr" path="res://assets/sprites/ui/selection_background.png" id="1_utlpo"]
+[ext_resource type="Texture2D" uid="uid://bm5revo8ug5mr" path="res://assets/sprites/ui/podium_left.png" id="2_ew0wu"]
+[ext_resource type="Texture2D" uid="uid://c3vobqfdsil8j" path="res://assets/sprites/ui/podium_center.png" id="3_awt6l"]
+[ext_resource type="Texture2D" uid="uid://cmqih2pr61w6b" path="res://assets/sprites/ui/podium_right.png" id="4_m37p4"]
+[ext_resource type="Texture2D" uid="uid://bsrr4bbex4fnp" path="res://assets/sprites/ui/Holofote.png" id="5_6r1ha"]
+[ext_resource type="Texture2D" uid="uid://bc3vxwylda6s6" path="res://assets/sprites/ui/tracks_panel.png" id="6_qqkct"]
+
 [node name="Selection" type="Control" unique_id=1462546679]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +15,162 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ew0wu")
+
+[node name="Background" type="TextureRect" parent="." unique_id=2139772601]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_utlpo")
+
+[node name="Control" type="Control" parent="." unique_id=1479358269]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Podium_left" type="TextureRect" parent="Control" unique_id=605753843]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.017
+anchor_bottom = 0.031000001
+offset_left = 204.00002
+offset_top = 437.0
+offset_right = 403.32
+offset_bottom = 565.76
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_ew0wu")
+
+[node name="TextureRect" type="TextureRect" parent="Control/Podium_left" unique_id=1564325694]
+layout_mode = 0
+offset_left = 68.88889
+offset_top = -77.77778
+offset_right = 108.88889
+offset_bottom = -37.77778
+
+[node name="Podium_center" type="TextureRect" parent="Control" unique_id=1393930473]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 384.0
+offset_right = 584.0
+offset_bottom = 574.0
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_awt6l")
+
+[node name="TextureRect" type="TextureRect" parent="Control/Podium_center" unique_id=539687240]
+layout_mode = 0
+offset_left = 26.66666
+offset_top = -110.0
+offset_right = 161.11108
+offset_bottom = -15.555542
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Podium_center" unique_id=209131501]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.44444
+offset_top = -31.666672
+offset_right = 65.55556
+offset_bottom = 60.555557
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Vel" type="HBoxContainer" parent="Control/Podium_center/VBoxContainer" unique_id=757434819]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Control/Podium_center/VBoxContainer/Vel" unique_id=1794251573]
+layout_mode = 2
+text = "Vel"
+
+[node name="BarVel" type="ProgressBar" parent="Control/Podium_center/VBoxContainer/Vel" unique_id=1495618011]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+show_percentage = false
+
+[node name="Ace" type="HBoxContainer" parent="Control/Podium_center/VBoxContainer" unique_id=1314053216]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Podium_center/VBoxContainer/Ace" unique_id=901070854]
+layout_mode = 2
+text = "Ace"
+
+[node name="BarAce" type="ProgressBar" parent="Control/Podium_center/VBoxContainer/Ace" unique_id=982219938]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="Ctr" type="HBoxContainer" parent="Control/Podium_center/VBoxContainer" unique_id=2013666263]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Podium_center/VBoxContainer/Ctr" unique_id=83699945]
+layout_mode = 2
+text = "Ctr"
+
+[node name="BarCtr" type="ProgressBar" parent="Control/Podium_center/VBoxContainer/Ctr" unique_id=292644527]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 10)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="KartName" type="Label" parent="Control/Podium_center" unique_id=852617365]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -41.111126
+offset_top = 22.222223
+offset_right = 42.88887
+offset_bottom = 45.22223
+grow_horizontal = 2
+text = "Kart_name"
+
+[node name="Podium_right" type="TextureRect" parent="Control" unique_id=785766301]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 465.00003
+offset_right = 765.0
+offset_bottom = 565.0
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("4_m37p4")
+
+[node name="TextureRect" type="TextureRect" parent="Control/Podium_right" unique_id=1662124486]
+layout_mode = 0
+offset_left = 76.66667
+offset_top = -74.44448
+offset_right = 116.66667
+offset_bottom = -34.44448
+
+[node name="Holofote" type="TextureRect" parent="." unique_id=328909231]
+visible = false
+layout_mode = 0
+offset_left = 295.0
+offset_top = -9.0
+offset_right = 695.0
+offset_bottom = 491.0
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_6r1ha")
+
+[node name="Tracks_panel" type="TextureRect" parent="." unique_id=1907461927]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -284.0
+offset_bottom = 356.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("6_qqkct")

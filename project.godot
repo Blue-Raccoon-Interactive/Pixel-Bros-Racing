@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://44mghm2ebn1w"
 [autoload]
 
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
+GameState="*uid://dqxotfh26hgpv"
 
 [display]
 
