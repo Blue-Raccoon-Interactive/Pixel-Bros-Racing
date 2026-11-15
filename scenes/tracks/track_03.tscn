@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b1kgdho5qmdd4" path="res://scenes/tracks/grass_zone.tscn" id="4_u8etl"]
 [ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race_components/checkpoint.tscn" id="4_uxg0h"]
 [ext_resource type="Texture2D" uid="uid://f8c3tmsfdy8j" path="res://assets/sprites/grass/3.png" id="5_flswa"]
-[ext_resource type="PackedScene" uid="uid://b0koy7duo8a4l" path="res://scenes/karts/kart_07.tscn" id="10_6bph2"]
+[ext_resource type="PackedScene" uid="uid://0f75ngcy248k" path="res://scenes/karts/kart_05.tscn" id="10_6bph2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_llenm"]
 texture = ExtResource("2_atjuj")

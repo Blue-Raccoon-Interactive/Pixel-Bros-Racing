@@ -144,6 +144,8 @@ radius = 11.0
 height = 24.0
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_y2f2i")]
+kart_name = "Morcego Roxo"
+archetype = "Cornering Master"
 max_speed = 410.0
 acceleration = 360.0
 rotation_speed = 2.8

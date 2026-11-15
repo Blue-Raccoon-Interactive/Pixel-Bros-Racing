@@ -143,6 +143,8 @@ animations = [{
 radius = 11.401754
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_r8pvc")]
+kart_name = "OVNI"
+archetype = "Floaty"
 max_speed = 460.0
 acceleration = 310.0
 brake_force = 300.0

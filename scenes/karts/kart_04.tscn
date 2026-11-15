@@ -143,6 +143,8 @@ animations = [{
 size = Vector2(21, 23)
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_pc2b6")]
+kart_name = "Tronco"
+archetype = "Drifter"
 max_speed = 440.0
 acceleration = 330.0
 brake_force = 350.0

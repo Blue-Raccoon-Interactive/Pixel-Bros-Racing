@@ -2,6 +2,13 @@
 class_name Kart
 extends CharacterBody2D
 
+## Nome identificador do kart.
+@export var kart_name: String = "Kart"
+## Arquétipo ou categoria de estilo de pilotagem.
+@export var archetype: String = "Equilibrado"
+## Caminho do sprite ou textura representativa do kart no menu.
+@export var kart_sprite_texture: Texture2D
+
 ## Velocidade máxima para frente em pixels por segundo.
 @export var max_speed: float = 400.0
 ## Aceleração gradual para frente.

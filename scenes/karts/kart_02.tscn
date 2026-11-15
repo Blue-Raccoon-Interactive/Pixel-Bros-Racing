@@ -143,6 +143,8 @@ animations = [{
 size = Vector2(20, 25)
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_e6jf3")]
+kart_name = "Tanque"
+archetype = "Juggernaut"
 max_speed = 390.0
 acceleration = 460.0
 brake_force = 450.0

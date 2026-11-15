@@ -144,6 +144,8 @@ radius = 13.0
 height = 26.0
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_t2gjn")]
+kart_name = "Sapo Cururu"
+archetype = "All-Rounder"
 max_speed = 430.0
 acceleration = 390.0
 rotation_speed = 2.5

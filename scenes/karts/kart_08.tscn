@@ -144,6 +144,8 @@ size = Vector2(9, 25)
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_e6jf3")]
 scale = Vector2(1.5, 1.5)
+kart_name = "Esportivo F1"
+archetype = "Time-Trialist"
 max_speed = 480.0
 acceleration = 430.0
 brake_force = 450.0
