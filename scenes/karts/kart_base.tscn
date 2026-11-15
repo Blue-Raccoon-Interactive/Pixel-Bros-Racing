@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xajx7fi7oihb"]
 
-[ext_resource type="Script" uid="uid://c64kyyw8emdpd" path="res://scripts/kart.gd" id="1_wuv3x"]
+[ext_resource type="Script" uid="uid://c64kyyw8emdpd" path="res://scripts/Kart.gd" id="1_wuv3x"]
 [ext_resource type="Script" uid="uid://bt6nmm8qi5g5e" path="res://scripts/PlayerController.gd" id="2_1lauk"]
 
 [node name="Kart" type="CharacterBody2D" unique_id=645485632]
