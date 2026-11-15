@@ -144,9 +144,11 @@ size = Vector2(9, 25)
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_e6jf3")]
 scale = Vector2(1.5, 1.5)
-max_speed = 1000.0
-acceleration = 500.0
-rotation_speed = 1.5
+max_speed = 480.0
+acceleration = 430.0
+brake_force = 450.0
+rotation_speed = 2.6
+grip = 950.0
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_tcsrv")

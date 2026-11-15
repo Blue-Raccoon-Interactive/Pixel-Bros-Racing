@@ -144,6 +144,13 @@ radius = 11.0
 height = 24.0
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_y2f2i")]
+max_speed = 410.0
+acceleration = 360.0
+rotation_speed = 2.8
+friction = 170.0
+grip = 1000.0
+steer_full_speed = 100.0
+wall_speed_factor = 0.85
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_k30cy")

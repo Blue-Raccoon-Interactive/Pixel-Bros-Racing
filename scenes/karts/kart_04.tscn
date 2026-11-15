@@ -143,6 +143,15 @@ animations = [{
 size = Vector2(21, 23)
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_pc2b6")]
+max_speed = 440.0
+acceleration = 330.0
+brake_force = 350.0
+reverse_max_speed = 130.0
+rotation_speed = 2.4
+friction = 100.0
+grip = 500.0
+steer_full_speed = 130.0
+wall_speed_factor = 0.75
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_bh4pj")

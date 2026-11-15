@@ -142,11 +142,17 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8nh0p"]
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_72f8g")]
+max_speed = 490.0
+acceleration = 290.0
+rotation_speed = 2.2
+friction = 150.0
+grip = 650.0
+steer_full_speed = 130.0
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_q7rdb")
 animation = &"stopping"
-frame_progress = 0.724832
+frame_progress = 0.10064779
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 shape = SubResource("RectangleShape2D_8nh0p")

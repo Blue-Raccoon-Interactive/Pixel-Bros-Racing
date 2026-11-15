@@ -143,10 +143,19 @@ animations = [{
 radius = 11.401754
 
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_r8pvc")]
+max_speed = 460.0
+acceleration = 310.0
+brake_force = 300.0
+reverse_max_speed = 160.0
+rotation_speed = 2.5
+friction = 90.0
+grip = 450.0
+steer_full_speed = 140.0
+wall_speed_factor = 0.7
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_pqdot")
-animation = &"steering_right"
+animation = &"accelerating"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 position = Vector2(-1, 3)
