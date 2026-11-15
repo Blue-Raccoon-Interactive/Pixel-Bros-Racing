@@ -76,7 +76,13 @@ func update_animation() -> void:
 	var target_animation: String
 	var is_idle: bool = false
 
-	if throttle_input > 0.0:
+	if steer_input < -0.2:
+		target_animation = "steering_left"  
+		
+	elif steer_input > 0.2:
+		target_animation = "steering_right"
+		
+	elif throttle_input > 0.0:
 		target_animation = "accelerating"
 
 	elif current_speed < -5.0:

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4iytw148d3t6" path="res://scripts/race.gd" id="1_klov7"]
 [ext_resource type="PackedScene" uid="uid://igjhxnorje63" path="res://scenes/tracks/track_base.tscn" id="2_nu3q4"]
-[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="3_5fysc"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="3_5fysc"]
 [ext_resource type="PackedScene" uid="uid://758i5vi4dbj2" path="res://scenes/ui/hud.tscn" id="4_coa1d"]
 [ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="5_asmxe"]
 
