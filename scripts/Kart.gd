@@ -2,6 +2,13 @@
 class_name Kart
 extends CharacterBody2D
 
+## Nome identificador do kart.
+@export var kart_name: String = "Kart"
+## Arquétipo ou categoria de estilo de pilotagem.
+@export var archetype: String = "Equilibrado"
+## Caminho do sprite ou textura representativa do kart no menu.
+@export var kart_sprite_texture: Texture2D
+
 ## Velocidade máxima para frente em pixels por segundo.
 @export var max_speed: float = 400.0
 ## Aceleração gradual para frente.
@@ -76,17 +83,31 @@ func update_animation() -> void:
 	var target_animation: String
 	var is_idle: bool = false
 
-	if throttle_input > 0.0:
+	# 1. Prioridade para o volante/pneu esterçando (se você estiver usando essa lógica)
+	if steer_input < -0.2:
+		target_animation = "steering_left"
+	elif steer_input > 0.2:
+		target_animation = "steering_right"
+		
+	# 2. Acelerando ativamente
+	elif throttle_input > 0.0:
 		target_animation = "accelerating"
-
+		
+	# 3. Frenagem ativa (jogador apertou para trás / freio)
+	elif throttle_input < 0.0:
+		target_animation = "braking"
+		
+	# 4. Soltou o acelerador, mas o carro ainda está embalado (Desacelerando por atrito)
+	elif abs(current_speed) > 10.0 and throttle_input == 0.0:
+		target_animation = "stopping"
+		
+	# 5. Marcha ré (se estiver andando para trás)
 	elif current_speed < -5.0:
 		target_animation = "reverse"
-
-	elif throttle_input < 0.0 or current_speed > 5.0:
-		target_animation = "braking"
-
+		
+	# 6. Totalmente parado
 	else:
-		target_animation = "reverse"
+		target_animation = "reverse" # Ou uma animação "idle" se tiver criado
 		is_idle = true
 
 	# Kart parado: congela no último frame da frenagem.

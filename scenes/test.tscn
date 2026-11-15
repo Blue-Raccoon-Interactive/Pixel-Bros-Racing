@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cupa125qbwakg"]
+[gd_scene format=3 uid="uid://bqksj0jybhiqj"]
 
-[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="1_errlg"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="1_errlg"]
 
 [node name="Test" type="Node2D" unique_id=1264687107]
 

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race_components/checkpoint.tscn" id="4_uxg0h"]
 [ext_resource type="Texture2D" uid="uid://f8c3tmsfdy8j" path="res://assets/sprites/grass/3.png" id="5_flswa"]
 [ext_resource type="Texture2D" uid="uid://mfsxjnxvdujl" path="res://assets/sprites/trees/tree_warm_top.png" id="6_q65jw"]
-[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="10_6bph2"]
+[ext_resource type="PackedScene" uid="uid://0f75ngcy248k" path="res://scenes/karts/kart_05.tscn" id="10_6bph2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_llenm"]
 texture = ExtResource("2_atjuj")
@@ -195,30 +195,30 @@ rotation = 1.5707964
 
 [node name="SurfaceZones" type="Node2D" parent="." index="5" unique_id=2136046590]
 
-[node name="Grama" parent="SurfaceZones" index="0" unique_id=1299205769 instance=ExtResource("4_u8etl")]
+[node name="Grama" parent="." index="6" unique_id=1299205769 instance=ExtResource("4_u8etl")]
 visible = false
 
-[node name="GramaInterior" type="CollisionPolygon2D" parent="SurfaceZones/Grama" index="0" unique_id=1168758548]
+[node name="GramaInterior" type="CollisionPolygon2D" parent="Grama" index="0" unique_id=1168758548]
 visible = false
 position = Vector2(2, 1)
 polygon = PackedVector2Array(-1597, 1005, 1398, 1017, 1432, 1009, 1472, 988, 1514, 954, 1540, 929, 1559, 898, 1573, 874, 1582, 841, 1587, 810, 1585, 781, 1568, 742, 1532, 703, 1497, 684, 1448, 681, 1403, 693, 1337, 731, 1219, 804, 1132, 838, 668, 830, 532, 829, 441, 806, 388, 744, 376, 667, 401, 588, 556, 383, 728, 181, 1158, -274, 1580, -705, 1596, -750, 1599, -784, 1597, -821, 1586, -856, 1565, -859, 1535, -852, 1489, -834, 1231, -694, 1002, -692, 608, -693, 569, -699, 430, -784, 298, -869, -257, -179, -461, 74, -898, 617, -933, 644, -981, 659, -1046, 646, -1093, 609, -1137, 483, -1340, -233, -1461, -656, -1561, -996, -1575, -1016, -1591, -996, -1595, 779)
 
-[node name="GramaExterior" type="CollisionPolygon2D" parent="SurfaceZones/Grama" index="1" unique_id=785462782]
+[node name="GramaExterior" type="CollisionPolygon2D" parent="Grama" index="1" unique_id=785462782]
 visible = false
 polygon = PackedVector2Array(2207, 1535, 2207, -450, 2197, -1568, -1484, -1569, -1491, -1325, -1405, -1290, -1289, -1177, -1225, -1001, -1286, -983, -935, 256, -346, -479, 72, -993, 194, -1131, 259, -1153, 325, -1153, 654, -949, 959, -948, 1168, -949, 1217, -975, 1187, -1029, 1391, -1129, 1541, -1165, 1681, -1156, 1783, -1111, 1861, -1019, 1903, -929, 1922, -815, 1920, -712, 1889, -584, 1779, -440, 1728, -481, 1166, 78, 731, 572, 952, 578, 1081, 582, 1054, 531, 1333, 387, 1415, 366, 1501, 368, 1586, 382, 1687, 422, 1775, 491, 1851, 581, 1907, 730, 1909.3181, 778.4034, 1897, 937, 1820, 1120, 1681, 1253, 1603, 1293, 1547, 1322, 1429, 1333, 1257, 1330, 1258, 1274, -467, 1271, -1520, 1265, -1525, 1328, -1754, 1322, -1809, 1309, -1849, 1285, -1887, 1240, -1918, 1167, -1921, 1015, -1915, 802, -1850, 802, -1848, -951, -1919.5837, -950.8628, -1910, -1084, -1869, -1180, -1810, -1245, -1755, -1286, -1683, -1314, -1610, -1334, -1498, -1325, -1490, -1572, -2370, -1566, -2370, -950, -2369, 1534, -1514, 1533)
 
-[node name="GramaExteriorEsquerda" type="CollisionPolygon2D" parent="SurfaceZones/Grama" index="2" unique_id=491612482]
+[node name="GramaExteriorEsquerda" type="CollisionPolygon2D" parent="Grama" index="2" unique_id=491612482]
 polygon = PackedVector2Array(-1527, 1324, -1515, 1535, -2370, 1534, -2370, -1566, -1487, -1567, -1209, -1570, -1229, -1000, -1321, -1223, -1494, -1321, -1728, -1298, -1895, -1118, -1918, -953, -1853, -954, -1851, 801, -1916, 802, -1918, 1172, -1863, 1273, -1753, 1323)
 
-[node name="GramaExteriorBaixo" type="CollisionPolygon2D" parent="SurfaceZones/Grama" index="3" unique_id=1240098012]
+[node name="GramaExteriorBaixo" type="CollisionPolygon2D" parent="Grama" index="3" unique_id=1240098012]
 polygon = PackedVector2Array(-1524, 1268, -1516, 1532, 1256, 1537, 1261, 1281)
 
-[node name="GramaExteriorDireita" type="CollisionPolygon2D" parent="SurfaceZones/Grama" index="4" unique_id=248337563]
+[node name="GramaExteriorDireita" type="CollisionPolygon2D" parent="Grama" index="4" unique_id=248337563]
 polygon = PackedVector2Array(1258, 1331, 1255, 1538, 2206, 1536, 2204, -1566, 1162, -1566, 1185, -1032, 1405, -1136, 1623, -1171, 1812, -1097, 1912, -902, 1917, -684, 1873, -552, 1790, -450, 1730, -486, 735, 572, 1080, 588, 1049, 536, 1285, 402, 1469, 364, 1667, 407, 1881, 614, 1901, 938, 1786, 1163, 1621, 1290, 1438, 1335)
 
-[node name="GramaExteriorCima" type="CollisionPolygon2D" parent="SurfaceZones/Grama" index="5" unique_id=1427281865]
+[node name="GramaExteriorCima" type="CollisionPolygon2D" parent="Grama" index="5" unique_id=1427281865]
 polygon = PackedVector2Array(-1205, -1564, -1220, -1009, -1289, -981, -937, 249, 186, -1133, 266, -1158, 327, -1154, 654, -949, 1169, -947, 1217, -973, 1186, -1026, 1160, -1567)
 
-[node name="Kart" parent="." index="6" unique_id=645485632 instance=ExtResource("10_6bph2")]
+[node name="Kart" parent="." index="7" unique_id=645485632 instance=ExtResource("10_6bph2")]
 y_sort_enabled = true
 position = Vector2(-500, 0)
