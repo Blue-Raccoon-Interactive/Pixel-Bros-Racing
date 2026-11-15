@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://by4ag0cn20fu5"]
 
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="1_pc2b6"]
+[ext_resource type="Texture2D" uid="uid://xkbeqib7s0mk" path="res://assets/sprites/carros/carros_parados/carro_04.png" id="2_bykxg"]
 [ext_resource type="Texture2D" uid="uid://dasobubruvsh8" path="res://assets/sprites/carros/kart_car_2camadas_AVANCANDO.png" id="2_v7dnn"]
 [ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_bykxg"]
 [ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_6toww"]
@@ -145,6 +146,7 @@ size = Vector2(21, 23)
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_pc2b6")]
 kart_name = "Tronco"
 archetype = "Drifter"
+kart_sprite_texture = ExtResource("2_bykxg")
 max_speed = 440.0
 acceleration = 330.0
 brake_force = 350.0

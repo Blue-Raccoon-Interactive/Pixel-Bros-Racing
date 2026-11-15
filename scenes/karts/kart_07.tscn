@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="1_r8pvc"]
 [ext_resource type="Texture2D" uid="uid://dasobubruvsh8" path="res://assets/sprites/carros/kart_car_2camadas_AVANCANDO.png" id="2_0m44o"]
+[ext_resource type="Texture2D" uid="uid://ppqibieuvlht" path="res://assets/sprites/carros/carros_parados/carro_07.png" id="2_jmvw0"]
 [ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_jmvw0"]
 [ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_va36o"]
 [ext_resource type="Texture2D" uid="uid://bhmcreyer3r1m" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_py1et"]
@@ -145,6 +146,7 @@ radius = 11.401754
 [node name="Kart" unique_id=645485632 instance=ExtResource("1_r8pvc")]
 kart_name = "OVNI"
 archetype = "Floaty"
+kart_sprite_texture = ExtResource("2_jmvw0")
 max_speed = 460.0
 acceleration = 310.0
 brake_force = 300.0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvf2icsk8cs33"
-path="res://.godot/imported/kart_animados_game-spritesheet.png-dbadb2c8b5771ce5f15f9c23dc0b99af.ctex"
+uid="uid://cy5u56pchskb1"
+path="res://.godot/imported/carro_03.png-4e1ceae266a5c2db30ecb573eef07eeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/carros/kart_animados_game-spritesheet.png"
-dest_files=["res://.godot/imported/kart_animados_game-spritesheet.png-dbadb2c8b5771ce5f15f9c23dc0b99af.ctex"]
+source_file="res://assets/sprites/carros/carros_parados/carro_03.png"
+dest_files=["res://.godot/imported/carro_03.png-4e1ceae266a5c2db30ecb573eef07eeb.ctex"]
 
 [params]
 
