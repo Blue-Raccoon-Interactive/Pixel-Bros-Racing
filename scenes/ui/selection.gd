@@ -7,10 +7,12 @@ extends Control
 @onready var bar_speed: ProgressBar = $Control/Podium_center/VBoxContainer/Vel/BarVel
 @onready var bar_accel: ProgressBar = $Control/Podium_center/VBoxContainer/Ace/BarAce
 @onready var bar_handling: ProgressBar = $Control/Podium_center/VBoxContainer/Ctr/BarCtr
+@onready var start_button: TextureButton = %StartButton
 
 var _karts: Array[Dictionary] = []
 var _kart_index: int = 0
 var _max: Dictionary = {}
+
 
 
 func _ready() -> void:
@@ -21,6 +23,7 @@ func _ready() -> void:
 
 func _read_kart_data() -> void:
 	for scene in GameState.KART_SCENES:
+		print("Lendo: ", scene.resource_path)
 		var k: Kart = scene.instantiate()
 		_karts.append({
 			"name": k.kart_name,
@@ -63,6 +66,7 @@ func _move_track(dir: int) -> void:
 
 
 func _confirm() -> void:
+	start_button.modulate = Color(0.7, 0.7, 0.7)
 	GameState.selected_kart = _kart_index
 	GameState.has_selection = true
 	get_tree().change_scene_to_file("res://scenes/race/race_test.tscn")
@@ -79,3 +83,7 @@ func _refresh() -> void:
 	bar_speed.value = d.speed / _max.speed * 100.0
 	bar_accel.value = d.accel / _max.accel * 100.0
 	bar_handling.value = d.handling / _max.handling * 100.0
+
+
+func _on_start_button_pressed() -> void:
+	_confirm()
