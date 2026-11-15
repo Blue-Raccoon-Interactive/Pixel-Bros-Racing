@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b3abmv3ux26c4" path="res://assets/graybox.png" id="1_amafk"]
 [ext_resource type="Texture2D" uid="uid://dsa8u1tybxsnl" path="res://assets/sprites/tracks/track01.png" id="2_ar723"]
-[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart.tscn" id="3_udbqn"]
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="3_udbqn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rlw6h"]
 texture = ExtResource("1_amafk")
