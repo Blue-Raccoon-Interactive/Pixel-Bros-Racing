@@ -4,6 +4,19 @@ Guia de quem vai **desenhar** e **ajustar** as marcas de pneu do Pixel Bros Raci
 
 ---
 
+## 0. Como fica
+
+Padrão (`orientation_mode = VEHICLE`): a marca é o desenho do pneu, então ela
+acompanha a orientação do kart e aparece "inclinada" durante a derrapagem.
+
+![Rastros no modo VEHICLE](preview_drift.png)
+
+No modo `TRAVEL` a marca acompanha o caminho do pneu e o rastro sai contínuo:
+
+![Rastros no modo TRAVEL](preview_drift_travel.png)
+
+---
+
 ## 1. Como funciona em 30 segundos
 
 1. O `Kart` (scripts/Kart.gd) olha o próprio movimento a cada frame de física.
@@ -88,7 +101,7 @@ Cuidados para o pixel art:
 | `mark_lifetime` | 6 s | Tempo que a marca fica no chão. `0` = permanente. |
 | `fade_duration` | 2 s | Tempo em que a marca vai ficando transparente no fim da vida. |
 | `rotation_steps` | 0 | Passos de rotação da marca. `0` = rotação livre; `16`/`32` deixa o visual mais pixelado. |
-| `orientation_mode` | `VEHICLE` | `VEHICLE` = a marca acompanha a orientação do kart (o desenho do pneu). `TRAVEL` = a marca acompanha o caminho do pneu e o rastro sai contínuo. |
+| `orientation_mode` | `VEHICLE` | `VEHICLE` = a marca acompanha a orientação do kart (o desenho do pneu). `TRAVEL` = a marca acompanha o caminho do pneu e o rastro sai contínuo (ver seção 0). |
 | `mark_sets` | 4 conjuntos | Lista de `DriftMarkSet` (uma por superfície). |
 
 ### `scripts/drift_detector.gd` (quando é derrapagem)

@@ -8,7 +8,8 @@
 [ext_resource type="Resource" path="res://assets/effects/drift/mark_set_snow.tres" id="6_4717k"]
 [ext_resource type="Texture2D" path="res://assets/effects/drift/asphalt/skid_mark.png" id="7_1cduc"]
 
-[node name="DriftMarks" type="Node2D" unique_id=614299169]
+[node name="DriftMarks" type="Node2D" unique_id=1716838422]
 script = ExtResource("1_lygdw")
 mark_sets = Array[ExtResource("2_3jsbm")]([ExtResource("3_2gpoo"), ExtResource("4_a6rlx"), ExtResource("5_c6ilu"), ExtResource("6_4717k")])
 default_texture = ExtResource("7_1cduc")
+max_marks = 240
