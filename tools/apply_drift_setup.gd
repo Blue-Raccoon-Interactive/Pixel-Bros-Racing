@@ -107,7 +107,7 @@ func _create_marks_scene(mark_sets: Array[Resource]) -> void:
 
 	root.set("default_surface", &"asphalt")
 	root.set("default_texture", load("%s/asphalt/skid_mark.png" % DRIFT_DIR))
-	root.set("max_marks", 240)
+	root.set("max_marks", 600)
 	root.set("mark_lifetime", 6.0)
 	root.set("fade_duration", 2.0)
 	root.set("rotation_steps", 0)
