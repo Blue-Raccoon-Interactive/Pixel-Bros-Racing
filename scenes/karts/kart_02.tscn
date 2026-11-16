@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bxlf01tf3atlj" path="res://assets/sprites/carros/carros_parados/carro_02.png" id="2_r47an"]
 [ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_r47an"]
 [ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_5rcup"]
-[ext_resource type="Texture2D" uid="uid://bhmcreyer3r1m" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_ss4w4"]
-[ext_resource type="Texture2D" uid="uid://cp3l0ur2v3yky" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_s5p45"]
+[ext_resource type="Texture2D" uid="uid://batbxqnaybxpw" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_ss4w4"]
+[ext_resource type="Texture2D" uid="uid://dxxnwn8tlbsdi" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_s5p45"]
 [ext_resource type="Texture2D" uid="uid://c4vphg0ta6lya" path="res://assets/sprites/carros/kart_car_2camadas_PARADO.png" id="7_ta5f3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_enj6e"]
@@ -50,8 +50,24 @@ atlas = ExtResource("5_ss4w4")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yo7le"]
+atlas = ExtResource("5_ss4w4")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qf6m"]
+atlas = ExtResource("5_ss4w4")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnetr"]
 atlas = ExtResource("6_s5p45")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd1jt"]
+atlas = ExtResource("6_s5p45")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tgmm"]
+atlas = ExtResource("6_s5p45")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4fgp"]
 atlas = ExtResource("7_ta5f3")
@@ -112,6 +128,12 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c27gw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo7le")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qf6m")
 }],
 "loop": 1,
 "name": &"steering_left",
@@ -119,7 +141,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yo7le")
+"texture": SubResource("AtlasTexture_lnetr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd1jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tgmm")
 }],
 "loop": 1,
 "name": &"steering_right",
@@ -159,7 +187,7 @@ wall_speed_factor = 0.9
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_dguv5")
-animation = &"stopping"
+animation = &"steering_right"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 position = Vector2(0, 2.5)

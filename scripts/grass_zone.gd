@@ -5,6 +5,9 @@ extends Area2D
 
 ## Multiplicador da velocidade máxima dentro da zona (1.0 = normal).
 @export_range(0.1, 1.0, 0.05) var multiplier: float = 0.6
+## Nome da superfície da zona (grama, terra, neve...).
+## Usado para escolher a arte das marcas de pneu que o kart deixa aqui.
+@export var surface_name: StringName = &"grass"
 
 
 func _ready() -> void:

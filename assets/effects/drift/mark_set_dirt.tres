@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DriftMarkSet" format=3]
+
+[ext_resource type="Script" path="res://scripts/drift_mark_set.gd" id="1_dwgve"]
+[ext_resource type="Texture2D" path="res://assets/effects/drift/dirt/skid_mark.png" id="2_mngff"]
+
+[resource]
+script = ExtResource("1_dwgve")
+surface = &"dirt"
+texture = ExtResource("2_mngff")

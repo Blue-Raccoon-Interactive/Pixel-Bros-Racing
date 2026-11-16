@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="KartWheelAnchors" format=3]
+
+[ext_resource type="Script" path="res://scripts/kart_wheel_anchors.gd" id="1_437j1"]
+
+[resource]
+script = ExtResource("1_437j1")
+left_wheels = {
+&"Esportivo F1": Vector2(-7.5, 10.5),
+&"Fuguete": Vector2(-13, 12),
+&"Morcego Roxo": Vector2(-8, 8.5),
+&"Nave Rosa": Vector2(-10.5, 7.5),
+&"OVNI": Vector2(-12, 9),
+&"Sapo Cururu": Vector2(-10.5, 13),
+&"Tanque": Vector2(-12, 13),
+&"Tronco": Vector2(-12, 9.5)
+}
+right_wheels = {
+&"Esportivo F1": Vector2(6.5, 10.5),
+&"Fuguete": Vector2(12, 12),
+&"Morcego Roxo": Vector2(7, 8.5),
+&"Nave Rosa": Vector2(9.5, 7.5),
+&"OVNI": Vector2(11, 9),
+&"Sapo Cururu": Vector2(9.5, 13),
+&"Tanque": Vector2(11, 13),
+&"Tronco": Vector2(11, 9.5)
+}
