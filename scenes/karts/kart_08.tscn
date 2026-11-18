@@ -5,9 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://dasobubruvsh8" path="res://assets/sprites/carros/kart_car_2camadas_AVANCANDO.png" id="2_enj6e"]
 [ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_r47an"]
 [ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_5rcup"]
-[ext_resource type="Texture2D" uid="uid://bhmcreyer3r1m" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_ss4w4"]
-[ext_resource type="Texture2D" uid="uid://cp3l0ur2v3yky" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_s5p45"]
+[ext_resource type="Texture2D" uid="uid://batbxqnaybxpw" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_ss4w4"]
+[ext_resource type="Texture2D" uid="uid://dxxnwn8tlbsdi" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_s5p45"]
 [ext_resource type="Texture2D" uid="uid://c4vphg0ta6lya" path="res://assets/sprites/carros/kart_car_2camadas_PARADO.png" id="7_ta5f3"]
+[ext_resource type="AudioStream" uid="uid://b3fxavmt8gyx4" path="res://sound/sfx/karts/kart_08/engine.wav" id="9_xkyqe"]
+[ext_resource type="AudioStream" uid="uid://x1nddagqk5k8" path="res://sound/sfx/karts/kart_08/engine_brake.wav" id="10_wove3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cyyfd"]
 atlas = ExtResource("2_enj6e")
@@ -161,3 +163,9 @@ animation = &"stopping"
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_wuv3x")
+
+[node name="EngineAudio" parent="." index="4" unique_id=204332756]
+stream = ExtResource("9_xkyqe")
+
+[node name="BrakeAudio" parent="." index="5" unique_id=1660261047]
+stream = ExtResource("10_wove3")
