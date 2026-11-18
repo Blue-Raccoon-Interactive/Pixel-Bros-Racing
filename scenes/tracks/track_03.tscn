@@ -381,7 +381,7 @@ tile_set = SubResource("TileSet_1twuq")
 
 [node name="Placas" type="TileMapLayer" parent="Environment" parent_id_path=PackedInt32Array(8505473) index="8" unique_id=718998031]
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAkAB0AAQAAAAAAAADV/xsAAAAAAAAAAADR/wAAAAAAAAAAAFDR/xIAAQAAAAAAAFD8/ykAAAAAAAAAAAAbAN//BAAAAAAAAADn//z/AQAAAAAAAADP/+f/AQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAkAB0AAQAAAAAAAADV/xsAAAAAAAAAAADR/wAAAAAAAAAAAFDR/xIAAQAAAAAAAFAbAN//BAAAAAAAAADn//z/AQAAAAAAAADP/+f/AQAAAAAAAAD9/yoAAAAAAAAAAADf/yoAAAAAAAAAAAAUACoAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_85qcw")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="0" unique_id=1925560051]
