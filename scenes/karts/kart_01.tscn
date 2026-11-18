@@ -47,13 +47,29 @@ region = Rect2(0, 32, 32, 32)
 atlas = ExtResource("4_27c3h")
 region = Rect2(0, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_444xs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_73m3e"]
 atlas = ExtResource("5_pfq4l")
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_444xs"]
+atlas = ExtResource("5_pfq4l")
+region = Rect2(0, 32, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ouaqf"]
+atlas = ExtResource("5_pfq4l")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh6cn"]
 atlas = ExtResource("6_73m3e")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j15ad"]
+atlas = ExtResource("6_73m3e")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scamt"]
+atlas = ExtResource("6_73m3e")
+region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hiopq"]
 atlas = ExtResource("7_q4apb")
@@ -113,7 +129,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_73m3e")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_444xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouaqf")
 }],
 "loop": 1,
 "name": &"steering_left",
@@ -121,7 +143,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ouaqf")
+"texture": SubResource("AtlasTexture_qh6cn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j15ad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scamt")
 }],
 "loop": 1,
 "name": &"steering_right",
@@ -157,7 +185,7 @@ steer_full_speed = 130.0
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_q7rdb")
-animation = &"stopping"
+animation = &"steering_right"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 shape = SubResource("RectangleShape2D_8nh0p")

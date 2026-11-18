@@ -52,8 +52,24 @@ atlas = ExtResource("5_ss4w4")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yo7le"]
+atlas = ExtResource("5_ss4w4")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qf6m"]
+atlas = ExtResource("5_ss4w4")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnetr"]
 atlas = ExtResource("6_s5p45")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd1jt"]
+atlas = ExtResource("6_s5p45")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tgmm"]
+atlas = ExtResource("6_s5p45")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4fgp"]
 atlas = ExtResource("7_ta5f3")
@@ -114,6 +130,12 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c27gw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo7le")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qf6m")
 }],
 "loop": 1,
 "name": &"steering_left",
@@ -121,7 +143,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yo7le")
+"texture": SubResource("AtlasTexture_lnetr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd1jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tgmm")
 }],
 "loop": 1,
 "name": &"steering_right",
@@ -161,7 +189,7 @@ wall_speed_factor = 0.9
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_dguv5")
-animation = &"stopping"
+animation = &"steering_right"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 position = Vector2(0, 2.5)

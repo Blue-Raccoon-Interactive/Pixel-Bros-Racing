@@ -47,13 +47,29 @@ region = Rect2(64, 32, 32, 32)
 atlas = ExtResource("4_pqu3h")
 region = Rect2(64, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ir485"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqtgn"]
 atlas = ExtResource("6_2dq3x")
 region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dq3x"]
+atlas = ExtResource("6_2dq3x")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlo7w"]
+atlas = ExtResource("6_2dq3x")
+region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_npruc"]
 atlas = ExtResource("5_iqtgn")
 region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir485"]
+atlas = ExtResource("5_iqtgn")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_507d4"]
+atlas = ExtResource("5_iqtgn")
+region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_syc2i"]
 atlas = ExtResource("7_nlo7w")
@@ -113,7 +129,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ir485")
+"texture": SubResource("AtlasTexture_iqtgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dq3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlo7w")
 }],
 "loop": 1,
 "name": &"steering_left",
@@ -122,6 +144,12 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_npruc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir485")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_507d4")
 }],
 "loop": 1,
 "name": &"steering_right",
@@ -157,7 +185,7 @@ grip = 850.0
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_t2gjn")
-animation = &"accelerating"
+animation = &"steering_right"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 shape = SubResource("CapsuleShape2D_dguv5")

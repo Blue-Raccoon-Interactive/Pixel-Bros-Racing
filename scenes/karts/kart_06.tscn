@@ -47,13 +47,29 @@ region = Rect2(160, 32, 32, 32)
 atlas = ExtResource("4_v6iam")
 region = Rect2(160, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tidbx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wimd2"]
 atlas = ExtResource("5_wimd2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pc8r2"]
+atlas = ExtResource("5_wimd2")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcfrf"]
+atlas = ExtResource("5_wimd2")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tidbx"]
+atlas = ExtResource("6_pc8r2")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_br054"]
 atlas = ExtResource("6_pc8r2")
-region = Rect2(160, 0, 32, 32)
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kvph"]
+atlas = ExtResource("6_pc8r2")
+region = Rect2(160, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xgerc"]
 atlas = ExtResource("7_rcfrf")
@@ -113,7 +129,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tidbx")
+"texture": SubResource("AtlasTexture_wimd2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pc8r2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcfrf")
 }],
 "loop": 1,
 "name": &"steering_left",
@@ -121,7 +143,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tidbx")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_br054")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kvph")
 }],
 "loop": 1,
 "name": &"steering_right",
@@ -160,7 +188,7 @@ wall_speed_factor = 0.85
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_k30cy")
-animation = &"accelerating"
+animation = &"steering_right"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 position = Vector2(0, 1)
