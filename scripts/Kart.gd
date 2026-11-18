@@ -2,6 +2,15 @@
 class_name Kart
 extends CharacterBody2D
 
+@onready var engine_audio: AudioStreamPlayer2D = $EngineAudio
+@onready var brake_audio: AudioStreamPlayer2D = $BrakeAudio
+
+@export_group("Audio Tuning")
+@export var idle_pitch: float = 0.80           # Tom do motor em marcha lenta (parado)
+@export var max_pitch: float = 2.0             # Tom do motor na velocidade máxima
+@export var engine_brake_pitch: float = 0.75   # Tom grave simulando o freio-motor
+@export var brake_threshold: float = 120.0     # Velocidade lateral mínima para chiar nas curvas
+
 ## Nome identificador do kart.
 @export var kart_name: String = "Kart"
 ## Arquétipo ou categoria de estilo de pilotagem.
@@ -73,6 +82,9 @@ func _update_surface_multiplier() -> void:
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	add_to_group("race_kart")
+	
+	if engine_audio.stream:
+		engine_audio.play()
 
 # Definir animacoes durante acelerar, feiar e re.
 
@@ -187,3 +199,63 @@ func _physics_process(delta: float) -> void:
 	_was_colliding = colliding
 	
 	update_animation()
+	update_audio(delta)
+	
+func update_audio(delta: float) -> void:
+	var forward: Vector2 = Vector2.UP.rotated(rotation)
+	var right: Vector2 = Vector2.RIGHT.rotated(rotation)
+	
+	var forward_speed: float = velocity.dot(forward)
+	var abs_speed: float = abs(forward_speed)
+	var lateral_speed: float = abs(velocity.dot(right))
+	var speed_ratio: float = clamp(abs_speed / max_speed, 0.0, 1.0)
+	
+	# --- 1. LÓGICA DO FREIO (BrakeAudio) ---
+	var is_braking: bool = throttle_input < 0.0 and forward_speed > 40.0
+	
+	if brake_audio and brake_audio.stream:
+		if is_braking:
+			if not brake_audio.playing:
+				# Inicia direto com um volume bom e audível (sem nascer abafado)
+				brake_audio.volume_db = -2.0 
+				brake_audio.play()
+			
+			# Mantém em um nível forte e presente (0 dB)
+			brake_audio.volume_db = move_toward(brake_audio.volume_db, 0.0, 80.0 * delta)
+		else:
+			# Ao soltar, abaixa rápido e desliga
+			brake_audio.volume_db = move_toward(brake_audio.volume_db, -40.0, 100.0 * delta)
+			if brake_audio.volume_db <= -38.0 and brake_audio.playing:
+				brake_audio.stop()
+
+	# --- 2. LÓGICA DO MOTOR (EngineAudio) ---
+	var target_pitch: float = idle_pitch
+	var target_volume: float = -18.0
+	
+	if throttle_input > 0.0:
+		# ACELERANDO PARA FRENTE
+		target_pitch = lerp(idle_pitch, max_pitch, speed_ratio)
+		target_volume = 0.0
+		
+	elif is_braking:
+		# FREANDO: Motor vai para o freio-motor e dá uma abafada suave (-16.0 dB) para destacar o freio
+		target_pitch = engine_brake_pitch
+		target_volume = -16.0  
+		
+	elif throttle_input < 0.0 and forward_speed <= 10.0:
+		# MARCHA RÉ
+		target_pitch = 0.6
+		target_volume = -12.0
+		
+	elif throttle_input == 0.0 and abs_speed > 80.0:
+		# FREIO-MOTOR (soltou o acelerador)
+		target_pitch = engine_brake_pitch
+		target_volume = -12.0
+		
+	else:
+		# PARADO
+		target_pitch = idle_pitch
+		target_volume = -18.0
+
+	engine_audio.pitch_scale = clamp(move_toward(engine_audio.pitch_scale, target_pitch, 6.0 * delta), 0.1, 4.0)
+	engine_audio.volume_db = move_toward(engine_audio.volume_db, target_volume, 15.0 * delta)
