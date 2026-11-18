@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dpupflystt71j" path="res://assets/sprites/trees/arvores_001.png" id="8_8e4ku"]
 [ext_resource type="Texture2D" uid="uid://catemngq3uupw" path="res://assets/sprites/arquibancada/arquibancada_tileset-torcida_001.png" id="9_flswa"]
 [ext_resource type="Texture2D" uid="uid://16p7g0sd8umc" path="res://assets/sprites/trees/arvores_002.png" id="9_qohup"]
-[ext_resource type="PackedScene" uid="uid://0f75ngcy248k" path="res://scenes/karts/kart_05.tscn" id="10_6bph2"]
 [ext_resource type="Texture2D" uid="uid://csoctuji4vwi6" path="res://assets/sprites/trees/arvores_003.png" id="10_e75u6"]
 [ext_resource type="Texture2D" uid="uid://t40m1cayq5vv" path="res://assets/sprites/protecoes/protecoes_001.png" id="10_p1x1j"]
 [ext_resource type="Texture2D" uid="uid://c4gieskbh83nx" path="res://assets/sprites/protecoes/protecoes_003.png" id="11_r0gwh"]
@@ -479,7 +478,3 @@ polygon = PackedVector2Array(1258, 1331, 1255, 1538, 2206, 1536, 2204, -1566, 11
 
 [node name="GramaExteriorCima" type="CollisionPolygon2D" parent="Grama" index="5" unique_id=1427281865]
 polygon = PackedVector2Array(-1205, -1564, -1220, -1009, -1289, -981, -937, 249, 186, -1133, 266, -1158, 327, -1154, 654, -949, 1169, -947, 1217, -973, 1186, -1026, 1160, -1567)
-
-[node name="Kart" parent="." index="7" unique_id=645485632 instance=ExtResource("10_6bph2")]
-y_sort_enabled = true
-position = Vector2(-44, 1151)
