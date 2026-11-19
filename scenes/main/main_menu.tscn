@@ -282,6 +282,9 @@ stream = ExtResource("6_swlpu")
 autoplay = true
 bus = &"Music"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1442730247]
+bus = &"SFX"
+
 [connection signal="pressed" from="MainButtons/StartButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainButtons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MainButtons/Exit" to="." method="_on_exit_pressed"]
