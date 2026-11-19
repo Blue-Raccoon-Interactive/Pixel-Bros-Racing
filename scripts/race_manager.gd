@@ -1,6 +1,11 @@
 class_name RaceManager
 extends Node
 
+const COUNTDOWN_BEEP: AudioStream = preload("res://sound/sfx/race/largada_beep_contagem.wav")
+const GO_BEEP: AudioStream = preload("res://sound/sfx/race/largada_go.wav")
+
+var _start_audio: AudioStreamPlayer
+
 ## Contagem regressiva mudou. Texto vazio = esconder.
 signal countdown_changed(text: String)
 ## Largada liberada (kart pode andar).
@@ -32,6 +37,10 @@ var _progress_by_kart: Dictionary = {}
 
 
 func _ready() -> void:
+	_start_audio = AudioStreamPlayer.new()
+	_start_audio.bus = "SFX"
+	add_child(_start_audio)
+
 	# Adiado para depois do _ready de todos os nós: o HUD já está conectado
 	# aos sinais e a cena (ex.: Race) já pôde definir a pista.
 	_initialize_race.call_deferred()
@@ -68,11 +77,20 @@ func _begin_race() -> void:
 	for step in steps:
 		countdown_changed.emit(step)
 		if step == "VAI!":
+			_play_start_sound(GO_BEEP) #<-Som do "Go" 
 			_set_kart_active(true)
 			race_started.emit()
+		else:
+			_play_start_sound(COUNTDOWN_BEEP) #<- Som do "Beep"
 		await get_tree().create_timer(1.0).timeout
 
+
 	countdown_changed.emit("")
+
+
+func _play_start_sound(sound: AudioStream) -> void:
+	_start_audio.stream = sound
+	_start_audio.play()
 
 
 func _set_kart_active(active: bool) -> void:
