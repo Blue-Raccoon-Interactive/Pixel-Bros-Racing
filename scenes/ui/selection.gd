@@ -58,7 +58,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_confirm()
 	elif event.is_action_pressed("ui_cancel"):
 		play_ui_sound(SOUND_BACK)
-		await get_tree().create_timer(0.38).timeout
+		await get_tree().create_timer(0.38).timeout  #<- Atraso para produzir o áudio antes da mudança de cena
 		get_tree().change_scene_to_file("res://scenes/main/main_menu.tscn")
 		
 
@@ -79,7 +79,7 @@ func _move_track(dir: int) -> void:
 
 func _confirm() -> void:
 	play_ui_sound(SOUND_RACE)
-	await get_tree().create_timer(0.38).timeout
+	await get_tree().create_timer(0.38).timeout  #<- Atraso para produzir o áudio antes da mudança de cena
 	start_button.modulate = Color(0.7, 0.7, 0.7)
 	GameState.selected_kart = _kart_index
 	GameState.has_selection = true

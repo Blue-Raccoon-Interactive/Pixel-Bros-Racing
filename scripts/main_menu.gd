@@ -28,7 +28,7 @@ func _process(_delta: float) -> void:
 
 func _on_start_pressed() -> void:
 	play_ui_sound(SOUND_RACE)
-	await get_tree().create_timer(0.38).timeout
+	await get_tree().create_timer(0.38).timeout  #<- Atraso para produzir o áudio antes da mudança de cena
 	get_tree().change_scene_to_file("res://scenes/ui/selection.tscn")
 
 
@@ -41,7 +41,7 @@ func _on_options_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	play_ui_sound(SOUND_SELECT)
-	await get_tree().create_timer(0.38).timeout
+	await get_tree().create_timer(0.38).timeout #<- Atraso para produzir o áudio antes da mudança de cena
 	print("Exit pressed")
 	get_tree().quit()
 
