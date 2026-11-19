@@ -229,4 +229,7 @@ scale = Vector2(0.9, 0.9)
 focus_mode = 0
 texture_normal = ExtResource("12_tkd11")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1106392156]
+bus = &"SFX"
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
