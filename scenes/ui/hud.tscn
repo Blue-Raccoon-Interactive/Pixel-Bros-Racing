@@ -13,18 +13,63 @@ font_size = 36
 font = ExtResource("2_hqnrr")
 font_size = 40
 
-[sub_resource type="LabelSettings" id="LabelSettings_35s7t"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lcy7t"]
+bg_color = Color(0.050980393, 0.06666667, 0.09019608, 0.5529412)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9607843, 0.77254903, 0.25882354, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fyl8e"]
+line_spacing = 5.0
 font = ExtResource("2_hqnrr")
-font_size = 24
+font_size = 40
+font_color = Color(0.9607843, 0.77254903, 0.25882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bo48s"]
+bg_color = Color(0.17254902, 0.2, 0.3882353, 1)
+border_width_bottom = 2
+border_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oj5la"]
+bg_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qguk"]
+bg_color = Color(0.17254902, 0.2, 0.3882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqnrr"]
+bg_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
+border_width_bottom = 4
+border_color = Color(0.76862746, 0.6039216, 0.11372549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gss2c"]
+bg_color = Color(0.76862746, 0.6039216, 0.11372549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_136eg"]
+bg_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [node name="Hud" type="CanvasLayer" unique_id=1128216421]
+process_mode = 3
 script = ExtResource("1_0mwgc")
+main_menu_scene = "uid://b536ric75d64t"
+pixel_font = ExtResource("2_hqnrr")
 
 [node name="LapLabel" type="Label" parent="." unique_id=785976717]
-offset_left = 30.0
-offset_top = 600.0
-offset_right = 109.0
-offset_bottom = 635.0
+offset_left = 52.0
+offset_top = 592.0
+offset_right = 131.0
+offset_bottom = 627.0
 text = "1 / 3"
 label_settings = SubResource("LabelSettings_2dj1m")
 
@@ -39,20 +84,69 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PositionLabel" type="Label" parent="." unique_id=635062245]
-offset_left = 1050.0
-offset_top = 600.0
-offset_right = 1132.0
-offset_bottom = 636.0
+offset_left = 1038.0
+offset_top = 586.0
+offset_right = 1120.0
+offset_bottom = 622.0
 text = "1 th"
 label_settings = SubResource("LabelSettings_gb2qf")
 
 [node name="ResultsPanel" type="PanelContainer" parent="." unique_id=218526171]
-offset_left = 274.0
+offset_left = 47.0
 offset_top = 16.0
-offset_right = 950.0
+offset_right = 502.0
 offset_bottom = 635.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lcy7t")
 
-[node name="ResultsLabel" type="Label" parent="ResultsPanel" unique_id=115500183]
+[node name="MarginContainer" type="MarginContainer" parent="ResultsPanel" unique_id=1404424019]
 layout_mode = 2
-text = "Classificação:"
-label_settings = SubResource("LabelSettings_35s7t")
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="MainVBox" type="VBoxContainer" parent="ResultsPanel/MarginContainer" unique_id=870040180]
+layout_mode = 2
+
+[node name="TituloLabel" type="Label" parent="ResultsPanel/MarginContainer/MainVBox" unique_id=2033561852]
+layout_mode = 2
+text = "CLASSIFICAÇÃO"
+label_settings = SubResource("LabelSettings_fyl8e")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ResultsPanel/MarginContainer/MainVBox" unique_id=1067097019]
+layout_mode = 2
+
+[node name="StandingsList" type="VBoxContainer" parent="ResultsPanel/MarginContainer/MainVBox" unique_id=179651928]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsRow" type="HBoxContainer" parent="ResultsPanel/MarginContainer/MainVBox" unique_id=958274451]
+layout_mode = 2
+
+[node name="MenuButtom" type="Button" parent="ResultsPanel/MarginContainer/MainVBox/ButtonsRow" unique_id=1231585289]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_bo48s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oj5la")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8qguk")
+text = " VOLTAR "
+
+[node name="ButtonSpace" type="Control" parent="ResultsPanel/MarginContainer/MainVBox/ButtonsRow" unique_id=1117346101]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RetrayButton" type="Button" parent="ResultsPanel/MarginContainer/MainVBox/ButtonsRow" unique_id=931037773]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.078431375, 0.09019608, 0.16862746, 1)
+theme_override_colors/font_pressed_color = Color(0.078431375, 0.09019608, 0.16862746, 1)
+theme_override_colors/font_hover_color = Color(0.078431375, 0.09019608, 0.16862746, 1)
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_hqnrr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gss2c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_136eg")
+text = " JOGAR DE NOVO "
