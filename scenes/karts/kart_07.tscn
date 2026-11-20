@@ -178,13 +178,13 @@ kart_name = "OVNI"
 archetype = "Floaty"
 kart_sprite_texture = ExtResource("2_jmvw0")
 max_speed = 460.0
-acceleration = 310.0
+acceleration = 370.0
 brake_force = 300.0
 reverse_max_speed = 160.0
 rotation_speed = 2.5
 friction = 90.0
-grip = 450.0
-steer_full_speed = 140.0
+grip = 420.0
+steer_full_speed = 130.0
 wall_speed_factor = 0.7
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]

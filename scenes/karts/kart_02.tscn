@@ -178,14 +178,13 @@ kart_name = "Tanque"
 archetype = "Juggernaut"
 kart_sprite_texture = ExtResource("2_r47an")
 max_speed = 390.0
-acceleration = 460.0
-brake_force = 450.0
+acceleration = 440.0
 reverse_max_speed = 140.0
 rotation_speed = 2.0
 friction = 180.0
-grip = 1150.0
+grip = 900.0
 steer_full_speed = 100.0
-wall_speed_factor = 0.9
+wall_speed_factor = 0.92
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_dguv5")

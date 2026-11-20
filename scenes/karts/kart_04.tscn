@@ -181,11 +181,11 @@ max_speed = 440.0
 acceleration = 330.0
 brake_force = 350.0
 reverse_max_speed = 130.0
-rotation_speed = 2.4
+rotation_speed = 2.65
 friction = 100.0
-grip = 500.0
+grip = 470.0
 steer_full_speed = 130.0
-wall_speed_factor = 0.75
+wall_speed_factor = 0.78
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_bh4pj")

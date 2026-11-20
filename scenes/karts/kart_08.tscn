@@ -178,11 +178,12 @@ scale = Vector2(1.5, 1.5)
 kart_name = "Esportivo F1"
 archetype = "Time-Trialist"
 kart_sprite_texture = ExtResource("2_3bqyo")
-max_speed = 480.0
-acceleration = 430.0
-brake_force = 450.0
-rotation_speed = 2.6
-grip = 950.0
+max_speed = 450.0
+acceleration = 365.0
+brake_force = 420.0
+rotation_speed = 2.35
+grip = 760.0
+steer_full_speed = 125.0
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_tcsrv")
