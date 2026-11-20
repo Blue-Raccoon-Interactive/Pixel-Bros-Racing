@@ -20,6 +20,7 @@ var _max: Dictionary = {}
 
 
 func _ready() -> void:
+	MenuMusic.play_menu_music() #<- Play da musica
 	_read_kart_data()
 	_kart_index = GameState.selected_kart
 	_refresh()

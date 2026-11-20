@@ -16,6 +16,7 @@ func play_ui_sound(sound: AudioStream) -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	MenuMusic.play_menu_music() #<- Play ma trilha sonora
 	main_buttons.visible = true
 	options.visible = false
 	 # Replace with function body.
