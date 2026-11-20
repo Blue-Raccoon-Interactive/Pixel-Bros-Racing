@@ -188,7 +188,7 @@ wall_speed_factor = 0.85
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_k30cy")
-animation = &"steering_right"
+animation = &"accelerating"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 position = Vector2(0, 1)
