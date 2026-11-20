@@ -12,6 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://dgkuxegf4dahm" path="res://assets/sprites/ui/Dicas de teclas.png" id="10_xvrlp"]
 [ext_resource type="Texture2D" uid="uid://tmdwrvwhth4m" path="res://assets/sprites/ui/Título.png" id="11_rv2dv"]
 [ext_resource type="Texture2D" uid="uid://7pr4rpsd7u0p" path="res://assets/sprites/ui/Botão iniciar corrida.png" id="12_tkd11"]
+[ext_resource type="Texture2D" uid="uid://cspvao7bscaca" path="res://assets/sprites/ui/menu/CardSelecionado.png" id="13_kg04y"]
+[ext_resource type="Texture2D" uid="uid://dhf6gdyewd08n" path="res://assets/sprites/ui/menu/Título do painel.png" id="13_p5i3b"]
+[ext_resource type="Texture2D" uid="uid://ckh4efnducisl" path="res://assets/sprites/ui/menu/EmbrePista3.png" id="14_hagc0"]
+[ext_resource type="Texture2D" uid="uid://36vjphg5hyi6" path="res://assets/sprites/tracks/track01_miniatura.png" id="15_p5i3b"]
+[ext_resource type="Texture2D" uid="uid://csnwsmek8pnne" path="res://assets/sprites/ui/menu/Info.png" id="16_5wqem"]
+[ext_resource type="Texture2D" uid="uid://bqurgegad6toa" path="res://assets/sprites/ui/menu/Pista 1 - Autódromo.png" id="17_hagc0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p5i3b"]
 
 [node name="Selection" type="Control" unique_id=1462546679]
 layout_mode = 3
@@ -203,12 +211,15 @@ offset_bottom = 353.0
 texture = ExtResource("9_tkd11")
 
 [node name="Tips" type="TextureRect" parent="." unique_id=2102297495]
+texture_filter = 1
 layout_mode = 0
 offset_left = 66.0
 offset_top = 601.0
 offset_right = 696.0
 offset_bottom = 613.0
 texture = ExtResource("10_xvrlp")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Title" type="TextureRect" parent="." unique_id=1495724397]
 layout_mode = 0
@@ -231,5 +242,84 @@ texture_normal = ExtResource("12_tkd11")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1106392156]
 bus = &"SFX"
+
+[node name="TrackPainel" type="PanelContainer" parent="." unique_id=1138054023]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 66.0
+offset_right = 1088.0
+offset_bottom = 483.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p5i3b")
+
+[node name="MarginContainer" type="MarginContainer" parent="TrackPainel" unique_id=399811424]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrackPainel/MarginContainer" unique_id=949515052]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Title" type="TextureRect" parent="TrackPainel/MarginContainer/VBoxContainer" unique_id=811833548]
+custom_minimum_size = Vector2(30, 18)
+layout_mode = 2
+texture = ExtResource("13_p5i3b")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Embreve" type="TextureRect" parent="TrackPainel/MarginContainer/VBoxContainer" unique_id=1689596657]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("14_hagc0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardSelect" type="TextureRect" parent="TrackPainel/MarginContainer/VBoxContainer" unique_id=1276413619]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("13_kg04y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Track_mini" type="TextureRect" parent="TrackPainel/MarginContainer/VBoxContainer/CardSelect" unique_id=210813314]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -29.0
+offset_right = 83.0
+offset_bottom = 29.0
+grow_vertical = 2
+texture = ExtResource("15_p5i3b")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="TextureRect" parent="TrackPainel/MarginContainer/VBoxContainer/CardSelect" unique_id=493444048]
+texture_filter = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -33.0
+offset_right = -49.0
+offset_bottom = 23.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("16_5wqem")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Embreve2" type="TextureRect" parent="TrackPainel/MarginContainer/VBoxContainer" unique_id=1812590135]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("17_hagc0")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
