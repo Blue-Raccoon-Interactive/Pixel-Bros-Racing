@@ -10,6 +10,10 @@ extends Control
 @onready var start_button: TextureButton = %StartButton
 @onready var ui_sfx: AudioStreamPlayer = $AudioStreamPlayer
 
+@onready var btn_left: TextureButton = $Left
+@onready var btn_right: TextureButton = $Right
+
+
 const SOUND_SELECT = preload("res://sound/sfx/menu/menu_select.wav")
 const SOUND_BACK = preload("res://sound/sfx/menu/menu_back.wav")
 const SOUND_RACE = preload("res://sound/sfx/menu/menu_startGame.wav")
@@ -24,6 +28,8 @@ func _ready() -> void:
 	_read_kart_data()
 	_kart_index = GameState.selected_kart
 	_refresh()
+	btn_left.pressed.connect(_move_kart.bind(-1))
+	btn_right.pressed.connect(_move_kart.bind(1))
 
 func play_ui_sound(sound: AudioStream) -> void:
 	ui_sfx.stream = sound
