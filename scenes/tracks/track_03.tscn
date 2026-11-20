@@ -383,46 +383,48 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAkAB0AAQAAAAAAAADV/xsAAAAAAAAAAADR/wAAAAAAAAAAAFDR/xIAAQAAAAAAAFAbAN//BAAAAAAAAADn//z/AQAAAAAAAADP/+f/AQAAAAAAAAD9/yoAAAAAAAAAAADf/yoAAAAAAAAAAAAUACoAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_85qcw")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="0" unique_id=1925560051]
+[node name="Walls" parent="Collisions" parent_id_path=PackedInt32Array(619184355) index="0" unique_id=2133589836 groups=["impacto_barreira"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions/Walls" index="0" unique_id=1925560051]
 position = Vector2(1726.8616, -232.82715)
 polygon = PackedVector2Array(182.13843, -56.17285, 190.13843, 782.82715, -181.86157, 536.82715, -862.8616, 766.82715, -340.86157, 214.82715, 119.13843, -211.17285)
 
-[node name="ColisaoTriangulo" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="1" unique_id=274019063]
+[node name="ColisaoTriangulo" type="CollisionPolygon2D" parent="Collisions/Walls" index="1" unique_id=274019063]
 position = Vector2(-1571.7281, -857.63306)
 polygon = PackedVector2Array(15.728149, -13.366943, 10.728149, 43.633057, 52.72815, 483.63306, 52.72815, 891.63306, 45.72815, 1752.633, 484.72815, 1754.633, 220.72815, 897.63306, 48.72815, 71.63306)
 
-[node name="ColisaoCurva1" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="2" unique_id=1104623522]
+[node name="ColisaoCurva1" type="CollisionPolygon2D" parent="Collisions/Walls" index="2" unique_id=1104623522]
 position = Vector2(1822.8744, 668.87115)
 scale = Vector2(0.99890345, 1.0014657)
 polygon = PackedVector2Array(-82, -123, -148, -179, -255, -230, -390, -240, -488, -220, -596, -165, -731, -84, -770, -132, -636, -216, -489, -285, -365, -304, -261, -292, -169, -266, -93, -220, -91, -216, 4, -119, 54, -32, 83, 84, 85, 200, 42, 358, -7, 454, -145, 583, -278, 652, -388, 662, -564.4934, 659.1627, -563.4923, 605.2418, -386, 606, -258, 571, -171, 515, -73, 419, -10, 310, 23, 191, 23, 91, 7, 30, -27, -48)
 
-[node name="ColisaoCurva2" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="3" unique_id=1910715147]
+[node name="ColisaoCurva2" type="CollisionPolygon2D" parent="Collisions/Walls" index="3" unique_id=1910715147]
 position = Vector2(1880, -899.99994)
 scale = Vector2(0.9067064, 0.9090321)
 polygon = PackedVector2Array(-89.33423, -118.80768, -148, -179, -277.92896, -229.91486, -389.32104, -233.21515, -494.09595, -206.81342, -591.1505, -159.51031, -731, -84, -764.3047, -137.50897, -637.4719, -211.21368, -485.27283, -269.51752, -372.7777, -290.41888, -261, -292, -169, -266, -93, -220, -52.938843, -173.81134, -7.720215, -111.10724, 26.469482, -27.501831, 48.527344, 81.40521, 44.115723, 206.8133, 36.395508, 269.51733, 11.029053, 341.02197, -35.29248, 421.32715, -115.80371, 503.8325, -164.33093, 453.22925, -89.33423, 383.92474, -51.835938, 290.4187, -19.85205, 173.81116, -24.263672, 88.005615, -35.29248, 16.500977, -52.938843, -46.203064)
 
-[node name="ColisaoCurva3" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="4" unique_id=1724494790]
+[node name="ColisaoCurva3" type="CollisionPolygon2D" parent="Collisions/Walls" index="4" unique_id=1724494790]
 position = Vector2(-1645.7126, -1255.9473)
 polygon = PackedVector2Array(40.712646, -8.052734, 95.71265, -11.052734, 148.71265, -0.052734375, 216.71265, 26.947266, 267.71265, 68.947266, 299.71265, 112.947266, 322.71265, 156.94727, 341.71265, 220.94727, 355.71265, 271.94727, 416.71265, 255.94727, 401.71265, 196.94727, 374.71265, 120.947266, 361.71265, 89.947266, 340.71265, 53.947266, 288.71265, -2.0527344, 234.71265, -34.052734, 180.71265, -55.052734, 145.71265, -68.052734, 74.71265, -76.052734, 7.7126465, -70.052734, -55.287354, -54.052734, -97.28735, -32.052734, -131.28735, -11.052734, -191.28735, 37.947266, -224.28735, 87.947266, -242.28735, 123.947266, -261.28735, 183.94727, -269.28735, 240.94727, -271.28735, 299.94727, -202.28735, 302.94727, -201.28735, 242.94727, -202.28735, 202.94727, -189.28735, 160.94727, -158.28735, 110.947266, -120.28735, 66.947266, -66.28735, 25.947266, -20.287354, 3.9472656)
 
-[node name="ColisaoCurva4" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="5" unique_id=1968561454]
+[node name="ColisaoCurva4" type="CollisionPolygon2D" parent="Collisions/Walls" index="5" unique_id=1968561454]
 position = Vector2(-1857.7866, 1205.4028)
 polygon = PackedVector2Array(9.786621, -58.402832, 7.786621, -398.40283, -56.21338, -399.40283, -59.21338, -251.40283, -63.21338, -108.40283, -56.21338, -33.402832, -39.21338, 8.597168, -18.213379, 47.597168, 19.786621, 84.59717, 50.78662, 103.59717, 101.78662, 116.59717, 336.78662, 120.59717, 337.78662, 57.597168, 121.78662, 55.597168, 79.78662, 44.597168, 35.78662, 11.597168, 9.786621, -37.402832)
 
-[node name="Colisao externa" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="6" unique_id=1553131078]
+[node name="Colisao externa" type="CollisionPolygon2D" parent="Collisions/Walls" index="6" unique_id=1553131078]
 position = Vector2(-2143.808, -1364.5886)
 build_mode = 1
 polygon = PackedVector2Array(169.8081, 2756.5886, 616.8081, 2702.5886, 2033.8081, 2689.5886, 3844.808, 2689.5886, 4117.808, 2767.5886, 4087.808, 43.588623, 3367.808, 292.58862, 3169.808, 33.588623, 199.8081, 33.588623, 225.8081, 408.58862, 188.8081, 429.58862)
 
-[node name="ColisaoMid" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="7" unique_id=2039012255]
+[node name="ColisaoMid" type="CollisionPolygon2D" parent="Collisions/Walls" index="7" unique_id=2039012255]
 position = Vector2(239.73315, -450.3203)
 polygon = PackedVector2Array(86.266846, -295.6797, -424.73315, 371.3203, -770.73315, 778.3203, -1091.7332, 1172.3203, -1383.7332, 1169.3203, -1330.7332, 1344.3203, -887.73315, 1334.3203, -872.73315, 1358.3203, -54.733154, 1360.3203, 70.266846, 1351.3203, 139.26685, 1408.3203, 1061.2668, 1414.3203, 1134.2668, 1338.3203, 1202.2668, 1321.3203, 1206.2668, 1247.3203, 1137.2668, 1253.3203, 1066.2668, 1329.3203, 597.26685, 1332.3203, 149.26685, 1326.3203, 13.266846, 1250.3203, 48.266846, 1063.3203, 546.26685, 412.3203, 970.26685, -17.679688, 1194.2668, -203.67969, 771.26685, -196.67969, 322.26685, -194.67969)
 
-[node name="ColisaoAltaTriangulo" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="8" unique_id=1231576477]
+[node name="ColisaoAltaTriangulo" type="CollisionPolygon2D" parent="Collisions/Walls" index="8" unique_id=1231576477]
 position = Vector2(-651.754, -1006.1361)
 polygon = PackedVector2Array(-632.246, -229.86389, -580.246, -48.86389, -514.246, 79.13611, -236.24597, 1073.1361, 873.754, -296.8639)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="9" unique_id=739737827]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Collisions/Walls" index="9" unique_id=739737827]
 position = Vector2(776.57227, -1183.2238)
 build_mode = 1
 polygon = PackedVector2Array(-554.57227, -117.776245, -596.57227, -30.776245, -351.57227, -7.776245, -162.57227, 154.22375, 296.42773, 170.22375, 722.42773, -45.776245, 990.42773, 21.223755, 1107.4277, 96.223755, 1094.4277, -87.776245)

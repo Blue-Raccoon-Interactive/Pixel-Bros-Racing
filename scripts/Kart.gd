@@ -2,6 +2,17 @@
 class_name Kart
 extends CharacterBody2D
 
+#Sons de Colisão:
+const SFX_PNEU: AudioStream = preload(
+	"res://sound/sfx/impacts/impact_pneu_pista.wav" #< Ainda falta agrupar essa zona de colisão
+)
+const SFX_BARREIRA: AudioStream = preload(
+	"res://sound/sfx/impacts/impact_barreira_pista.wav"
+)
+const SFX_ARVORE: AudioStream = preload(
+	"res://sound/sfx/impacts/impact_arvore.wav"  #< Ainda falta agrupar essa zona de colisão
+) 
+
 @onready var engine_audio: AudioStreamPlayer2D = $EngineAudio
 @onready var brake_audio: AudioStreamPlayer2D = $BrakeAudio
 
@@ -139,7 +150,34 @@ func update_animation() -> void:
 		animated_sprite.play(target_animation)
 	elif not animated_sprite.is_playing():
 		animated_sprite.play()
+		
+#Função play de colisão: 
+func _play_impact_sound(collision: KinematicCollision2D) -> bool:
+	var collider := collision.get_collider() as Node
+	if collider == null:
+		return false
 
+	var sound: AudioStream
+	
+	#Filtra qual é o objeto de colisão:
+	if collider.is_in_group("impacto_pneu"): #<- Falta agrupar 
+		sound = SFX_PNEU
+	elif collider.is_in_group("impacto_barreira"):
+		sound = SFX_BARREIRA
+	elif collider.is_in_group("impacto_arvore"): #<- Falta agrupar
+		sound = SFX_ARVORE
+	else:
+		return false
+
+	var player := AudioStreamPlayer2D.new()
+	player.stream = sound
+	player.bus = "SFX"
+	add_child(player)
+	player.global_position = collision.get_position()
+	player.finished.connect(player.queue_free)
+	player.play()
+
+	return true	
 
 func _physics_process(delta: float) -> void:
 	# Direção atual do kart.
@@ -193,8 +231,13 @@ func _physics_process(delta: float) -> void:
 
 	# Perde velocidade uma vez por impacto.
 	var colliding: bool = get_slide_collision_count() > 0
+
 	if colliding and not _was_colliding:
 		velocity *= wall_speed_factor
+
+		for i in get_slide_collision_count():
+			if _play_impact_sound(get_slide_collision(i)):
+				break
 
 	_was_colliding = colliding
 	
