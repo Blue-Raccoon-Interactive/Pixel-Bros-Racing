@@ -14,8 +14,14 @@ signal race_started
 signal lap_changed(current_lap: int, total_laps: int)
 ## Qualquer kart fechou uma volta.
 signal lap_completed(kart: Node2D, lap: int)
+## Colocação atual do jogador mudou (1 = 1º lugar).
+signal placement_changed(rank: int, total_racers: int)
 ## O kart do jogador terminou a corrida.
 signal race_finished
+## Abre a tela de classificação final assim que o jogador cruza a linha na última volta.
+signal finish_results_opened(finished_karts: Array[Kart])
+## Atualiza a tela de classificação conforme outros karts vão cruzando a linha final.
+signal finish_results_updated(finished_karts: Array[Kart])
 
 ## Voltas da corrida. Se houver uma pista, o valor vem dela.
 @export var total_laps: int = 3
@@ -38,6 +44,11 @@ var _progress_by_kart: Dictionary = {}
 # Karts extras (IA), registrados pela cena da corrida.
 var _extra_karts: Array[Kart] = []
 
+var _last_player_rank: int = -1
+
+# Ordem de chegada dos karts que já completaram todas as voltas.
+var _finished_karts: Array[Kart] = []
+
 
 ## Registra um kart extra (IA): ele larga junto e conta checkpoints e voltas.
 func register_kart(extra: Kart) -> void:
@@ -48,10 +59,14 @@ func register_kart(extra: Kart) -> void:
 # Kart do jogador primeiro, depois os extras.
 func _all_karts() -> Array[Kart]:
 	var result: Array[Kart] = []
-	if kart:
+	if kart != null:
 		result.append(kart)
 	result.append_array(_extra_karts)
 	return result
+
+
+func get_finished_karts() -> Array[Kart]:
+	return _finished_karts.duplicate()
 
 
 func _ready() -> void:
@@ -62,6 +77,69 @@ func _ready() -> void:
 	# Adiado para depois do _ready de todos os nós: o HUD já está conectado
 	# aos sinais e a cena (ex.: Race) já pôde definir a pista.
 	_initialize_race.call_deferred()
+
+
+func _process(_delta: float) -> void:
+	if kart == null or checkpoints.is_empty():
+		return
+
+	var racers: Array[Kart] = _all_karts()
+	if racers.is_empty():
+		return
+
+	var current_rank: int = get_kart_placement(kart, racers)
+	if current_rank != _last_player_rank:
+		_last_player_rank = current_rank
+		placement_changed.emit(current_rank, racers.size())
+
+
+## Retorna a colocação de um kart (1 = 1º, 2 = 2º...).
+func get_kart_placement(target: Kart, racers: Array[Kart] = []) -> int:
+	if target == null:
+		return 1
+	var list: Array[Kart] = racers if not racers.is_empty() else _all_karts()
+	var standings: Array[Kart] = get_standings(list)
+	var idx: int = standings.find(target)
+	return idx + 1 if idx != -1 else list.size()
+
+
+## Retorna a lista de karts ordenada do 1º para o último lugar.
+func get_standings(racers: Array[Kart] = []) -> Array[Kart]:
+	var base: Array[Kart] = racers if not racers.is_empty() else _all_karts()
+	var sorted: Array[Kart] = base.duplicate()
+	sorted.sort_custom(_compare_racers)
+	return sorted
+
+
+func _compare_racers(a: Kart, b: Kart) -> bool:
+	var fin_a: int = _finished_karts.find(a)
+	var fin_b: int = _finished_karts.find(b)
+
+	# Quem já terminou a corrida vem sempre antes de quem ainda está correndo,
+	# respeitando a ordem exata de chegada.
+	if fin_a != -1 or fin_b != -1:
+		if fin_a == -1:
+			return false
+		if fin_b == -1:
+			return true
+		return fin_a < fin_b
+
+	var prog_a: int = _progress_by_kart.get(a.get_instance_id(), 0)
+	var prog_b: int = _progress_by_kart.get(b.get_instance_id(), 0)
+
+	if prog_a != prog_b:
+		return prog_a > prog_b
+
+	var next_cp_a: Area2D = checkpoints[prog_a % checkpoints.size()]
+	var next_cp_b: Area2D = checkpoints[prog_b % checkpoints.size()]
+
+	if next_cp_a == null or next_cp_b == null:
+		return false
+
+	var dist_a: float = a.global_position.distance_to(next_cp_a.global_position)
+	var dist_b: float = b.global_position.distance_to(next_cp_b.global_position)
+
+	return dist_a < dist_b
 
 
 func _initialize_race() -> void:
@@ -106,13 +184,12 @@ func _begin_race() -> void:
 	for step in steps:
 		countdown_changed.emit(step)
 		if step == "VAI!":
-			_play_start_sound(GO_BEEP) #<-Som do "Go" 
+			_play_start_sound(GO_BEEP)
 			_set_kart_active(true)
 			race_started.emit()
 		else:
-			_play_start_sound(COUNTDOWN_BEEP) #<- Som do "Beep"
+			_play_start_sound(COUNTDOWN_BEEP)
 		await get_tree().create_timer(1.0).timeout
-
 
 	countdown_changed.emit("")
 
@@ -151,16 +228,17 @@ func _connect_checkpoints() -> void:
 
 
 func _on_checkpoint_passed(checkpoint: Area2D, passed_kart: Node2D) -> void:
-	# Por enquanto a corrida acaba quando o kart do jogador termina.
-	if is_finished or passed_kart == null:
+	if passed_kart == null or not (passed_kart is Kart):
 		return
+
+	var racer: Kart = passed_kart as Kart
 
 	# Ordem do checkpoint = posição dele na lista, começando em 1.
 	var checkpoint_order: int = checkpoints.find(checkpoint) + 1
 	if checkpoint_order == 0:
 		return
 
-	var kart_id: int = passed_kart.get_instance_id()
+	var kart_id: int = racer.get_instance_id()
 	var progress: int = _progress_by_kart.get(kart_id, 0)
 	var expected: int = progress % checkpoints.size() + 1
 
@@ -176,13 +254,22 @@ func _on_checkpoint_passed(checkpoint: Area2D, passed_kart: Node2D) -> void:
 	var laps_done: int = floori(float(progress - 1) / checkpoints.size())
 
 	if checkpoint_order == 1 and laps_done > 0:
-		lap_completed.emit(passed_kart, laps_done)
+		lap_completed.emit(racer, laps_done)
 
-	if passed_kart != kart:
+	var completed_race: bool = checkpoint_order == 1 and laps_done >= total_laps
+	if completed_race and not _finished_karts.has(racer):
+		_finished_karts.append(racer)
+
+		if racer == kart and not is_finished:
+			is_finished = true
+			lap_changed.emit(total_laps, total_laps)
+			race_finished.emit()
+			finish_results_opened.emit(get_finished_karts())
+		elif is_finished:
+			finish_results_updated.emit(get_finished_karts())
+		return
+
+	if racer != kart or is_finished:
 		return
 
 	lap_changed.emit(mini(laps_done + 1, total_laps), total_laps)
-
-	if laps_done >= total_laps:
-		is_finished = true
-		race_finished.emit()
