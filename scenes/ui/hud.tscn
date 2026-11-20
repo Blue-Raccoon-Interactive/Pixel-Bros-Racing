@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dmk7t5tpg0fpf" path="res://scripts/hud.gd" id="1_0mwgc"]
 [ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="2_hqnrr"]
+[ext_resource type="AudioStream" uid="uid://c4mk7ejuw1n7m" path="res://sound/sfx/menu/menu_startGame.wav" id="3_136eg"]
+[ext_resource type="AudioStream" uid="uid://bbdnglrmugaw0" path="res://sound/sfx/menu/menu_select.wav" id="3_bo48s"]
+[ext_resource type="AudioStream" uid="uid://r57qitilmyb4" path="res://sound/sfx/menu/menu_back.wav" id="4_oj5la"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dj1m"]
 font = ExtResource("2_hqnrr")
@@ -64,6 +67,8 @@ process_mode = 3
 script = ExtResource("1_0mwgc")
 main_menu_scene = "uid://b536ric75d64t"
 pixel_font = ExtResource("2_hqnrr")
+retry_sound = ExtResource("3_136eg")
+back_sound = ExtResource("4_oj5la")
 
 [node name="LapLabel" type="Label" parent="." unique_id=785976717]
 offset_left = 52.0
@@ -150,3 +155,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hqnrr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gss2c")
 theme_override_styles/hover = SubResource("StyleBoxFlat_136eg")
 text = " JOGAR DE NOVO "
+
+[node name="UiClickAudio" type="AudioStreamPlayer" parent="." unique_id=138446077]
+stream = ExtResource("3_bo48s")

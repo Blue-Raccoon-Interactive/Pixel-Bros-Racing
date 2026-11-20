@@ -10,6 +10,14 @@ extends CanvasLayer
 ## Fonte pixelada do projeto (arraste o mesmo arquivo .ttf/.otf da tela de seleção).
 @export var pixel_font: Font
 
+@export_group("Audio")
+## Som tocado ao clicar em "Jogar de Novo".
+@export var retry_sound: AudioStream
+## Som tocado ao clicar em "Voltar".
+@export var back_sound: AudioStream
+## Volume em dB dos sons de interface.
+@export var ui_sound_volume_db: float = 0.0
+
 # Paleta extraída da tela "Escolha seu Carro"
 const COLOR_BG_DARK := Color("#161a33f2")
 const COLOR_CARD_BG := Color("#2c3363")
@@ -30,10 +38,15 @@ const COLOR_TEXT_MUTED := Color("#b8c0e0")
 @onready var standings_list: VBoxContainer = $ResultsPanel/MarginContainer/MainVBox/StandingsList
 @onready var retry_button: Button = $ResultsPanel/MarginContainer/MainVBox/ButtonsRow/RetrayButton
 @onready var menu_button: Button = $ResultsPanel/MarginContainer/MainVBox/ButtonsRow/MenuButtom
+@onready var ui_click_audio: AudioStreamPlayer = $UiClickAudio
 
 
 func _ready() -> void:
 	_apply_pixel_design()
+
+	if ui_click_audio != null:
+		ui_click_audio.bus = "SFX"
+		ui_click_audio.volume_db = ui_sound_volume_db
 
 	if results_panel != null:
 		results_panel.visible = false
@@ -54,6 +67,33 @@ func _ready() -> void:
 	race_manager.race_finished.connect(_on_race_finished)
 	race_manager.finish_results_opened.connect(_on_finish_results_opened)
 	race_manager.finish_results_updated.connect(_on_finish_results_updated)
+
+
+func _play_ui_sound(sound: AudioStream) -> void:
+	if sound == null:
+		return
+
+	if ui_click_audio != null:
+		ui_click_audio.stream = sound
+		ui_click_audio.volume_db = ui_sound_volume_db
+		ui_click_audio.play()
+		await ui_click_audio.finished
+	else:
+		var temp_player := AudioStreamPlayer.new()
+		temp_player.stream = sound
+		temp_player.volume_db = ui_sound_volume_db
+		temp_player.bus = "SFX"
+		add_child(temp_player)
+		temp_player.play()
+		await temp_player.finished
+		temp_player.queue_free()
+
+
+func _set_buttons_disabled(disabled: bool) -> void:
+	if retry_button != null:
+		retry_button.disabled = disabled
+	if menu_button != null:
+		menu_button.disabled = disabled
 
 
 func _apply_pixel_design() -> void:
@@ -155,6 +195,12 @@ func _on_race_finished() -> void:
 
 
 func _on_finish_results_opened(finished_karts: Array[Kart]) -> void:
+	if lap_label != null:
+		lap_label.visible = false
+	if position_label != null:
+		position_label.visible = false
+
+	_set_buttons_disabled(false)
 	_render_finished_list(finished_karts)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -170,19 +216,26 @@ func _on_finish_results_updated(finished_karts: Array[Kart]) -> void:
 
 
 func _on_retry_pressed() -> void:
+	_set_buttons_disabled(true)
+	await _play_ui_sound(retry_sound)
 	get_tree().paused = false
 	var err := get_tree().reload_current_scene()
 	if err != OK:
+		_set_buttons_disabled(false)
 		push_error("Hud: falha ao recarregar a cena. Código de erro: %s" % err)
 
 
 func _on_menu_pressed() -> void:
-	get_tree().paused = false
 	if main_menu_scene.is_empty():
 		push_warning("Hud: main_menu_scene não foi definido no Inspector.")
 		return
+
+	_set_buttons_disabled(true)
+	await _play_ui_sound(back_sound)
+	get_tree().paused = false
 	var err := get_tree().change_scene_to_file(main_menu_scene)
 	if err != OK:
+		_set_buttons_disabled(false)
 		push_error("Hud: falha ao carregar '%s'. Código de erro: %s" % [main_menu_scene, err])
 
 
@@ -213,11 +266,9 @@ func _create_standing_row(rank: int, kart_display_name: String, is_player: bool)
 	row_style.content_margin_bottom = 10
 
 	if is_player:
-		# Mesma borda amarela do cartão selecionado na tela "Escolha seu Carro"
 		row_style.set_border_width_all(2)
 		row_style.border_color = COLOR_GOLD
 	else:
-		# Detalhe superior mais claro como nos blocos do pódio/seleção
 		row_style.border_width_top = 3
 		row_style.border_color = COLOR_CARD_BORDER
 
