@@ -37,7 +37,7 @@ func _on_lap_changed(current_lap: int, total_laps: int) -> void:
 
 
 func _on_placement_changed(rank: int, total_racers: int) -> void:
-	position_label.text = "%dº/%d" % [rank, total_racers]
+	position_label.text = "%d th" % [rank]
 
 
 func _on_race_finished() -> void:
