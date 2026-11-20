@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://batbxqnaybxpw" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_535ej"]
 [ext_resource type="Texture2D" uid="uid://dxxnwn8tlbsdi" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_ck3k2"]
 [ext_resource type="Texture2D" uid="uid://c4vphg0ta6lya" path="res://assets/sprites/carros/kart_car_2camadas_PARADO.png" id="7_qor3f"]
+[ext_resource type="AudioStream" uid="uid://dulop0mnpjq8m" path="res://sound/sfx/karts/kart_05/engine.wav" id="9_535ej"]
+[ext_resource type="AudioStream" uid="uid://6ax5is7bghfa" path="res://sound/sfx/karts/kart_05/engine_brake.wav" id="10_535ej"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_20f1a"]
 atlas = ExtResource("2_kvw6t")
@@ -45,27 +47,27 @@ region = Rect2(128, 32, 32, 32)
 atlas = ExtResource("4_5iisc")
 region = Rect2(128, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kyha5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_535ej"]
 atlas = ExtResource("5_535ej")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5iisc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ck3k2"]
 atlas = ExtResource("5_535ej")
 region = Rect2(128, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_535ej"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qor3f"]
 atlas = ExtResource("5_535ej")
 region = Rect2(128, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ck3k2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_srw4b"]
 atlas = ExtResource("6_ck3k2")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qor3f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_es2cs"]
 atlas = ExtResource("6_ck3k2")
 region = Rect2(128, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_srw4b"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4chq"]
 atlas = ExtResource("6_ck3k2")
 region = Rect2(128, 64, 32, 32)
 
@@ -127,13 +129,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kyha5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5iisc")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_535ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck3k2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qor3f")
 }],
 "loop": 1,
 "name": &"steering_left",
@@ -141,13 +143,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ck3k2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qor3f")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_srw4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_es2cs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4chq")
 }],
 "loop": 1,
 "name": &"steering_right",
@@ -183,7 +185,13 @@ steer_full_speed = 110.0
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_xp0jb")
-animation = &"steering_right"
+animation = &"accelerating"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 shape = SubResource("RectangleShape2D_fo8dw")
+
+[node name="EngineAudio" parent="." index="4" unique_id=204332756]
+stream = ExtResource("9_535ej")
+
+[node name="BrakeAudio" parent="." index="5" unique_id=1660261047]
+stream = ExtResource("10_535ej")

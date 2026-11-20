@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://batbxqnaybxpw" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_ss4w4"]
 [ext_resource type="Texture2D" uid="uid://dxxnwn8tlbsdi" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_s5p45"]
 [ext_resource type="Texture2D" uid="uid://c4vphg0ta6lya" path="res://assets/sprites/carros/kart_car_2camadas_PARADO.png" id="7_ta5f3"]
+[ext_resource type="AudioStream" uid="uid://dnm8debg85eh8" path="res://sound/sfx/karts/kart_02/engine.wav" id="9_ss4w4"]
+[ext_resource type="AudioStream" uid="uid://hixaq03d5oqb" path="res://sound/sfx/karts/kart_02/engine_brake.wav" id="10_s5p45"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_enj6e"]
 atlas = ExtResource("2_enj6e")
@@ -187,8 +189,14 @@ wall_speed_factor = 0.9
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
 sprite_frames = SubResource("SpriteFrames_dguv5")
-animation = &"steering_right"
+animation = &"accelerating"
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_6bph2")
+
+[node name="EngineAudio" parent="." index="4" unique_id=204332756]
+stream = ExtResource("9_ss4w4")
+
+[node name="BrakeAudio" parent="." index="5" unique_id=1660261047]
+stream = ExtResource("10_s5p45")

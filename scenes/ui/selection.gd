@@ -8,19 +8,27 @@ extends Control
 @onready var bar_accel: ProgressBar = $Control/Podium_center/VBoxContainer/Ace/BarAce
 @onready var bar_handling: ProgressBar = $Control/Podium_center/VBoxContainer/Ctr/BarCtr
 @onready var start_button: TextureButton = %StartButton
+@onready var ui_sfx: AudioStreamPlayer = $AudioStreamPlayer
+
+const SOUND_SELECT = preload("res://sound/sfx/menu/menu_select.wav")
+const SOUND_BACK = preload("res://sound/sfx/menu/menu_back.wav")
+const SOUND_RACE = preload("res://sound/sfx/menu/menu_startGame.wav")
 
 var _karts: Array[Dictionary] = []
 var _kart_index: int = 0
 var _max: Dictionary = {}
 
 
-
 func _ready() -> void:
+	MenuMusic.play_menu_music() #<- Play da musica
 	_read_kart_data()
 	_kart_index = GameState.selected_kart
 	_refresh()
 
-
+func play_ui_sound(sound: AudioStream) -> void:
+	ui_sfx.stream = sound
+	ui_sfx.play()
+	
 func _read_kart_data() -> void:
 	for scene in GameState.KART_SCENES:
 		print("Lendo: ", scene.resource_path)
@@ -50,12 +58,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_accept"):
 		_confirm()
 	elif event.is_action_pressed("ui_cancel"):
+		play_ui_sound(SOUND_BACK)
+		await get_tree().create_timer(0.38).timeout  #<- Atraso para produzir o áudio antes da mudança de cena
 		get_tree().change_scene_to_file("res://scenes/main/main_menu.tscn")
+		
 
 
 func _move_kart(dir: int) -> void:
+	play_ui_sound(SOUND_SELECT)
 	_kart_index = wrapi(_kart_index + dir, 0, _karts.size())
 	_refresh()
+	
 
 
 func _move_track(dir: int) -> void:
@@ -66,6 +79,8 @@ func _move_track(dir: int) -> void:
 
 
 func _confirm() -> void:
+	play_ui_sound(SOUND_RACE)
+	await get_tree().create_timer(0.38).timeout  #<- Atraso para produzir o áudio antes da mudança de cena
 	start_button.modulate = Color(0.7, 0.7, 0.7)
 	GameState.selected_kart = _kart_index
 	GameState.has_selection = true

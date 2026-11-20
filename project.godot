@@ -23,9 +23,11 @@ buses/default_bus_layout="uid://44mghm2ebn1w"
 
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 GameState="*uid://dqxotfh26hgpv"
+MenuMusic="*uid://bgjlcmibks1cx"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

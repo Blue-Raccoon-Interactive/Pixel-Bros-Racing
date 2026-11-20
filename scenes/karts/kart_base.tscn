@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c64kyyw8emdpd" path="res://scripts/Kart.gd" id="1_wuv3x"]
 [ext_resource type="Script" uid="uid://bt6nmm8qi5g5e" path="res://scripts/PlayerController.gd" id="2_1lauk"]
 
-[node name="Kart" type="CharacterBody2D" unique_id=645485632]
+[node name="Kart" type="CharacterBody2D" unique_id=645485632 groups=["colisao_kart"]]
 script = ExtResource("1_wuv3x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1540636759]
@@ -23,3 +23,7 @@ position_smoothing_speed = 12.0
 [node name="PlayerController" type="Node" parent="." unique_id=1194744494 node_paths=PackedStringArray("kart")]
 script = ExtResource("2_1lauk")
 kart = NodePath("..")
+
+[node name="EngineAudio" type="AudioStreamPlayer2D" parent="." unique_id=204332756]
+
+[node name="BrakeAudio" type="AudioStreamPlayer2D" parent="." unique_id=1660261047]
