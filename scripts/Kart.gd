@@ -2,8 +2,17 @@
 class_name Kart
 extends CharacterBody2D
 
+const SFX_COLISAO_KART: AudioStream = preload(
+	"res://sound/sfx/impacts/colisao_karts.wav"
+)
+const SFX_COLISAO_BARREIRA: AudioStream = preload(
+	"res://sound/sfx/impacts/colisao_barreira_pista.wav"
+)
+
 @onready var engine_audio: AudioStreamPlayer2D = $EngineAudio
 @onready var brake_audio: AudioStreamPlayer2D = $BrakeAudio
+
+
 
 @export_group("Audio Tuning")
 @export var idle_pitch: float = 0.80           # Tom do motor em marcha lenta (parado)
@@ -50,6 +59,34 @@ var throttle_input: float = 0.0
 var _was_colliding: bool = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D;
+
+#Filtro de som de Colisao
+func _play_collision_sound(collision: KinematicCollision2D) -> bool:
+	var collider := collision.get_collider() as Node
+	if collider == null:
+		return false
+
+	var sound: AudioStream
+
+	if collider.is_in_group("race_kart"):
+		# Os dois karts detectam a batida. Esta condição deixa
+		# apenas um deles tocar o som, evitando duplicação.
+		if get_instance_id() > collider.get_instance_id():
+			return false
+		sound = SFX_COLISAO_KART
+	elif collider.is_in_group("colisao_barreira"):
+		sound = SFX_COLISAO_BARREIRA
+	else:
+		return false
+
+	var player := AudioStreamPlayer2D.new()
+	player.stream = sound
+	player.bus = "SFX"
+	add_child(player)
+	player.finished.connect(player.queue_free)
+	player.play()
+
+	return true
 
 
 ## Recebe os comandos do jogador ou da IA.
@@ -192,11 +229,17 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	# Perde velocidade uma vez por impacto.
+	var collision_count: int = get_slide_collision_count()
 	var colliding: bool = get_slide_collision_count() > 0
 	if colliding and not _was_colliding:
 		velocity *= wall_speed_factor
-
+		
+		for i in collision_count:
+			if _play_collision_sound(get_slide_collision(i)):
+				break
+		
 	_was_colliding = colliding
+	
 	
 	update_animation()
 	update_audio(delta)
