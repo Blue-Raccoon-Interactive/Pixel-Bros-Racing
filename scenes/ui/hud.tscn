@@ -1,18 +1,31 @@
 [gd_scene format=3 uid="uid://758i5vi4dbj2"]
 
 [ext_resource type="Script" uid="uid://dmk7t5tpg0fpf" path="res://scripts/hud.gd" id="1_0mwgc"]
+[ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="2_hqnrr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dj1m"]
+font = ExtResource("2_hqnrr")
+font_size = 36
 
 [sub_resource type="LabelSettings" id="LabelSettings_mu5he"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gb2qf"]
+font = ExtResource("2_hqnrr")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_35s7t"]
+font = ExtResource("2_hqnrr")
+font_size = 24
 
 [node name="Hud" type="CanvasLayer" unique_id=1128216421]
 script = ExtResource("1_0mwgc")
 
 [node name="LapLabel" type="Label" parent="." unique_id=785976717]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Volta 1/3"
+offset_left = 39.0
+offset_top = 596.0
+offset_right = 118.0
+offset_bottom = 631.0
+text = "1 / 3"
 label_settings = SubResource("LabelSettings_2dj1m")
 
 [node name="CountdownLabel" type="Label" parent="." unique_id=680239084]
@@ -24,3 +37,22 @@ scale = Vector2(3, 3)
 label_settings = SubResource("LabelSettings_mu5he")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PositionLabel" type="Label" parent="." unique_id=635062245]
+offset_left = 1050.0
+offset_top = 577.0
+offset_right = 1132.0
+offset_bottom = 627.0
+text = "1 th"
+label_settings = SubResource("LabelSettings_gb2qf")
+
+[node name="ResultsPanel" type="PanelContainer" parent="." unique_id=218526171]
+offset_left = 274.0
+offset_top = 16.0
+offset_right = 950.0
+offset_bottom = 635.0
+
+[node name="ResultsLabel" type="Label" parent="ResultsPanel" unique_id=115500183]
+layout_mode = 2
+text = "Classificação:"
+label_settings = SubResource("LabelSettings_35s7t")
