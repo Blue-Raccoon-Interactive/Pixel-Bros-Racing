@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://o55vggxoe2gl" path="res://scripts/full_screen_control.gd" id="5_swlpu"]
 [ext_resource type="Texture2D" uid="uid://bhl0gn4jf4g46" path="res://assets/sprites/ui/menu/barra_slider.png" id="6_s2sug"]
 [ext_resource type="AudioStream" uid="uid://cab734p6h5fi2" path="res://sound/music/Menu-music.ogg" id="6_swlpu"]
+[ext_resource type="Texture2D" uid="uid://b0hhbtevkbdat" path="res://assets/sprites/ui/menu/State=On.png" id="8_s2sug"]
+[ext_resource type="Texture2D" uid="uid://crxhqa031mt4p" path="res://assets/sprites/ui/menu/State=Off.png" id="9_ygj4d"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4dqq"]
 texture = ExtResource("2_w6ykx")
@@ -209,11 +211,15 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Label" type="Label" parent="Options" unique_id=2034316223]
-layout_mode = 0
-offset_left = 168.5
-offset_top = 9.0
-offset_right = 354.5
-offset_bottom = 54.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.0
+offset_top = 11.0
+offset_right = 92.0
+offset_bottom = 56.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 32
 text = "Options"
 horizontal_alignment = 1
@@ -221,17 +227,17 @@ vertical_alignment = 1
 
 [node name="Exit" type="Button" parent="Options" unique_id=1817532802]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -157.0
-offset_top = 70.5
-offset_right = 144.5
-offset_bottom = 140.5
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = -90.0
+offset_right = 153.5
+offset_bottom = -20.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
@@ -257,7 +263,7 @@ offset_right = 172.0
 offset_bottom = 52.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Options/VBoxContainer" unique_id=366438022]
 layout_mode = 2
@@ -330,6 +336,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
+theme_override_icons/checked = ExtResource("8_s2sug")
+theme_override_icons/unchecked = ExtResource("9_ygj4d")
+theme_override_icons/checked_mirrored = ExtResource("8_s2sug")
+theme_override_icons/unchecked_mirrored = ExtResource("9_ygj4d")
+button_pressed = true
 script = ExtResource("5_swlpu")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1270417609]
