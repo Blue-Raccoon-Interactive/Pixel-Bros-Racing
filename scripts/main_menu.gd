@@ -9,6 +9,14 @@ const SOUND_SELECT = preload("res://sound/sfx/menu/menu_select.wav")
 const SOUND_BACK = preload("res://sound/sfx/menu/menu_back.wav")
 const SOUND_RACE = preload("res://sound/sfx/menu/menu_startGame.wav")
 
+func _apply_palette() -> void:
+	UIPalette.primary_button($MainButtons/StartButton)
+	UIPalette.secondary_button($MainButtons/Options)
+	UIPalette.secondary_button($MainButtons/Exit)
+	UIPalette.secondary_button($Options/Exit) # botão Back
+	UIPalette.style_panel($Options)
+	for l in $Options.find_children("*", "Label", true, false):
+		UIPalette.style_label(l, UIPalette.TEXT_LIGHT)
 
 func play_ui_sound(sound: AudioStream) -> void:
 	ui_sfx.stream = sound
@@ -16,6 +24,7 @@ func play_ui_sound(sound: AudioStream) -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_apply_palette()
 	MenuMusic.play_menu_music() #<- Play ma trilha sonora
 	main_buttons.visible = true
 	options.visible = false

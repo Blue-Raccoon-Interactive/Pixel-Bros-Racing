@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cmqih2pr61w6b" path="res://assets/sprites/ui/podium_right.png" id="4_m37p4"]
 [ext_resource type="Texture2D" uid="uid://bsrr4bbex4fnp" path="res://assets/sprites/ui/Holofote.png" id="5_6r1ha"]
 [ext_resource type="Texture2D" uid="uid://bc3vxwylda6s6" path="res://assets/sprites/ui/tracks_panel.png" id="6_qqkct"]
-[ext_resource type="Texture2D" uid="uid://bq4obyi1x1bu0" path="res://assets/sprites/ui/Seta direita.png" id="8_qqkct"]
-[ext_resource type="Texture2D" uid="uid://cp2wcttsf6eqv" path="res://assets/sprites/ui/Seta esquerda.png" id="9_tkd11"]
-[ext_resource type="Texture2D" uid="uid://dgkuxegf4dahm" path="res://assets/sprites/ui/Dicas de teclas.png" id="10_xvrlp"]
+[ext_resource type="Texture2D" uid="uid://b7pexh5wp065" path="res://assets/sprites/ui/right.png" id="9_p5i3b"]
+[ext_resource type="Texture2D" uid="uid://cirm5agghk37p" path="res://assets/sprites/ui/left.png" id="10_5wqem"]
+[ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="10_p5i3b"]
 [ext_resource type="Texture2D" uid="uid://tmdwrvwhth4m" path="res://assets/sprites/ui/Título.png" id="11_rv2dv"]
 [ext_resource type="Texture2D" uid="uid://7pr4rpsd7u0p" path="res://assets/sprites/ui/Botão iniciar corrida.png" id="12_tkd11"]
 [ext_resource type="Texture2D" uid="uid://cspvao7bscaca" path="res://assets/sprites/ui/menu/CardSelecionado.png" id="13_kg04y"]
@@ -18,6 +18,12 @@
 [ext_resource type="Texture2D" uid="uid://36vjphg5hyi6" path="res://assets/sprites/tracks/track01_miniatura.png" id="15_p5i3b"]
 [ext_resource type="Texture2D" uid="uid://csnwsmek8pnne" path="res://assets/sprites/ui/menu/Info.png" id="16_5wqem"]
 [ext_resource type="Texture2D" uid="uid://bqurgegad6toa" path="res://assets/sprites/ui/menu/Pista 1 - Autódromo.png" id="17_hagc0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkvy1"]
+bg_color = Color(0.078431375, 0.09019608, 0.16862746, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7orsx"]
+bg_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p5i3b"]
 
@@ -95,49 +101,69 @@ offset_right = 65.55556
 offset_bottom = 60.555557
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 15
 
 [node name="Vel" type="HBoxContainer" parent="Control/Podium_center/VBoxContainer" unique_id=757434819]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="Control/Podium_center/VBoxContainer/Vel" unique_id=1794251573]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("10_p5i3b")
+theme_override_font_sizes/font_size = 20
 text = "Vel"
 
 [node name="BarVel" type="ProgressBar" parent="Control/Podium_center/VBoxContainer/Vel" unique_id=1495618011]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 10)
+custom_minimum_size = Vector2(80, 12)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_pkvy1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7orsx")
 show_percentage = false
 
 [node name="Ace" type="HBoxContainer" parent="Control/Podium_center/VBoxContainer" unique_id=1314053216]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="Control/Podium_center/VBoxContainer/Ace" unique_id=901070854]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("10_p5i3b")
+theme_override_font_sizes/font_size = 20
 text = "Ace"
 
 [node name="BarAce" type="ProgressBar" parent="Control/Podium_center/VBoxContainer/Ace" unique_id=982219938]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 10)
+custom_minimum_size = Vector2(80, 12)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_pkvy1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7orsx")
 show_percentage = false
 
 [node name="Ctr" type="HBoxContainer" parent="Control/Podium_center/VBoxContainer" unique_id=2013666263]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="Control/Podium_center/VBoxContainer/Ctr" unique_id=83699945]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("10_p5i3b")
+theme_override_font_sizes/font_size = 20
 text = "Ctr"
 
 [node name="BarCtr" type="ProgressBar" parent="Control/Podium_center/VBoxContainer/Ctr" unique_id=292644527]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 10)
+custom_minimum_size = Vector2(80, 12)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_pkvy1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7orsx")
 show_percentage = false
 
 [node name="KartName" type="Label" parent="Control/Podium_center" unique_id=852617365]
@@ -150,7 +176,10 @@ offset_top = 22.222223
 offset_right = 42.88887
 offset_bottom = 45.22223
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("10_p5i3b")
+theme_override_font_sizes/font_size = 22
 text = "Kart_name"
+horizontal_alignment = 1
 
 [node name="Podium_right" type="TextureRect" parent="Control" unique_id=785766301]
 layout_mode = 0
@@ -194,32 +223,36 @@ grow_vertical = 2
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("6_qqkct")
 
-[node name="Right" type="TextureRect" parent="." unique_id=1391941530]
+[node name="Right" type="TextureButton" parent="." unique_id=967506874]
 layout_mode = 0
 offset_left = 700.0
 offset_top = 253.0
 offset_right = 740.0
 offset_bottom = 353.0
-texture = ExtResource("8_qqkct")
+texture_normal = ExtResource("9_p5i3b")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="Left" type="TextureRect" parent="." unique_id=1039514752]
+[node name="Left" type="TextureButton" parent="." unique_id=124716693]
 layout_mode = 0
 offset_left = 48.0
 offset_top = 253.0
 offset_right = 88.0
 offset_bottom = 353.0
-texture = ExtResource("9_tkd11")
-
-[node name="Tips" type="TextureRect" parent="." unique_id=2102297495]
-texture_filter = 1
-layout_mode = 0
-offset_left = 66.0
-offset_top = 601.0
-offset_right = 696.0
-offset_bottom = 613.0
-texture = ExtResource("10_xvrlp")
-expand_mode = 1
+texture_normal = ExtResource("10_5wqem")
+ignore_texture_size = true
 stretch_mode = 5
+
+[node name="Label" type="Label" parent="." unique_id=844389520]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 592.0
+offset_right = 693.0
+offset_bottom = 616.0
+theme_override_colors/font_color = Color(0.9035167, 0.9152893, 0.9600858, 1)
+theme_override_fonts/font = ExtResource("10_p5i3b")
+text = "A / D  CARRO      W / S  PISTA      ENTER  CONFIRMAR      ESC  VOLTAR"
+horizontal_alignment = 1
 
 [node name="Title" type="TextureRect" parent="." unique_id=1495724397]
 layout_mode = 0

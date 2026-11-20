@@ -17,7 +17,12 @@ texture = ExtResource("2_w6ykx")
 modulate_color = Color(0.5211406, 0.5211406, 0.5211405, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4dqq"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.76862746, 0.6039216, 0.11372549, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -45,32 +50,39 @@ shadow_offset = Vector2(0, 3.25)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jix8l"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hiibk"]
-bg_color = Color(0.78775924, 0.78775924, 0.78775924, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_size = 5
-shadow_offset = Vector2(0, 3.25)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2sug"]
+bg_color = Color(0.17254902, 0.2, 0.3882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_swlpu"]
-bg_color = Color(0.74138486, 0.7413847, 0.7413843, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_size = 5
-shadow_offset = Vector2(0, 3.25)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygj4d"]
+bg_color = Color(0.17254902, 0.2, 0.3882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nm0l4"]
-bg_color = Color(0.74138486, 0.7413847, 0.7413843, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-shadow_size = 5
-shadow_offset = Vector2(0, 3.25)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rf05u"]
+bg_color = Color(0.17254902, 0.2, 0.3882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ygj4d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_001j1"]
+bg_color = Color(0.08627451, 0.101960786, 0.2, 0.9490196)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_croyj"]
 texture = ExtResource("5_cnht7")
@@ -133,7 +145,7 @@ theme_override_constants/separation = 9
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.078431375, 0.09019608, 0.16862746, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -142,38 +154,36 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_f4dqq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_byqcc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w6ykx")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
-text = "Start Game"
+text = "Iniciar jogo"
 
 [node name="Options" type="Button" parent="MainButtons" unique_id=1086592535]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
+theme_override_colors/font_hover_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_f4dqq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hiibk")
-theme_override_styles/hover = SubResource("StyleBoxFlat_swlpu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
-text = "Options
+theme_override_styles/normal = SubResource("StyleBoxFlat_s2sug")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ygj4d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rf05u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ygj4d")
+text = "Opções
 "
 
 [node name="Exit" type="Button" parent="MainButtons" unique_id=1024311922]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
+theme_override_colors/font_hover_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_f4dqq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_f4dqq")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nm0l4")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
-text = "Exit"
+theme_override_styles/normal = SubResource("StyleBoxFlat_s2sug")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ygj4d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rf05u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ygj4d")
+text = "Sair"
 
 [node name="Label" type="Label" parent="." unique_id=533492852]
 layout_mode = 1
@@ -210,6 +220,7 @@ offset_right = 268.5
 offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_001j1")
 
 [node name="Label" type="Label" parent="Options" unique_id=2034316223]
 layout_mode = 1
@@ -240,16 +251,15 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
+theme_override_colors/font_hover_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_f4dqq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_f4dqq")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nm0l4")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jix8l")
-text = "Back"
+theme_override_styles/normal = SubResource("StyleBoxFlat_s2sug")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ygj4d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rf05u")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ygj4d")
+text = "Voltar"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Options" unique_id=129474501]
 layout_mode = 1
@@ -274,7 +284,7 @@ theme_override_constants/separation = 50
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Music"
+text = "Musica"
 
 [node name="MusicControl" type="HSlider" parent="Options/VBoxContainer/HBoxContainer" unique_id=2086362840]
 custom_minimum_size = Vector2(200, 48)
@@ -302,7 +312,7 @@ theme_override_constants/separation = 50
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "SFX"
+text = "Efeitos"
 
 [node name="SFXControl" type="HSlider" parent="Options/VBoxContainer/HBoxContainer2" unique_id=758620201]
 custom_minimum_size = Vector2(200, 48)
@@ -329,7 +339,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Fullscreen"
+text = "Tela Cheia"
 
 [node name="FullScreenControl" type="CheckButton" parent="Options/VBoxContainer/HBoxContainer3" unique_id=595659506]
 custom_minimum_size = Vector2(0, 48)
