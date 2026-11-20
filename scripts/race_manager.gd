@@ -35,6 +35,24 @@ var is_finished: bool = false
 # O checkpoint 1 é a linha de largada: passar por ele de novo fecha uma volta.
 var _progress_by_kart: Dictionary = {}
 
+# Karts extras (IA), registrados pela cena da corrida.
+var _extra_karts: Array[Kart] = []
+
+
+## Registra um kart extra (IA): ele larga junto e conta checkpoints e voltas.
+func register_kart(extra: Kart) -> void:
+	if extra != null and not _extra_karts.has(extra):
+		_extra_karts.append(extra)
+
+
+# Kart do jogador primeiro, depois os extras.
+func _all_karts() -> Array[Kart]:
+	var result: Array[Kart] = []
+	if kart:
+		result.append(kart)
+	result.append_array(_extra_karts)
+	return result
+
 
 func _ready() -> void:
 	_start_audio = AudioStreamPlayer.new()
@@ -59,14 +77,25 @@ func _setup_from_track() -> void:
 	total_laps = track.laps
 	checkpoints = track.get_checkpoints()
 
+	_place_karts_at_start()
+
+
+# Cada kart vai para um marcador de largada, na ordem. Se houver mais karts
+# do que marcadores, os que sobram ficam em fila atrás do último marcador.
+func _place_karts_at_start() -> void:
 	var starts: Array[Marker2D] = track.get_start_positions()
-	if kart == null or starts.is_empty():
-		push_warning("RaceManager: a pista não tem posição de largada ou falta o kart.")
+	var karts: Array[Kart] = _all_karts()
+	if karts.is_empty() or starts.is_empty():
+		push_warning("RaceManager: a pista não tem posição de largada ou faltam karts.")
 		return
 
-	kart.global_position = starts[0].global_position
-	kart.global_rotation = starts[0].global_rotation
-	kart.velocity = Vector2.ZERO
+	for i in karts.size():
+		var marker: Marker2D = starts[mini(i, starts.size() - 1)]
+		var rows_behind: int = maxi(0, i - (starts.size() - 1))
+		var behind: Vector2 = Vector2.DOWN.rotated(marker.global_rotation) * 160.0 * rows_behind
+		karts[i].global_position = marker.global_position + behind
+		karts[i].global_rotation = marker.global_rotation
+		karts[i].velocity = Vector2.ZERO
 
 
 func _begin_race() -> void:
@@ -94,8 +123,8 @@ func _play_start_sound(sound: AudioStream) -> void:
 
 
 func _set_kart_active(active: bool) -> void:
-	if kart:
-		kart.set_physics_process(active)
+	for racer in _all_karts():
+		racer.set_physics_process(active)
 
 
 func _connect_checkpoints() -> void:

@@ -383,6 +383,13 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAkAB0AAQAAAAAAAADV/xsAAAAAAAAAAADR/wAAAAAAAAAAAFDR/xIAAQAAAAAAAFAbAN//BAAAAAAAAADn//z/AQAAAAAAAADP/+f/AQAAAAAAAAD9/yoAAAAAAAAAAADf/yoAAAAAAAAAAAAUACoAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_85qcw")
 
+[node name="larp" type="ColorRect" parent="Environment" parent_id_path=PackedInt32Array(8505473) index="9" unique_id=1195261188]
+offset_left = -202.00002
+offset_top = 1013.99994
+offset_right = -162.00002
+offset_bottom = 1054.0
+scale = Vector2(0.7890632, 6.349819)
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collisions/Walls" parent_id_path=PackedInt32Array(2133589836) index="0" unique_id=1925560051]
 position = Vector2(1726.8616, -232.82715)
 polygon = PackedVector2Array(182.13843, -56.17285, 190.13843, 782.82715, -181.86157, 536.82715, -862.8616, 766.82715, -340.86157, 214.82715, 119.13843, -211.17285)
@@ -427,9 +434,128 @@ position = Vector2(776.57227, -1183.2238)
 build_mode = 1
 polygon = PackedVector2Array(-554.57227, -117.776245, -596.57227, -30.776245, -351.57227, -7.776245, -162.57227, 154.22375, 296.42773, 170.22375, 722.42773, -45.776245, 990.42773, 21.223755, 1107.4277, 96.223755, 1094.4277, -87.776245)
 
-[node name="Marker2D" parent="StartPositions" parent_id_path=PackedInt32Array(1211222828) index="0" unique_id=751285506]
-position = Vector2(-409, 1140)
+[node name="Marker2D" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="0" unique_id=1476183870]
+position = Vector2(-240, 1140)
+
+[node name="Marker2D2" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="1" unique_id=341104590]
+position = Vector2(1461, 1144)
+
+[node name="Marker2D3" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="2" unique_id=954036921]
+position = Vector2(1718, 901)
+
+[node name="Marker2D4" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="3" unique_id=1382706229]
+position = Vector2(1677, 662)
+
+[node name="Marker2D5" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="4" unique_id=164897136]
+position = Vector2(1498, 556)
+
+[node name="Marker2D6" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="5" unique_id=1046262367]
+position = Vector2(1273, 630)
+
+[node name="Marker2D7" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="6" unique_id=27547129]
+position = Vector2(1098, 704)
+
+[node name="Marker2D8" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="7" unique_id=1185633120]
+position = Vector2(519, 672)
+
+[node name="Marker2D9" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="8" unique_id=184871681]
+position = Vector2(1724, -716)
+
+[node name="Marker2D10" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="9" unique_id=1928168439]
+position = Vector2(1687, -936)
+
+[node name="Marker2D11" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="10" unique_id=1954441250]
+position = Vector2(1577, -997)
+
+[node name="Marker2D12" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="11" unique_id=1600859752]
+position = Vector2(1222, -826)
+
+[node name="Marker2D13" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="12" unique_id=2001427020]
+position = Vector2(653, -814)
+
+[node name="Marker2D14" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="13" unique_id=877588218]
+position = Vector2(286, -1040)
+
+[node name="Marker2D15" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="14" unique_id=1130030995]
+position = Vector2(-968, 495)
+
+[node name="Marker2D16" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="15" unique_id=422578543]
+position = Vector2(-1494, -1126)
+
+[node name="Marker2D17" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="16" unique_id=887130405]
+position = Vector2(-1696, -1120)
+
+[node name="Marker2D18" type="Marker2D" parent="Waypoints" parent_id_path=PackedInt32Array(82638343) index="17" unique_id=230669116]
+position = Vector2(-1708, 1143)
+
+[node name="StartPositions" parent="." index="3" unique_id=1211222828]
+position = Vector2(-8, 0)
+
+[node name="Marker2D" parent="StartPositions" index="0" unique_id=751285506]
+position = Vector2(-280, 1200)
 rotation = 1.5707964
+
+[node name="ColorRect" type="ColorRect" parent="StartPositions/Marker2D" index="0" unique_id=285310259]
+offset_left = -19.000002
+offset_top = -30.0
+offset_right = 20.999998
+offset_bottom = 10.0
+scale = Vector2(0.9848194, 0.16842715)
+
+[node name="Marker2D2" type="Marker2D" parent="StartPositions" index="1" unique_id=1026378815]
+position = Vector2(-280, 1080)
+rotation = 1.5707964
+
+[node name="ColorRect" type="ColorRect" parent="StartPositions/Marker2D2" index="0" unique_id=746020093]
+offset_left = -19.000002
+offset_top = -30.0
+offset_right = 20.999998
+offset_bottom = 10.0
+scale = Vector2(0.9848194, 0.16842715)
+
+[node name="Marker2D3" type="Marker2D" parent="StartPositions" index="2" unique_id=977112299]
+position = Vector2(-380, 1200)
+rotation = 1.5707964
+
+[node name="ColorRect" type="ColorRect" parent="StartPositions/Marker2D3" index="0" unique_id=238002238]
+offset_left = -19.000002
+offset_top = -30.0
+offset_right = 20.999998
+offset_bottom = 10.0
+scale = Vector2(0.9848194, 0.16842715)
+
+[node name="Marker2D4" type="Marker2D" parent="StartPositions" index="3" unique_id=2083671962]
+position = Vector2(-380, 1080)
+rotation = 1.5707964
+
+[node name="ColorRect" type="ColorRect" parent="StartPositions/Marker2D4" index="0" unique_id=1427382612]
+offset_left = -19.000002
+offset_top = -30.0
+offset_right = 20.999998
+offset_bottom = 10.0
+scale = Vector2(0.9848194, 0.16842715)
+
+[node name="Marker2D5" type="Marker2D" parent="StartPositions" index="4" unique_id=94174160]
+position = Vector2(-480, 1080)
+rotation = 1.5707964
+
+[node name="ColorRect" type="ColorRect" parent="StartPositions/Marker2D5" index="0" unique_id=1927324258]
+offset_left = -19.000002
+offset_top = -30.0
+offset_right = 20.999998
+offset_bottom = 10.0
+scale = Vector2(0.9848194, 0.16842715)
+
+[node name="Marker2D6" type="Marker2D" parent="StartPositions" index="5" unique_id=1782223256]
+position = Vector2(-480, 1200)
+rotation = 1.5707964
+
+[node name="ColorRect" type="ColorRect" parent="StartPositions/Marker2D6" index="0" unique_id=85179801]
+offset_left = -19.000002
+offset_top = -30.0
+offset_right = 20.999998
+offset_bottom = 10.0
+scale = Vector2(0.9848194, 0.16842715)
 
 [node name="Checkpoint" parent="Checkpoints" parent_id_path=PackedInt32Array(1279138388) index="0" unique_id=461042340]
 position = Vector2(-179, 1173)

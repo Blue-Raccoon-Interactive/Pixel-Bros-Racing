@@ -51,6 +51,19 @@ func get_start_positions() -> Array[Marker2D]:
 	return result
 
 
+## Waypoints da IA (Marker2D dentro de 'Waypoints'), na ordem do percurso.
+func get_waypoints() -> Array[Marker2D]:
+	var result: Array[Marker2D] = []
+	var container: Node = get_node_or_null("Waypoints")
+	if container == null:
+		return result
+
+	for child in container.get_children():
+		if child is Marker2D:
+			result.append(child)
+	return result
+
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings := PackedStringArray()
 
