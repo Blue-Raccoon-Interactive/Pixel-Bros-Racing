@@ -33,9 +33,9 @@ Main (cena da corrida)
 ├── pista (TileMapLayer do chão)
 ├── DriftMarks          <- container das marcas (no mundo)
 └── Kart
-    ├── AnimatedSprite2D (o kart 32x32)
-    ├── RearWheelLeft   <- âncora do pneu traseiro esquerdo
-    └── RearWheelRight  <- âncora do pneu traseiro direito
+	├── AnimatedSprite2D (o kart 32x32)
+	├── RearWheelLeft   <- âncora do pneu traseiro esquerdo
+	└── RearWheelRight  <- âncora do pneu traseiro direito
 ```
 
 ---

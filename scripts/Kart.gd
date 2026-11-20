@@ -1,9 +1,7 @@
 class_name Kart
 extends CharacterBody2D
 
-## Caminho da tabela de âncoras usada quando a cena do kart não define os pneus traseiros.
 const DEFAULT_WHEEL_ANCHORS_PATH := "res://assets/effects/drift/kart_wheel_anchors.tres"
-## Caminho da cena padrão do container das marcas.
 const DEFAULT_DRIFT_MARKS_SCENE_PATH := "res://scenes/effects/drift_marks.tscn"
 
 const SFX_COLISAO_KART: AudioStream = preload(
@@ -13,138 +11,62 @@ const SFX_COLISAO_BARREIRA: AudioStream = preload(
 	"res://sound/sfx/impacts/colisao_barreira_pista.wav"
 )
 
+@export_group("Identidade")
+@export var kart_name: String = "Kart"
+@export var archetype: String = "Equilibrado"
+@export var kart_sprite_texture: Texture2D
+
+@export_group("Fisica e Dirigibilidade")
+@export var max_speed: float = 400.0
+@export var acceleration: float = 350.0
+@export var brake_force: float = 400.0
+@export var reverse_max_speed: float = 150.0
+@export var rotation_speed: float = 3.5
+@export var friction: float = 160.0
+@export var grip: float = 800.0
+@export var steer_full_speed: float = 120.0
+@export var wall_speed_factor: float = 0.8
+
+@export_group("Colisao entre Karts")
+@export var kart_bump_impulse: float = 65.0
+@export_range(0.0, 0.8, 0.02) var kart_restitution: float = 0.16
+@export var kart_continuous_push: float = 220.0
+@export var bump_damping: float = 1050.0
+@export_range(0.05, 1.0, 0.05) var post_collision_grip_scale: float = 0.42
+@export var post_collision_grip_duration: float = 0.10
+
+@export_group("Rastros de pneu")
+@export var drift_detector: DriftDetector
+@export var wheel_anchors: KartWheelAnchors
+@export var rear_wheel_left: Vector2 = Vector2(-11.0, 11.0)
+@export var rear_wheel_right: Vector2 = Vector2(11.0, 11.0)
+@export_range(1.0, 64.0, 0.5) var drift_mark_spacing: float = 8.0
+@export var drift_default_surface: StringName = &"asphalt"
+@export var drift_marks_scene: PackedScene
+
+@export_group("Audio Tuning")
+@export var idle_pitch: float = 0.80
+@export var max_pitch: float = 2.0
+@export var engine_brake_pitch: float = 0.75
+@export var brake_threshold: float = 120.0
+
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var engine_audio: AudioStreamPlayer2D = $EngineAudio
 @onready var brake_audio: AudioStreamPlayer2D = $BrakeAudio
 
-@export_group("Audio Tuning")
-@export var idle_pitch: float = 0.80           # Tom do motor em marcha lenta (parado)
-@export var max_pitch: float = 2.0             # Tom do motor na velocidade máxima
-@export var engine_brake_pitch: float = 0.75   # Tom grave simulando o freio-motor
-@export var brake_threshold: float = 120.0     # Velocidade lateral mínima para chiar nas curvas
-
-## Nome identificador do kart.
-@export var kart_name: String = "Kart"
-## Arquétipo ou categoria de estilo de pilotagem.
-@export var archetype: String = "Equilibrado"
-## Caminho do sprite ou textura representativa do kart no menu.
-@export var kart_sprite_texture: Texture2D
-
-## Velocidade máxima para frente em pixels por segundo.
-@export var max_speed: float = 400.0
-## Aceleração gradual para frente.
-@export var acceleration: float = 350.0
-## Força de frenagem / desaceleração ativa ao segurar freio.
-@export var brake_force: float = 400.0
-## Velocidade máxima em marcha ré.
-@export var reverse_max_speed: float = 150.0
-## Velocidade de rotação em torno do próprio eixo.
-@export var rotation_speed: float = 3.5
-## Desaceleração por atrito quando nenhum comando é pressionado.
-@export var friction: float = 160.0
-## Aderência lateral.
-@export var grip: float = 800.0
-## Velocidade a partir da qual a direção responde por completo.
-@export var steer_full_speed: float = 120.0
-## Fator de velocidade após bater numa parede.
-@export var wall_speed_factor: float = 0.8
-
-@export_group("Rastros de pneu")
-## Detector de derrapagem. Vazio = usa os valores padrão do código.
-@export var drift_detector: DriftDetector
-## Tabela com a posição dos pneus traseiros de cada kart.
-@export var wheel_anchors: KartWheelAnchors
-## Pneu traseiro esquerdo (x, y) no espaço do kart.
-## Usado quando o kart não está na tabela de âncoras.
-@export var rear_wheel_left: Vector2 = Vector2(-11.0, 11.0)
-## Pneu traseiro direito (x, y) no espaço do kart.
-## Usado quando o kart não está na tabela de âncoras.
-@export var rear_wheel_right: Vector2 = Vector2(11.0, 11.0)
-## Distância (px) entre uma marca e a seguinte de cada pneu.
-@export_range(1.0, 64.0, 0.5) var drift_mark_spacing: float = 8.0
-## Superfície usada quando o kart não está em nenhuma zona de piso.
-@export var drift_default_surface: StringName = &"asphalt"
-## Cena do container das marcas. Se a cena da corrida já tiver um, ele é reutilizado.
-@export var drift_marks_scene: PackedScene
-
-## Multiplicador da velocidade máxima conforme o piso.
 var surface_multiplier: float = 1.0
-
-## Zonas de piso (grama etc.) em que o kart está agora.
-var _surface_zones: Array[GrassZone] = []
-
-## Comandos recebidos do controlador.
 var steer_input: float = 0.0
 var throttle_input: float = 0.0
 
+var _surface_zones: Array[GrassZone] = []
 var _was_colliding: bool = false
+var _bump_grip_timer: float = 0.0
+var _external_velocity: Vector2 = Vector2.ZERO
 
-## Container das marcas de pneu (irmão do kart na cena, fica no mundo).
 var _drift_marks: DriftMarks
-## Detector usado na hora de avaliar a derrapagem.
 var _drift_detector: DriftDetector
-## Pneus traseiros deste kart (marcadores na cena ou criados em tempo de execução).
 var _rear_wheels: Array[Marker2D] = []
-## Última marca de cada pneu, para manter o espaçamento constante.
 var _drift_last_positions: Dictionary = {}
-
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-
-
-# Filtro de som de Colisao
-func _play_collision_sound(collision: KinematicCollision2D) -> bool:
-	var collider := collision.get_collider() as Node
-	if collider == null:
-		return false
-
-	var sound: AudioStream
-
-	if collider.is_in_group("race_kart"):
-		# Os dois karts detectam a batida. Esta condição deixa
-		# apenas um deles tocar o som, evitando duplicação.
-		if get_instance_id() > collider.get_instance_id():
-			return false
-		sound = SFX_COLISAO_KART
-	elif collider.is_in_group("colisao_barreira"):
-		sound = SFX_COLISAO_BARREIRA
-	else:
-		return false
-
-	var player := AudioStreamPlayer2D.new()
-	player.stream = sound
-	player.bus = "SFX"
-	add_child(player)
-	player.finished.connect(player.queue_free)
-	player.play()
-
-	return true
-
-
-## Recebe os comandos do jogador ou da IA.
-func set_controls(steering: float, throttle: float) -> void:
-	steer_input = clampf(steering, -1.0, 1.0)
-	throttle_input = clampf(throttle, -1.0, 1.0)
-
-
-## Chamado pelas zonas de piso quando o kart entra.
-func enter_surface(zone: GrassZone) -> void:
-	if not _surface_zones.has(zone):
-		_surface_zones.append(zone)
-	_update_surface_multiplier()
-
-
-## Chamado pelas zonas de piso quando o kart sai.
-func exit_surface(zone: GrassZone) -> void:
-	_surface_zones.erase(zone)
-	_update_surface_multiplier()
-
-
-# Vale a zona mais lenta; sem zona nenhuma, velocidade normal.
-func _update_surface_multiplier() -> void:
-	var result: float = 1.0
-	for zone in _surface_zones:
-		if is_instance_valid(zone):
-			result = minf(result, zone.multiplier)
-	surface_multiplier = result
 
 
 func _ready() -> void:
@@ -156,17 +78,163 @@ func _ready() -> void:
 		engine_audio.play()
 
 
-## Prepara o sistema de rastros: detector, âncoras dos pneus e container de marcas.
+func _physics_process(delta: float) -> void:
+	_step_physics(delta)
+
+	var forward: Vector2 = Vector2.UP.rotated(rotation)
+	var right: Vector2 = Vector2.RIGHT.rotated(rotation)
+	_update_drift_marks(forward, right)
+	_update_animation(forward)
+	_update_audio(delta, forward, right)
+
+
+# --- Controles e Superfícies ---
+
+func set_controls(steering: float, throttle: float) -> void:
+	steer_input = clampf(steering, -1.0, 1.0)
+	throttle_input = clampf(throttle, -1.0, 1.0)
+
+
+func enter_surface(zone: GrassZone) -> void:
+	if not _surface_zones.has(zone):
+		_surface_zones.append(zone)
+	_update_surface_multiplier()
+
+
+func exit_surface(zone: GrassZone) -> void:
+	_surface_zones.erase(zone)
+	_update_surface_multiplier()
+
+
+func get_surface_name() -> StringName:
+	var slowest: GrassZone = null
+	for zone in _surface_zones:
+		if not is_instance_valid(zone):
+			continue
+		if slowest == null or zone.multiplier < slowest.multiplier:
+			slowest = zone
+	return slowest.surface_name if slowest != null else drift_default_surface
+
+
+func _update_surface_multiplier() -> void:
+	var result: float = 1.0
+	for zone in _surface_zones:
+		if is_instance_valid(zone):
+			result = minf(result, zone.multiplier)
+	surface_multiplier = result
+
+
+# --- Física e Colisões ---
+
+func apply_external_impulse(impulse: Vector2, grip_reduction_time: float = -1.0) -> void:
+	_external_velocity += impulse
+	var duration: float = grip_reduction_time if grip_reduction_time >= 0.0 else post_collision_grip_duration
+	_bump_grip_timer = maxf(_bump_grip_timer, duration)
+
+
+func _step_physics(delta: float) -> void:
+	if _bump_grip_timer > 0.0:
+		_bump_grip_timer = maxf(_bump_grip_timer - delta, 0.0)
+
+	_external_velocity = _external_velocity.move_toward(Vector2.ZERO, bump_damping * delta)
+
+	var forward: Vector2 = Vector2.UP.rotated(rotation)
+	var current_forward_speed: float = velocity.dot(forward)
+	var steer_factor: float = clampf(current_forward_speed / steer_full_speed, -1.0, 1.0)
+	rotation += steer_input * rotation_speed * steer_factor * delta
+
+	forward = Vector2.UP.rotated(rotation)
+	var right: Vector2 = Vector2.RIGHT.rotated(rotation)
+
+	var forward_speed: float = _compute_forward_speed(velocity.dot(forward), delta)
+	var effective_grip: float = grip * (post_collision_grip_scale if _bump_grip_timer > 0.0 else 1.0)
+	var lateral_speed: float = move_toward(velocity.dot(right), 0.0, effective_grip * delta)
+
+	velocity = forward * forward_speed + right * lateral_speed + _external_velocity
+	move_and_slide()
+	_handle_collisions(delta)
+
+
+func _compute_forward_speed(current_speed: float, delta: float) -> float:
+	var speed: float = current_speed
+
+	if throttle_input > 0.0:
+		speed = move_toward(speed, max_speed, acceleration * throttle_input * delta)
+	elif throttle_input < 0.0:
+		speed = move_toward(speed, -reverse_max_speed, brake_force * absf(throttle_input) * delta)
+	else:
+		speed = move_toward(speed, 0.0, friction * delta)
+
+	return clampf(speed, -reverse_max_speed, max_speed * surface_multiplier)
+
+
+func _handle_collisions(delta: float) -> void:
+	var collision_count: int = get_slide_collision_count()
+	var colliding: bool = collision_count > 0
+	var is_new_collision: bool = colliding and not _was_colliding
+
+	var hit_wall: bool = false
+	var played_sound: bool = false
+
+	for i in collision_count:
+		var collision: KinematicCollision2D = get_slide_collision(i)
+		var collider := collision.get_collider() as Node
+
+		if is_new_collision and not played_sound and _play_collision_sound(collision):
+			played_sound = true
+
+		if collider is Kart:
+			_resolve_kart_collision(collision, is_new_collision, delta)
+		elif collider != null and collider.is_in_group("colisao_barreira"):
+			hit_wall = true
+
+	if is_new_collision and hit_wall:
+		velocity *= wall_speed_factor
+
+	_was_colliding = colliding
+
+
+func _resolve_kart_collision(collision: KinematicCollision2D, is_initial_hit: bool, delta: float) -> void:
+	var other_kart := collision.get_collider() as Kart
+	if other_kart == null or not is_instance_valid(other_kart):
+		return
+
+	if get_instance_id() > other_kart.get_instance_id():
+		return
+
+	var to_other: Vector2 = other_kart.global_position - global_position
+	var normal: Vector2 = to_other.normalized() if to_other.length_squared() > 0.0001 else collision.get_normal().normalized()
+	if normal == Vector2.ZERO:
+		normal = Vector2.RIGHT
+
+	var relative_velocity: Vector2 = velocity - other_kart.velocity
+	var closing_speed: float = maxf(relative_velocity.dot(normal), 0.0)
+
+	var my_push_speed: float = maxf(velocity.dot(normal), 0.0)
+	var other_push_speed: float = maxf(-other_kart.velocity.dot(normal), 0.0)
+	var total_push: float = my_push_speed + other_push_speed
+	var other_share: float = 0.70 if total_push <= 0.01 else clampf(my_push_speed / total_push, 0.25, 0.80)
+	var my_share: float = 1.0 - other_share
+
+	if is_initial_hit:
+		var impulse_magnitude: float = closing_speed * kart_restitution + kart_bump_impulse
+		var impulse: Vector2 = normal * impulse_magnitude
+		apply_external_impulse(-impulse * my_share)
+		other_kart.apply_external_impulse(impulse * other_share)
+	elif closing_speed > 5.0:
+		var push_step: Vector2 = normal * (kart_continuous_push * delta)
+		apply_external_impulse(-push_step * my_share, 0.06)
+		other_kart.apply_external_impulse(push_step * other_share, 0.06)
+
+
+# --- Rastros de Pneu ---
+
 func _setup_drift() -> void:
 	_drift_detector = drift_detector if drift_detector != null else DriftDetector.new()
 	_rear_wheels = _resolve_rear_wheels()
-	# O container das marcas é criado depois que a cena termina de montar:
-	# durante o _ready o pai ainda está colocando os filhos e não aceita add_child.
 	_create_drift_marks_container.call_deferred()
 
 
-## Descobre onde ficam os pneus traseiros deste kart.
-## Prioridade: marcadores na cena > tabela de âncoras > valores do inspetor.
 func _resolve_rear_wheels() -> Array[Marker2D]:
 	var markers: Array[Marker2D] = []
 	for child in get_children():
@@ -176,20 +244,19 @@ func _resolve_rear_wheels() -> Array[Marker2D]:
 		markers.sort_custom(func(a: Marker2D, b: Marker2D) -> bool: return a.name < b.name)
 		return markers
 
-	# Sem marcadores na cena: procura o kart pelo nome na tabela de âncoras.
 	var anchors: KartWheelAnchors = wheel_anchors
 	if anchors == null:
 		anchors = load(DEFAULT_WHEEL_ANCHORS_PATH) as KartWheelAnchors
 	var table: Array[Vector2] = [] if anchors == null else anchors.get_anchors(StringName(kart_name))
 	var left: Vector2 = table[0] if table.size() == 2 else rear_wheel_left
 	var right: Vector2 = table[1] if table.size() == 2 else rear_wheel_right
+
 	return [
 		_make_wheel_marker("RearWheelLeft", left),
 		_make_wheel_marker("RearWheelRight", right),
 	]
 
 
-## Cria um marcador de pneu em tempo de execução.
 func _make_wheel_marker(marker_name: String, marker_position: Vector2) -> Marker2D:
 	var marker := Marker2D.new()
 	marker.name = marker_name
@@ -198,8 +265,6 @@ func _make_wheel_marker(marker_name: String, marker_position: Vector2) -> Marker
 	return marker
 
 
-## Cria (ou reaproveita) o container das marcas. Ele precisa ser irmão do kart
-## na cena: assim as marcas ficam no chão e não acompanham o veículo nem a câmera.
 func _create_drift_marks_container() -> void:
 	if not is_inside_tree():
 		return
@@ -212,35 +277,20 @@ func _create_drift_marks_container() -> void:
 			_drift_marks = child
 			return
 
-	var scene: PackedScene = drift_marks_scene
-	if scene == null:
-		scene = load(DEFAULT_DRIFT_MARKS_SCENE_PATH) as PackedScene
+	var scene: PackedScene = drift_marks_scene if drift_marks_scene != null else load(DEFAULT_DRIFT_MARKS_SCENE_PATH) as PackedScene
 	if scene == null:
 		return
-	var marks: DriftMarks = scene.instantiate() as DriftMarks
+
+	var marks := scene.instantiate() as DriftMarks
 	if marks == null:
 		push_warning("Kart: a cena de rastros de pneu não tem o script DriftMarks.")
 		return
+
 	parent.add_child(marks)
-	# Antes do kart: as marcas ficam entre a pista e o veículo.
 	parent.move_child(marks, get_index())
 	_drift_marks = marks
 
 
-## Superfície atual do kart (vale a mais lenta em que ele está).
-func get_surface_name() -> StringName:
-	var slowest: GrassZone = null
-	for zone in _surface_zones:
-		if not is_instance_valid(zone):
-			continue
-		if slowest == null or zone.multiplier < slowest.multiplier:
-			slowest = zone
-	if slowest != null:
-		return slowest.surface_name
-	return drift_default_surface
-
-
-## Lê o estado do drift e coloca as marcas dos pneus traseiros.
 func _update_drift_marks(forward: Vector2, right: Vector2) -> void:
 	if _drift_marks == null or _drift_detector == null:
 		return
@@ -255,7 +305,6 @@ func _update_drift_marks(forward: Vector2, right: Vector2) -> void:
 		_place_mark(wheel, surface, state.intensity)
 
 
-## Coloca uma marca do pneu a `drift_mark_spacing` da anterior, no caminho do pneu.
 func _place_mark(wheel: Marker2D, surface: StringName, intensity: float) -> void:
 	var key: int = wheel.get_instance_id()
 	var current: Vector2 = wheel.global_position
@@ -269,190 +318,131 @@ func _place_mark(wheel: Marker2D, surface: StringName, intensity: float) -> void
 	if distance < drift_mark_spacing:
 		return
 
-	# A marca fica exatamente um espaçamento atrás da anterior: o rastro fica
-	# uniforme e nunca há sobreposição, mesmo em alta velocidade.
 	var direction: Vector2 = offset / distance
-	var position: Vector2 = last + direction * drift_mark_spacing
-	_drift_marks.place_mark(position, wheel.global_rotation, surface, intensity, direction)
-	_drift_last_positions[key] = position
+	var mark_position: Vector2 = last + direction * drift_mark_spacing
+	_drift_marks.place_mark(mark_position, wheel.global_rotation, surface, intensity, direction)
+	_drift_last_positions[key] = mark_position
 
 
-# Definir animacoes durante acelerar, feiar e re.
-func update_animation() -> void:
-	var forward: Vector2 = Vector2.UP.rotated(rotation)
+# --- Animação ---
+
+func _update_animation(forward: Vector2) -> void:
+	if animated_sprite == null or animated_sprite.sprite_frames == null:
+		return
+
 	var current_speed: float = velocity.dot(forward)
-
 	var target_animation: String
 	var is_idle: bool = false
 
-	# 1. Prioridade para o volante/pneu esterçando (se você estiver usando essa lógica)
 	if steer_input < -0.2:
 		target_animation = "steering_left"
 	elif steer_input > 0.2:
 		target_animation = "steering_right"
-
-	# 2. Acelerando ativamente
 	elif throttle_input > 0.0:
 		target_animation = "accelerating"
-
-	# 3. Frenagem ativa (jogador apertou para trás / freio)
 	elif throttle_input < 0.0:
 		target_animation = "braking"
-
-	# 4. Soltou o acelerador, mas o carro ainda está embalado (Desacelerando por atrito)
-	elif abs(current_speed) > 10.0 and throttle_input == 0.0:
+	elif absf(current_speed) > 10.0 and is_zero_approx(throttle_input):
 		target_animation = "stopping"
-
-	# 5. Marcha ré (se estiver andando para trás)
 	elif current_speed < -5.0:
 		target_animation = "reverse"
-
-	# 6. Totalmente parado
 	else:
-		target_animation = "reverse" # Ou uma animação "idle" se tiver criado
+		target_animation = "reverse"
 		is_idle = true
 
-	# Kart parado: congela no último frame da frenagem.
+	if not animated_sprite.sprite_frames.has_animation(target_animation):
+		return
+
 	if is_idle:
 		if animated_sprite.animation != target_animation:
 			animated_sprite.play(target_animation)
-
 		animated_sprite.stop()
-		animated_sprite.frame = (
-			animated_sprite.sprite_frames.get_frame_count(target_animation) - 1
-		)
+		animated_sprite.frame = maxi(animated_sprite.sprite_frames.get_frame_count(target_animation) - 1, 0)
 		return
 
-	# Só inicia novamente quando a animação realmente mudar
-	# ou quando estiver parada.
 	if animated_sprite.animation != target_animation:
 		animated_sprite.play(target_animation)
 	elif not animated_sprite.is_playing():
 		animated_sprite.play()
 
 
-func _physics_process(delta: float) -> void:
-	# Direção atual do kart.
-	var forward: Vector2 = Vector2.UP.rotated(rotation)
-	var current_forward_speed: float = velocity.dot(forward)
+# --- Áudio ---
 
-	# Rotação conforme o comando recebido.
-	var steer_factor: float = clampf(
-		current_forward_speed / steer_full_speed, -1.0, 1.0
-	)
-	rotation += steer_input * rotation_speed * steer_factor * delta
+func _play_collision_sound(collision: KinematicCollision2D) -> bool:
+	var collider := collision.get_collider() as Node
+	if collider == null:
+		return false
 
-	# Separa a velocidade em componente frontal e lateral.
-	forward = Vector2.UP.rotated(rotation)
-	var right: Vector2 = Vector2.RIGHT.rotated(rotation)
-	var forward_speed: float = velocity.dot(forward)
-	var lateral_speed: float = velocity.dot(right)
-
-	# Aceleração e frenagem.
-	if throttle_input > 0.0:
-		forward_speed = move_toward(
-			forward_speed,
-			max_speed,
-			acceleration * throttle_input * delta
-		)
-	elif throttle_input < 0.0:
-		forward_speed = move_toward(
-			forward_speed,
-			-reverse_max_speed,
-			brake_force * absf(throttle_input) * delta
-		)
+	var sound: AudioStream
+	if collider.is_in_group("race_kart"):
+		if get_instance_id() > collider.get_instance_id():
+			return false
+		sound = SFX_COLISAO_KART
+	elif collider.is_in_group("colisao_barreira"):
+		sound = SFX_COLISAO_BARREIRA
 	else:
-		forward_speed = move_toward(
-			forward_speed, 0.0, friction * delta
-		)
+		return false
 
-	# Limite de velocidade conforme o piso.
-	forward_speed = clampf(
-		forward_speed,
-		-reverse_max_speed,
-		max_speed * surface_multiplier
-	)
-
-	# Aderência lateral.
-	lateral_speed = move_toward(
-		lateral_speed, 0.0, grip * delta
-	)
-
-	velocity = forward * forward_speed + right * lateral_speed
-	move_and_slide()
-
-	# Perde velocidade uma vez por impacto.
-	var collision_count: int = get_slide_collision_count()
-	var colliding: bool = collision_count > 0
-	if colliding and not _was_colliding:
-		velocity *= wall_speed_factor
-
-		for i in collision_count:
-			if _play_collision_sound(get_slide_collision(i)):
-				break
-
-	_was_colliding = colliding
-
-	_update_drift_marks(forward, right)
-	update_animation()
-	update_audio(delta)
+	var player := AudioStreamPlayer2D.new()
+	player.stream = sound
+	player.bus = "SFX"
+	add_child(player)
+	player.finished.connect(player.queue_free)
+	player.play()
+	return true
 
 
-func update_audio(delta: float) -> void:
-	var forward: Vector2 = Vector2.UP.rotated(rotation)
-	var right: Vector2 = Vector2.RIGHT.rotated(rotation)
-
+func _update_audio(delta: float, forward: Vector2, right: Vector2) -> void:
 	var forward_speed: float = velocity.dot(forward)
-	var abs_speed: float = abs(forward_speed)
-	var lateral_speed: float = abs(velocity.dot(right))
-	var speed_ratio: float = clamp(abs_speed / max_speed, 0.0, 1.0)
-
-	# --- 1. LÓGICA DO FREIO (BrakeAudio) ---
+	var abs_speed: float = absf(forward_speed)
+	var lateral_speed: float = absf(velocity.dot(right))
+	var speed_ratio: float = clampf(abs_speed / max_speed, 0.0, 1.0)
 	var is_braking: bool = throttle_input < 0.0 and forward_speed > 40.0
 
-	if brake_audio and brake_audio.stream:
-		if is_braking:
-			if not brake_audio.playing:
-				# Inicia direto com um volume bom e audível (sem nascer abafado)
-				brake_audio.volume_db = -2.0
-				brake_audio.play()
+	_update_brake_audio(delta, is_braking, lateral_speed)
+	_update_engine_audio(delta, forward_speed, abs_speed, speed_ratio, is_braking)
 
-			# Mantém em um nível forte e presente (0 dB)
-			brake_audio.volume_db = move_toward(brake_audio.volume_db, 0.0, 80.0 * delta)
-		else:
-			# Ao soltar, abaixa rápido e desliga
-			brake_audio.volume_db = move_toward(brake_audio.volume_db, -40.0, 100.0 * delta)
-			if brake_audio.volume_db <= -38.0 and brake_audio.playing:
-				brake_audio.stop()
 
-	# --- 2. LÓGICA DO MOTOR (EngineAudio) ---
+func _update_brake_audio(delta: float, is_braking: bool, _lateral_speed: float) -> void:
+	if brake_audio == null or brake_audio.stream == null:
+		return
+
+	if is_braking:
+		if not brake_audio.playing:
+			brake_audio.volume_db = -2.0
+			brake_audio.play()
+		brake_audio.volume_db = move_toward(brake_audio.volume_db, 0.0, 80.0 * delta)
+	else:
+		brake_audio.volume_db = move_toward(brake_audio.volume_db, -40.0, 100.0 * delta)
+		if brake_audio.volume_db <= -38.0 and brake_audio.playing:
+			brake_audio.stop()
+
+
+func _update_engine_audio(
+	delta: float,
+	forward_speed: float,
+	abs_speed: float,
+	speed_ratio: float,
+	is_braking: bool
+) -> void:
+	if engine_audio == null:
+		return
+
 	var target_pitch: float = idle_pitch
 	var target_volume: float = -18.0
 
 	if throttle_input > 0.0:
-		# ACELERANDO PARA FRENTE
-		target_pitch = lerp(idle_pitch, max_pitch, speed_ratio)
+		target_pitch = lerpf(idle_pitch, max_pitch, speed_ratio)
 		target_volume = 0.0
-
 	elif is_braking:
-		# FREANDO: Motor vai para o freio-motor e dá uma abafada suave (-16.0 dB) para destacar o freio
 		target_pitch = engine_brake_pitch
 		target_volume = -16.0
-
 	elif throttle_input < 0.0 and forward_speed <= 10.0:
-		# MARCHA RÉ
 		target_pitch = 0.6
 		target_volume = -12.0
-
-	elif throttle_input == 0.0 and abs_speed > 80.0:
-		# FREIO-MOTOR (soltou o acelerador)
+	elif is_zero_approx(throttle_input) and abs_speed > 80.0:
 		target_pitch = engine_brake_pitch
 		target_volume = -12.0
 
-	else:
-		# PARADO
-		target_pitch = idle_pitch
-		target_volume = -18.0
-
-	engine_audio.pitch_scale = clamp(move_toward(engine_audio.pitch_scale, target_pitch, 6.0 * delta), 0.1, 4.0)
+	engine_audio.pitch_scale = clampf(move_toward(engine_audio.pitch_scale, target_pitch, 6.0 * delta), 0.1, 4.0)
 	engine_audio.volume_db = move_toward(engine_audio.volume_db, target_volume, 15.0 * delta)
