@@ -1,6 +1,10 @@
-
 class_name Kart
 extends CharacterBody2D
+
+## Caminho da tabela de âncoras usada quando a cena do kart não define os pneus traseiros.
+const DEFAULT_WHEEL_ANCHORS_PATH := "res://assets/effects/drift/kart_wheel_anchors.tres"
+## Caminho da cena padrão do container das marcas.
+const DEFAULT_DRIFT_MARKS_SCENE_PATH := "res://scenes/effects/drift_marks.tscn"
 
 const SFX_COLISAO_KART: AudioStream = preload(
 	"res://sound/sfx/impacts/colisao_karts.wav"
@@ -11,8 +15,6 @@ const SFX_COLISAO_BARREIRA: AudioStream = preload(
 
 @onready var engine_audio: AudioStreamPlayer2D = $EngineAudio
 @onready var brake_audio: AudioStreamPlayer2D = $BrakeAudio
-
-
 
 @export_group("Audio Tuning")
 @export var idle_pitch: float = 0.80           # Tom do motor em marcha lenta (parado)
@@ -46,6 +48,24 @@ const SFX_COLISAO_BARREIRA: AudioStream = preload(
 ## Fator de velocidade após bater numa parede.
 @export var wall_speed_factor: float = 0.8
 
+@export_group("Rastros de pneu")
+## Detector de derrapagem. Vazio = usa os valores padrão do código.
+@export var drift_detector: DriftDetector
+## Tabela com a posição dos pneus traseiros de cada kart.
+@export var wheel_anchors: KartWheelAnchors
+## Pneu traseiro esquerdo (x, y) no espaço do kart.
+## Usado quando o kart não está na tabela de âncoras.
+@export var rear_wheel_left: Vector2 = Vector2(-11.0, 11.0)
+## Pneu traseiro direito (x, y) no espaço do kart.
+## Usado quando o kart não está na tabela de âncoras.
+@export var rear_wheel_right: Vector2 = Vector2(11.0, 11.0)
+## Distância (px) entre uma marca e a seguinte de cada pneu.
+@export_range(1.0, 64.0, 0.5) var drift_mark_spacing: float = 8.0
+## Superfície usada quando o kart não está em nenhuma zona de piso.
+@export var drift_default_surface: StringName = &"asphalt"
+## Cena do container das marcas. Se a cena da corrida já tiver um, ele é reutilizado.
+@export var drift_marks_scene: PackedScene
+
 ## Multiplicador da velocidade máxima conforme o piso.
 var surface_multiplier: float = 1.0
 
@@ -58,9 +78,19 @@ var throttle_input: float = 0.0
 
 var _was_colliding: bool = false
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D;
+## Container das marcas de pneu (irmão do kart na cena, fica no mundo).
+var _drift_marks: DriftMarks
+## Detector usado na hora de avaliar a derrapagem.
+var _drift_detector: DriftDetector
+## Pneus traseiros deste kart (marcadores na cena ou criados em tempo de execução).
+var _rear_wheels: Array[Marker2D] = []
+## Última marca de cada pneu, para manter o espaçamento constante.
+var _drift_last_positions: Dictionary = {}
 
-#Filtro de som de Colisao
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+
+# Filtro de som de Colisao
 func _play_collision_sound(collision: KinematicCollision2D) -> bool:
 	var collider := collision.get_collider() as Node
 	if collider == null:
@@ -93,8 +123,9 @@ func _play_collision_sound(collision: KinematicCollision2D) -> bool:
 func set_controls(steering: float, throttle: float) -> void:
 	steer_input = clampf(steering, -1.0, 1.0)
 	throttle_input = clampf(throttle, -1.0, 1.0)
-	
-	## Chamado pelas zonas de piso quando o kart entra.
+
+
+## Chamado pelas zonas de piso quando o kart entra.
 func enter_surface(zone: GrassZone) -> void:
 	if not _surface_zones.has(zone):
 		_surface_zones.append(zone)
@@ -119,12 +150,134 @@ func _update_surface_multiplier() -> void:
 func _ready() -> void:
 	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	add_to_group("race_kart")
-	
-	if engine_audio.stream:
+	_setup_drift()
+
+	if engine_audio and engine_audio.stream:
 		engine_audio.play()
 
-# Definir animacoes durante acelerar, feiar e re.
 
+## Prepara o sistema de rastros: detector, âncoras dos pneus e container de marcas.
+func _setup_drift() -> void:
+	_drift_detector = drift_detector if drift_detector != null else DriftDetector.new()
+	_rear_wheels = _resolve_rear_wheels()
+	# O container das marcas é criado depois que a cena termina de montar:
+	# durante o _ready o pai ainda está colocando os filhos e não aceita add_child.
+	_create_drift_marks_container.call_deferred()
+
+
+## Descobre onde ficam os pneus traseiros deste kart.
+## Prioridade: marcadores na cena > tabela de âncoras > valores do inspetor.
+func _resolve_rear_wheels() -> Array[Marker2D]:
+	var markers: Array[Marker2D] = []
+	for child in get_children():
+		if child is Marker2D and (child.name == "RearWheelLeft" or child.name == "RearWheelRight"):
+			markers.append(child)
+	if markers.size() >= 2:
+		markers.sort_custom(func(a: Marker2D, b: Marker2D) -> bool: return a.name < b.name)
+		return markers
+
+	# Sem marcadores na cena: procura o kart pelo nome na tabela de âncoras.
+	var anchors: KartWheelAnchors = wheel_anchors
+	if anchors == null:
+		anchors = load(DEFAULT_WHEEL_ANCHORS_PATH) as KartWheelAnchors
+	var table: Array[Vector2] = [] if anchors == null else anchors.get_anchors(StringName(kart_name))
+	var left: Vector2 = table[0] if table.size() == 2 else rear_wheel_left
+	var right: Vector2 = table[1] if table.size() == 2 else rear_wheel_right
+	return [
+		_make_wheel_marker("RearWheelLeft", left),
+		_make_wheel_marker("RearWheelRight", right),
+	]
+
+
+## Cria um marcador de pneu em tempo de execução.
+func _make_wheel_marker(marker_name: String, marker_position: Vector2) -> Marker2D:
+	var marker := Marker2D.new()
+	marker.name = marker_name
+	marker.position = marker_position
+	add_child(marker)
+	return marker
+
+
+## Cria (ou reaproveita) o container das marcas. Ele precisa ser irmão do kart
+## na cena: assim as marcas ficam no chão e não acompanham o veículo nem a câmera.
+func _create_drift_marks_container() -> void:
+	if not is_inside_tree():
+		return
+	var parent: Node = get_parent()
+	if parent == null:
+		return
+
+	for child in parent.get_children():
+		if child is DriftMarks:
+			_drift_marks = child
+			return
+
+	var scene: PackedScene = drift_marks_scene
+	if scene == null:
+		scene = load(DEFAULT_DRIFT_MARKS_SCENE_PATH) as PackedScene
+	if scene == null:
+		return
+	var marks: DriftMarks = scene.instantiate() as DriftMarks
+	if marks == null:
+		push_warning("Kart: a cena de rastros de pneu não tem o script DriftMarks.")
+		return
+	parent.add_child(marks)
+	# Antes do kart: as marcas ficam entre a pista e o veículo.
+	parent.move_child(marks, get_index())
+	_drift_marks = marks
+
+
+## Superfície atual do kart (vale a mais lenta em que ele está).
+func get_surface_name() -> StringName:
+	var slowest: GrassZone = null
+	for zone in _surface_zones:
+		if not is_instance_valid(zone):
+			continue
+		if slowest == null or zone.multiplier < slowest.multiplier:
+			slowest = zone
+	if slowest != null:
+		return slowest.surface_name
+	return drift_default_surface
+
+
+## Lê o estado do drift e coloca as marcas dos pneus traseiros.
+func _update_drift_marks(forward: Vector2, right: Vector2) -> void:
+	if _drift_marks == null or _drift_detector == null:
+		return
+
+	var state: DriftDetector.State = _drift_detector.evaluate(velocity, forward, right, steer_input)
+	if not state.drifting:
+		_drift_last_positions.clear()
+		return
+
+	var surface: StringName = get_surface_name()
+	for wheel in _rear_wheels:
+		_place_mark(wheel, surface, state.intensity)
+
+
+## Coloca uma marca do pneu a `drift_mark_spacing` da anterior, no caminho do pneu.
+func _place_mark(wheel: Marker2D, surface: StringName, intensity: float) -> void:
+	var key: int = wheel.get_instance_id()
+	var current: Vector2 = wheel.global_position
+	if not _drift_last_positions.has(key):
+		_drift_last_positions[key] = current
+		return
+
+	var last: Vector2 = _drift_last_positions[key]
+	var offset: Vector2 = current - last
+	var distance: float = offset.length()
+	if distance < drift_mark_spacing:
+		return
+
+	# A marca fica exatamente um espaçamento atrás da anterior: o rastro fica
+	# uniforme e nunca há sobreposição, mesmo em alta velocidade.
+	var direction: Vector2 = offset / distance
+	var position: Vector2 = last + direction * drift_mark_spacing
+	_drift_marks.place_mark(position, wheel.global_rotation, surface, intensity, direction)
+	_drift_last_positions[key] = position
+
+
+# Definir animacoes durante acelerar, feiar e re.
 func update_animation() -> void:
 	var forward: Vector2 = Vector2.UP.rotated(rotation)
 	var current_speed: float = velocity.dot(forward)
@@ -137,23 +290,23 @@ func update_animation() -> void:
 		target_animation = "steering_left"
 	elif steer_input > 0.2:
 		target_animation = "steering_right"
-		
+
 	# 2. Acelerando ativamente
 	elif throttle_input > 0.0:
 		target_animation = "accelerating"
-		
+
 	# 3. Frenagem ativa (jogador apertou para trás / freio)
 	elif throttle_input < 0.0:
 		target_animation = "braking"
-		
+
 	# 4. Soltou o acelerador, mas o carro ainda está embalado (Desacelerando por atrito)
 	elif abs(current_speed) > 10.0 and throttle_input == 0.0:
 		target_animation = "stopping"
-		
+
 	# 5. Marcha ré (se estiver andando para trás)
 	elif current_speed < -5.0:
 		target_animation = "reverse"
-		
+
 	# 6. Totalmente parado
 	else:
 		target_animation = "reverse" # Ou uma animação "idle" se tiver criado
@@ -230,39 +383,40 @@ func _physics_process(delta: float) -> void:
 
 	# Perde velocidade uma vez por impacto.
 	var collision_count: int = get_slide_collision_count()
-	var colliding: bool = get_slide_collision_count() > 0
+	var colliding: bool = collision_count > 0
 	if colliding and not _was_colliding:
 		velocity *= wall_speed_factor
-		
+
 		for i in collision_count:
 			if _play_collision_sound(get_slide_collision(i)):
 				break
-		
+
 	_was_colliding = colliding
-	
-	
+
+	_update_drift_marks(forward, right)
 	update_animation()
 	update_audio(delta)
-	
+
+
 func update_audio(delta: float) -> void:
 	var forward: Vector2 = Vector2.UP.rotated(rotation)
 	var right: Vector2 = Vector2.RIGHT.rotated(rotation)
-	
+
 	var forward_speed: float = velocity.dot(forward)
 	var abs_speed: float = abs(forward_speed)
 	var lateral_speed: float = abs(velocity.dot(right))
 	var speed_ratio: float = clamp(abs_speed / max_speed, 0.0, 1.0)
-	
+
 	# --- 1. LÓGICA DO FREIO (BrakeAudio) ---
 	var is_braking: bool = throttle_input < 0.0 and forward_speed > 40.0
-	
+
 	if brake_audio and brake_audio.stream:
 		if is_braking:
 			if not brake_audio.playing:
 				# Inicia direto com um volume bom e audível (sem nascer abafado)
-				brake_audio.volume_db = -2.0 
+				brake_audio.volume_db = -2.0
 				brake_audio.play()
-			
+
 			# Mantém em um nível forte e presente (0 dB)
 			brake_audio.volume_db = move_toward(brake_audio.volume_db, 0.0, 80.0 * delta)
 		else:
@@ -274,27 +428,27 @@ func update_audio(delta: float) -> void:
 	# --- 2. LÓGICA DO MOTOR (EngineAudio) ---
 	var target_pitch: float = idle_pitch
 	var target_volume: float = -18.0
-	
+
 	if throttle_input > 0.0:
 		# ACELERANDO PARA FRENTE
 		target_pitch = lerp(idle_pitch, max_pitch, speed_ratio)
 		target_volume = 0.0
-		
+
 	elif is_braking:
 		# FREANDO: Motor vai para o freio-motor e dá uma abafada suave (-16.0 dB) para destacar o freio
 		target_pitch = engine_brake_pitch
-		target_volume = -16.0  
-		
+		target_volume = -16.0
+
 	elif throttle_input < 0.0 and forward_speed <= 10.0:
 		# MARCHA RÉ
 		target_pitch = 0.6
 		target_volume = -12.0
-		
+
 	elif throttle_input == 0.0 and abs_speed > 80.0:
 		# FREIO-MOTOR (soltou o acelerador)
 		target_pitch = engine_brake_pitch
 		target_volume = -12.0
-		
+
 	else:
 		# PARADO
 		target_pitch = idle_pitch
