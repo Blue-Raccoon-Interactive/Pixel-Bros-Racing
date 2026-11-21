@@ -40,9 +40,15 @@ const COLOR_TEXT_MUTED := Color("#b8c0e0")
 @onready var menu_button: Button = $ResultsPanel/MarginContainer/MainVBox/ButtonsRow/MenuButtom
 @onready var ui_click_audio: AudioStreamPlayer = $UiClickAudio
 
+@onready var options_button: Button = $OptionsButton
+@onready var options_menu: OptionsMenu = $OptionsMenu
+
+var _previous_mouse_mode: Input.MouseMode = Input.MOUSE_MODE_VISIBLE
+
 
 func _ready() -> void:
 	_apply_pixel_design()
+	_setup_options() # antes do return de baixo, senão não roda sem race_manager
 
 	if ui_click_audio != null:
 		ui_click_audio.bus = "SFX"
@@ -67,6 +73,37 @@ func _ready() -> void:
 	race_manager.race_finished.connect(_on_race_finished)
 	race_manager.finish_results_opened.connect(_on_finish_results_opened)
 	race_manager.finish_results_updated.connect(_on_finish_results_updated)
+
+
+func _setup_options() -> void:
+	# Precisam continuar funcionando com a árvore pausada.
+	options_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	options_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	_style_action_button(options_button, false)
+	options_button.custom_minimum_size = Vector2(48, 44)
+	options_button.size_flags_horizontal = Control.SIZE_SHRINK_END
+
+	options_menu.hide()
+	options_button.pressed.connect(_open_options)
+	options_menu.closed.connect(_close_options)
+
+
+func _open_options() -> void:
+	if results_panel != null and results_panel.visible:
+		return
+	if options_menu.visible:
+		return
+	_previous_mouse_mode = Input.mouse_mode
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	options_menu.show()
+	get_tree().paused = true
+
+
+func _close_options() -> void:
+	options_menu.hide()
+	get_tree().paused = false
+	Input.mouse_mode = _previous_mouse_mode
 
 
 func _play_ui_sound(sound: AudioStream) -> void:
@@ -192,6 +229,7 @@ func _on_race_finished() -> void:
 	if countdown_label != null:
 		countdown_label.text = ""
 		countdown_label.visible = false
+	_hide_options_ui()
 
 
 func _on_finish_results_opened(finished_karts: Array[Kart]) -> void:
@@ -199,6 +237,7 @@ func _on_finish_results_opened(finished_karts: Array[Kart]) -> void:
 		lap_label.visible = false
 	if position_label != null:
 		position_label.visible = false
+	_hide_options_ui()
 
 	_set_buttons_disabled(false)
 	_render_finished_list(finished_karts)
@@ -209,6 +248,14 @@ func _on_finish_results_opened(finished_karts: Array[Kart]) -> void:
 		results_panel.modulate.a = 0.0
 		var tween := create_tween()
 		tween.tween_property(results_panel, "modulate:a", 1.0, 0.2)
+
+
+## Esconde o botão de opções (e fecha o menu, se estiver aberto) quando a corrida acaba.
+func _hide_options_ui() -> void:
+	if options_menu.visible:
+		options_menu.hide()
+		get_tree().paused = false
+	options_button.hide()
 
 
 func _on_finish_results_updated(finished_karts: Array[Kart]) -> void:

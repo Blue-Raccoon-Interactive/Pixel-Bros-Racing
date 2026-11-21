@@ -25,5 +25,7 @@ script = ExtResource("2_1lauk")
 kart = NodePath("..")
 
 [node name="EngineAudio" type="AudioStreamPlayer2D" parent="." unique_id=204332756]
+bus = &"SFX"
 
 [node name="BrakeAudio" type="AudioStreamPlayer2D" parent="." unique_id=1660261047]
+bus = &"SFX"
