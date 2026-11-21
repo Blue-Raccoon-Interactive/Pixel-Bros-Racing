@@ -14,11 +14,9 @@ const KART_SCENES: Array[PackedScene] = [
 ]
 
 const TRACKS := [
-	{"name": "Autódromo", "path": "res://scenes/tracks/track_01.tscn"},
-	{"name": "Deserto", "path": "res://scenes/tracks/track_02.tscn"},
 	{"name": "Cidade Noturna", "path": "res://scenes/tracks/track_03.tscn"},
 ]
 
 var selected_kart: int = 3
-var selected_track: int = 2
+var selected_track: int = 0
 var has_selection: bool = false

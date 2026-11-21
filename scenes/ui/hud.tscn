@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dmk7t5tpg0fpf" path="res://scripts/hud.gd" id="1_0mwgc"]
 [ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="2_hqnrr"]
+[ext_resource type="PackedScene" uid="uid://dg6dmdmfequqc" path="res://scenes/ui/options_menu.tscn" id="3_8qguk"]
 [ext_resource type="AudioStream" uid="uid://bbdnglrmugaw0" path="res://sound/sfx/menu/menu_select.wav" id="3_bo48s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dj1m"]
@@ -13,6 +14,14 @@ font_size = 36
 [sub_resource type="LabelSettings" id="LabelSettings_gb2qf"]
 font = ExtResource("2_hqnrr")
 font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_croyj"]
+bg_color = Color(0.17254902, 0.2, 0.3882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.17999661, 0.20775694, 0.37186795, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lcy7t"]
 bg_color = Color(0.050980393, 0.06666667, 0.09019608, 0.5529412)
@@ -90,6 +99,21 @@ offset_bottom = 622.0
 text = "1 th"
 label_settings = SubResource("LabelSettings_gb2qf")
 
+[node name="OptionsButton" type="Button" parent="." unique_id=1775152971]
+custom_minimum_size = Vector2(48, 48)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_bottom = 48.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_croyj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_croyj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_croyj")
+text = "☰"
+
 [node name="ResultsPanel" type="PanelContainer" parent="." unique_id=218526171]
 offset_left = 47.0
 offset_top = 16.0
@@ -149,6 +173,16 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hqnrr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gss2c")
 theme_override_styles/hover = SubResource("StyleBoxFlat_136eg")
 text = " JOGAR DE NOVO "
+
+[node name="OptionsMenu" parent="." unique_id=1984756273 instance=ExtResource("3_8qguk")]
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -225.75
+offset_top = -215.75
+offset_right = 225.75
+offset_bottom = 215.75
+grow_vertical = 2
 
 [node name="UiClickAudio" type="AudioStreamPlayer" parent="." unique_id=138446077]
 stream = ExtResource("3_bo48s")

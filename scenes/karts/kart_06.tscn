@@ -196,6 +196,8 @@ shape = SubResource("CapsuleShape2D_tnp6r")
 
 [node name="EngineAudio" parent="." index="4" unique_id=204332756]
 stream = ExtResource("9_wimd2")
+bus = &"SFX"
 
 [node name="BrakeAudio" parent="." index="5" unique_id=1660261047]
 stream = ExtResource("10_pc8r2")
+bus = &"SFX"
