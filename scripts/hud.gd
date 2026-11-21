@@ -42,6 +42,10 @@ const COLOR_TEXT_MUTED := Color("#b8c0e0")
 
 @onready var options_button: Button = $OptionsButton
 @onready var options_menu: OptionsMenu = $OptionsMenu
+@onready var exit_button: Button = $ExitButton
+@onready var exit_confirm: Control = $ExitConfirm
+@onready var yes_button: Button = $ExitConfirm/YesButton
+@onready var no_button: Button = $ExitConfirm/NoButton
 
 var _previous_mouse_mode: Input.MouseMode = Input.MOUSE_MODE_VISIBLE
 
@@ -79,20 +83,34 @@ func _setup_options() -> void:
 	# Precisam continuar funcionando com a árvore pausada.
 	options_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	options_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	exit_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	exit_confirm.process_mode = Node.PROCESS_MODE_ALWAYS
 
 	_style_action_button(options_button, false)
 	options_button.custom_minimum_size = Vector2(48, 44)
 	options_button.size_flags_horizontal = Control.SIZE_SHRINK_END
 
+	# Estilo do botão X
+	_style_action_button(exit_button, false)
+	exit_button.custom_minimum_size = Vector2(48, 44)
+	exit_button.size_flags_horizontal = Control.SIZE_SHRINK_END
+
 	options_menu.hide()
 	options_button.pressed.connect(_open_options)
 	options_menu.closed.connect(_close_options)
+	
+	exit_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	exit_confirm.process_mode = Node.PROCESS_MODE_ALWAYS
+	exit_confirm.hide()
+	exit_button.pressed.connect(_open_exit_confirm)
+	yes_button.pressed.connect(_on_exit_yes)
+	no_button.pressed.connect(_close_exit_confirm)
 
 
 func _open_options() -> void:
 	if results_panel != null and results_panel.visible:
 		return
-	if options_menu.visible:
+	if options_menu.visible or exit_confirm.visible:
 		return
 	_previous_mouse_mode = Input.mouse_mode
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -252,11 +270,12 @@ func _on_finish_results_opened(finished_karts: Array[Kart]) -> void:
 
 ## Esconde o botão de opções (e fecha o menu, se estiver aberto) quando a corrida acaba.
 func _hide_options_ui() -> void:
-	if options_menu.visible:
+	if options_menu.visible or exit_confirm.visible:
 		options_menu.hide()
+		exit_confirm.hide()
 		get_tree().paused = false
 	options_button.hide()
-
+	exit_button.hide()
 
 func _on_finish_results_updated(finished_karts: Array[Kart]) -> void:
 	_render_finished_list(finished_karts)
@@ -284,6 +303,31 @@ func _on_menu_pressed() -> void:
 	if err != OK:
 		_set_buttons_disabled(false)
 		push_error("Hud: falha ao carregar '%s'. Código de erro: %s" % [main_menu_scene, err])
+		
+func _open_exit_confirm() -> void:
+	if exit_confirm.visible or options_menu.visible:
+		return
+	if results_panel != null and results_panel.visible:
+		return
+	_previous_mouse_mode = Input.mouse_mode
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	exit_confirm.show()
+	get_tree().paused = true
+
+
+func _close_exit_confirm() -> void:
+	exit_confirm.hide()
+	get_tree().paused = false
+	Input.mouse_mode = _previous_mouse_mode
+
+
+func _on_exit_yes() -> void:
+	var target := main_menu_scene
+	if target.is_empty():
+		target = "res://scenes/main/main_menu.tscn"
+	get_tree().paused = false
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().change_scene_to_file(target)
 
 
 func _render_finished_list(finished_karts: Array[Kart]) -> void:

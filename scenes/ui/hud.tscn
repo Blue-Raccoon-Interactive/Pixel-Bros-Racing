@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dmk7t5tpg0fpf" path="res://scripts/hud.gd" id="1_0mwgc"]
 [ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="2_hqnrr"]
-[ext_resource type="AudioStream" uid="uid://c4mk7ejuw1n7m" path="res://sound/sfx/menu/menu_startGame.wav" id="3_136eg"]
 [ext_resource type="PackedScene" uid="uid://dg6dmdmfequqc" path="res://scenes/ui/options_menu.tscn" id="3_8qguk"]
+[ext_resource type="AudioStream" uid="uid://c4mk7ejuw1n7m" path="res://sound/sfx/menu/menu_startGame.wav" id="3_136eg"]
 [ext_resource type="AudioStream" uid="uid://bbdnglrmugaw0" path="res://sound/sfx/menu/menu_select.wav" id="3_bo48s"]
 [ext_resource type="AudioStream" uid="uid://r57qitilmyb4" path="res://sound/sfx/menu/menu_back.wav" id="4_oj5la"]
 
@@ -71,6 +71,40 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kicr4"]
+bg_color = Color(0.08627451, 0.101960786, 0.2, 0.9490196)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h022r"]
+bg_color = Color(0.17254902, 0.2, 0.3882353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28235295, 0.32156864, 0.54901963, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jqwt"]
+bg_color = Color(0.96862745, 0.80784315, 0.24313726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.76862746, 0.6039216, 0.11372549, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.25)
+
 [node name="Hud" type="CanvasLayer" unique_id=1128216421]
 process_mode = 3
 script = ExtResource("1_0mwgc")
@@ -110,7 +144,8 @@ custom_minimum_size = Vector2(48, 48)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -48.0
+offset_left = -95.0
+offset_right = -47.0
 offset_bottom = 48.0
 grow_horizontal = 0
 theme_override_fonts/font = ExtResource("2_hqnrr")
@@ -119,6 +154,22 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_croyj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_croyj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_croyj")
 text = "☰"
+
+[node name="ExitButton" type="Button" parent="." unique_id=590559087]
+custom_minimum_size = Vector2(48, 48)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -47.0
+offset_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_croyj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_croyj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_croyj")
+text = "X"
 
 [node name="ResultsPanel" type="PanelContainer" parent="." unique_id=218526171]
 offset_left = 47.0
@@ -181,6 +232,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_136eg")
 text = " JOGAR DE NOVO "
 
 [node name="OptionsMenu" parent="." unique_id=1984756273 instance=ExtResource("3_8qguk")]
+visible = false
 anchors_preset = 8
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -189,6 +241,55 @@ offset_top = -215.75
 offset_right = 225.75
 offset_bottom = 215.75
 grow_vertical = 2
+
+[node name="ExitConfirm" type="Label" parent="." unique_id=1341335766]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.5
+offset_top = -52.5
+offset_right = 228.5
+offset_bottom = 52.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_kicr4")
+
+[node name="Message" type="Label" parent="ExitConfirm" unique_id=1991507500]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.5
+offset_right = 87.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_font_sizes/font_size = 32
+text = "Deseja sair da corrida?"
+horizontal_alignment = 1
+
+[node name="YesButton" type="Button" parent="ExitConfirm" unique_id=2120957633]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 52.0
+offset_right = 148.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_h022r")
+text = "SIM"
+
+[node name="NoButton" type="Button" parent="ExitConfirm" unique_id=899899535]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 52.0
+offset_right = 406.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_hqnrr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4jqwt")
+text = "NÃO"
 
 [node name="UiClickAudio" type="AudioStreamPlayer" parent="." unique_id=138446077]
 stream = ExtResource("3_bo48s")
