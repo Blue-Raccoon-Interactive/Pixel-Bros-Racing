@@ -189,7 +189,7 @@ func _begin_race() -> void:
 			race_started.emit()
 		else:
 			_play_start_sound(COUNTDOWN_BEEP)
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(1.0, false).timeout
 
 	countdown_changed.emit("")
 
