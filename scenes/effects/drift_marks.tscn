@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/drift_marks.gd" id="1_lygdw"]
+[ext_resource type="Script" path="res://scripts/drift_mark_set.gd" id="2_3jsbm"]
+[ext_resource type="Resource" path="res://assets/effects/drift/mark_set_asphalt.tres" id="3_2gpoo"]
+[ext_resource type="Resource" path="res://assets/effects/drift/mark_set_dirt.tres" id="4_a6rlx"]
+[ext_resource type="Resource" path="res://assets/effects/drift/mark_set_grass.tres" id="5_c6ilu"]
+[ext_resource type="Resource" path="res://assets/effects/drift/mark_set_snow.tres" id="6_4717k"]
+[ext_resource type="Texture2D" path="res://assets/effects/drift/asphalt/skid_mark.png" id="7_1cduc"]
+
+[node name="DriftMarks" type="Node2D" unique_id=777795596]
+script = ExtResource("1_lygdw")
+mark_sets = Array[ExtResource("2_3jsbm")]([ExtResource("3_2gpoo"), ExtResource("4_a6rlx"), ExtResource("5_c6ilu"), ExtResource("6_4717k")])
+default_texture = ExtResource("7_1cduc")

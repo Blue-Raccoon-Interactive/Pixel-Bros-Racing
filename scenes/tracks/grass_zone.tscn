@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b1kgdho5qmdd4"]
+
+[ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_pknx4"]
+
+[node name="GrassZone" type="Area2D" unique_id=1299205769]
+script = ExtResource("1_pknx4")

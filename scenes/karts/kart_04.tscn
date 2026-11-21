@@ -1,0 +1,204 @@
+[gd_scene format=3 uid="uid://by4ag0cn20fu5"]
+
+[ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="1_pc2b6"]
+[ext_resource type="Texture2D" uid="uid://xkbeqib7s0mk" path="res://assets/sprites/carros/carros_parados/carro_04.png" id="2_bykxg"]
+[ext_resource type="Texture2D" uid="uid://dasobubruvsh8" path="res://assets/sprites/carros/kart_car_2camadas_AVANCANDO.png" id="2_v7dnn"]
+[ext_resource type="Texture2D" uid="uid://1w6owc7rgjpn" path="res://assets/sprites/carros/kart_car_2camadas_FREANDO.png" id="3_bykxg"]
+[ext_resource type="Texture2D" uid="uid://q1shf40vmjk4" path="res://assets/sprites/carros/kart_car_2camadas_RE.png" id="4_6toww"]
+[ext_resource type="Texture2D" uid="uid://batbxqnaybxpw" path="res://assets/sprites/carros/kart_car_2camadas_ESQUERDA.png" id="5_vf047"]
+[ext_resource type="Texture2D" uid="uid://dxxnwn8tlbsdi" path="res://assets/sprites/carros/kart_car_2camadas_DIREITA.png" id="6_s07kt"]
+[ext_resource type="Texture2D" uid="uid://c4vphg0ta6lya" path="res://assets/sprites/carros/kart_car_2camadas_PARADO.png" id="7_6cc6x"]
+[ext_resource type="AudioStream" uid="uid://csy77jsftwhoi" path="res://sound/sfx/karts/kart_04/engine_brake.wav" id="9_vf047"]
+[ext_resource type="AudioStream" uid="uid://bexq1862034jn" path="res://sound/sfx/karts/kart_04/engine.wav" id="10_s07kt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nmh2"]
+atlas = ExtResource("2_v7dnn")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jwk2"]
+atlas = ExtResource("2_v7dnn")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0080"]
+atlas = ExtResource("2_v7dnn")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yp4x"]
+atlas = ExtResource("3_bykxg")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwrrd"]
+atlas = ExtResource("3_bykxg")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fo3e"]
+atlas = ExtResource("3_bykxg")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tkge"]
+atlas = ExtResource("4_6toww")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubhcr"]
+atlas = ExtResource("4_6toww")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb0kv"]
+atlas = ExtResource("4_6toww")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vf047"]
+atlas = ExtResource("5_vf047")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s07kt"]
+atlas = ExtResource("5_vf047")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cc6x"]
+atlas = ExtResource("5_vf047")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue8qm"]
+atlas = ExtResource("6_s07kt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_884p5"]
+atlas = ExtResource("6_s07kt")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvrbc"]
+atlas = ExtResource("6_s07kt")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2t5my"]
+atlas = ExtResource("7_6cc6x")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybafp"]
+atlas = ExtResource("7_6cc6x")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlax1"]
+atlas = ExtResource("7_6cc6x")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bh4pj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nmh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6jwk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0080")
+}],
+"loop": 1,
+"name": &"accelerating",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yp4x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwrrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fo3e")
+}],
+"loop": 1,
+"name": &"braking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tkge")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubhcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vb0kv")
+}],
+"loop": 1,
+"name": &"reverse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vf047")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s07kt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cc6x")
+}],
+"loop": 1,
+"name": &"steering_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue8qm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_884p5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvrbc")
+}],
+"loop": 1,
+"name": &"steering_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2t5my")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybafp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlax1")
+}],
+"loop": 1,
+"name": &"stopping",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xnal"]
+size = Vector2(21, 23)
+
+[node name="Kart" unique_id=645485632 instance=ExtResource("1_pc2b6")]
+kart_name = "Tronco"
+archetype = "Drifter"
+kart_sprite_texture = ExtResource("2_bykxg")
+max_speed = 440.0
+acceleration = 330.0
+brake_force = 350.0
+reverse_max_speed = 130.0
+rotation_speed = 2.65
+friction = 100.0
+grip = 470.0
+steer_full_speed = 130.0
+wall_speed_factor = 0.78
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1540636759]
+sprite_frames = SubResource("SpriteFrames_bh4pj")
+animation = &"accelerating"
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=318088492]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_6xnal")
+
+[node name="EngineAudio" parent="." index="4" unique_id=204332756]
+stream = ExtResource("10_s07kt")
+bus = &"SFX"
+
+[node name="BrakeAudio" parent="." index="5" unique_id=1660261047]
+stream = ExtResource("9_vf047")
+bus = &"SFX"

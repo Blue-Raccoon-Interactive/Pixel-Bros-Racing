@@ -1,8 +1,9 @@
 extends Area2D
 
-signal passed(index: int)
-
-@export var index: int = 0
+## Emitido quando um kart atravessa o checkpoint.
+## A ordem NÃO é definida aqui: vem da posição do checkpoint na pista
+## (nó "Checkpoints"), calculada pelo RaceManager.
+signal checkpoint_passed(checkpoint: Area2D, kart: Node2D)
 
 
 func _ready() -> void:
@@ -10,5 +11,7 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if "surface_multiplier" in body or body is CharacterBody2D:
-		passed.emit(index)
+	if not body.is_in_group("race_kart"):
+		return
+
+	checkpoint_passed.emit(self, body)
