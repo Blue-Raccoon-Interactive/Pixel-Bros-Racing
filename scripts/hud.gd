@@ -4,6 +4,9 @@ extends CanvasLayer
 ## Gerenciador da corrida que este HUD acompanha.
 @export var race_manager: RaceManager
 
+## Waypoints da pista para desenhar o radar do traçado (opcional se chamado via código).
+@export var track_waypoints: TrackWaypoints
+
 ## Caminho da cena do menu principal ao clicar em "Voltar".
 @export_file("*.tscn") var main_menu_scene: String = ""
 
@@ -33,6 +36,7 @@ const COLOR_TEXT_MUTED := Color("#b8c0e0")
 @onready var lap_label: Label = $LapLabel
 @onready var countdown_label: Label = $CountdownLabel
 @onready var position_label: Label = $PositionLabel
+@onready var track_radar: TrackRadarMinimap = get_node_or_null("TrackRadar") as TrackRadarMinimap
 @onready var results_panel: PanelContainer = $ResultsPanel
 @onready var title_label: Label = $ResultsPanel/MarginContainer/MainVBox/TitleLabel
 @onready var standings_list: VBoxContainer = $ResultsPanel/MarginContainer/MainVBox/StandingsList
@@ -67,6 +71,10 @@ func _ready() -> void:
 	if menu_button != null:
 		menu_button.pressed.connect(_on_menu_pressed)
 
+	if track_radar != null:
+		track_radar.setup(race_manager, track_waypoints)
+		track_radar.visible = track_waypoints != null
+
 	if race_manager == null:
 		push_error("Hud: race_manager não foi configurado!")
 		return
@@ -77,6 +85,13 @@ func _ready() -> void:
 	race_manager.race_finished.connect(_on_race_finished)
 	race_manager.finish_results_opened.connect(_on_finish_results_opened)
 	race_manager.finish_results_updated.connect(_on_finish_results_updated)
+
+
+func set_track_waypoints(waypoints: TrackWaypoints) -> void:
+	track_waypoints = waypoints
+	if track_radar != null:
+		track_radar.set_track_from_waypoints(waypoints)
+		track_radar.visible = waypoints != null
 
 
 func _setup_options() -> void:
@@ -98,7 +113,7 @@ func _setup_options() -> void:
 	options_menu.hide()
 	options_button.pressed.connect(_open_options)
 	options_menu.closed.connect(_close_options)
-	
+
 	exit_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	exit_confirm.process_mode = Node.PROCESS_MODE_ALWAYS
 	exit_confirm.hide()
@@ -244,6 +259,8 @@ func _on_race_finished() -> void:
 		lap_label.visible = false
 	if position_label != null:
 		position_label.visible = false
+	if track_radar != null:
+		track_radar.visible = false
 	if countdown_label != null:
 		countdown_label.text = ""
 		countdown_label.visible = false
@@ -255,6 +272,8 @@ func _on_finish_results_opened(finished_karts: Array[Kart]) -> void:
 		lap_label.visible = false
 	if position_label != null:
 		position_label.visible = false
+	if track_radar != null:
+		track_radar.visible = false
 	_hide_options_ui()
 
 	_set_buttons_disabled(false)
@@ -276,6 +295,7 @@ func _hide_options_ui() -> void:
 		get_tree().paused = false
 	options_button.hide()
 	exit_button.hide()
+
 
 func _on_finish_results_updated(finished_karts: Array[Kart]) -> void:
 	_render_finished_list(finished_karts)
@@ -303,7 +323,8 @@ func _on_menu_pressed() -> void:
 	if err != OK:
 		_set_buttons_disabled(false)
 		push_error("Hud: falha ao carregar '%s'. Código de erro: %s" % [main_menu_scene, err])
-		
+
+
 func _open_exit_confirm() -> void:
 	if exit_confirm.visible or options_menu.visible:
 		return
