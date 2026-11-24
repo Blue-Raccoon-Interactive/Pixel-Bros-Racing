@@ -22,6 +22,8 @@ signal race_finished
 signal finish_results_opened(finished_karts: Array[Kart])
 ## Atualiza a tela de classificação conforme outros karts vão cruzando a linha final.
 signal finish_results_updated(finished_karts: Array[Kart])
+## Waypoints da pista localizados na inicialização da corrida.
+signal track_waypoints_ready(waypoints: TrackWaypoints)
 
 ## Voltas da corrida. Se houver uma pista, o valor vem dela.
 @export var total_laps: int = 3
@@ -31,6 +33,8 @@ signal finish_results_updated(finished_karts: Array[Kart])
 @export var kart: Kart
 ## Pista da corrida. Se definida, checkpoints, largada e voltas vêm dela.
 @export var track: RaceTrack
+## HUD da corrida (opcional; se vazio, será buscado automaticamente na cena).
+@export var hud: Hud
 ## Usado só quando NÃO há pista: checkpoints na ordem da corrida.
 @export var checkpoints: Array[Area2D] = []
 
@@ -155,7 +159,43 @@ func _setup_from_track() -> void:
 	total_laps = track.laps
 	checkpoints = track.get_checkpoints()
 
+	var waypoints := _find_track_waypoints(track)
+	if waypoints != null:
+		track_waypoints_ready.emit(waypoints)
+		if hud == null:
+			hud = _find_hud_in_tree(get_tree().current_scene)
+		if hud != null:
+			hud.set_track_waypoints(waypoints)
+
 	_place_karts_at_start()
+
+
+func _find_track_waypoints(root: Node) -> TrackWaypoints:
+	if root == null:
+		return null
+	if root is TrackWaypoints:
+		return root as TrackWaypoints
+
+	for child in root.get_children():
+		var found := _find_track_waypoints(child)
+		if found != null:
+			return found
+
+	return null
+
+
+func _find_hud_in_tree(root: Node) -> Hud:
+	if root == null:
+		return null
+	if root is Hud:
+		return root as Hud
+
+	for child in root.get_children():
+		var found := _find_hud_in_tree(child)
+		if found != null:
+			return found
+
+	return null
 
 
 # Cada kart vai para um marcador de largada, na ordem. Se houver mais karts

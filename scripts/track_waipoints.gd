@@ -6,6 +6,15 @@ extends Node2D
 ## Não desenha nada durante o jogo.
 
 
+func get_waypoint_positions() -> PackedVector2Array:
+	var points := PackedVector2Array()
+	for child in get_children():
+		var marker := child as Marker2D
+		if marker != null and is_instance_valid(marker):
+			points.append(marker.global_position)
+	return points
+
+
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		queue_redraw()

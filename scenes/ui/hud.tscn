@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://c4mk7ejuw1n7m" path="res://sound/sfx/menu/menu_startGame.wav" id="3_136eg"]
 [ext_resource type="AudioStream" uid="uid://bbdnglrmugaw0" path="res://sound/sfx/menu/menu_select.wav" id="3_bo48s"]
 [ext_resource type="AudioStream" uid="uid://r57qitilmyb4" path="res://sound/sfx/menu/menu_back.wav" id="4_oj5la"]
+[ext_resource type="Script" uid="uid://2si3tisxfba1" path="res://scripts/track_radar_minimap.gd" id="7_gss2c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dj1m"]
 font = ExtResource("2_hqnrr")
@@ -112,6 +113,15 @@ main_menu_scene = "uid://b536ric75d64t"
 pixel_font = ExtResource("2_hqnrr")
 retry_sound = ExtResource("3_136eg")
 back_sound = ExtResource("4_oj5la")
+
+[node name="TrackRadar" type="Control" parent="." unique_id=2127567839]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 15.0
+offset_right = 165.0
+offset_bottom = 115.0
+script = ExtResource("7_gss2c")
 
 [node name="LapLabel" type="Label" parent="." unique_id=785976717]
 offset_left = 52.0
