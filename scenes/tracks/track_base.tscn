@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://igjhxnorje63"]
 
 [ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race_components/checkpoint.tscn" id="1_dg2ty"]
-[ext_resource type="Script" uid="uid://cxubdt72xkbaj" path="res://scripts/race_track.gd" id="1_pduj1"]
-[ext_resource type="Script" uid="uid://wjjedpepkoa3" path="res://scripts/track_waipoints.gd" id="2_rmetk"]
+[ext_resource type="Script" uid="uid://cxubdt72xkbaj" path="res://scripts/tracks/race_track.gd" id="1_pduj1"]
+[ext_resource type="Script" uid="uid://wjjedpepkoa3" path="res://scripts/tracks/track_waipoints.gd" id="2_rmetk"]
 
 [node name="TrackBase" type="Node2D" unique_id=769989602]
 script = ExtResource("1_pduj1")

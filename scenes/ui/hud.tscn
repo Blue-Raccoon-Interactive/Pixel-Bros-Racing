@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://758i5vi4dbj2"]
 
-[ext_resource type="Script" uid="uid://dmk7t5tpg0fpf" path="res://scripts/hud.gd" id="1_0mwgc"]
+[ext_resource type="Script" uid="uid://dmk7t5tpg0fpf" path="res://scripts/ui/hud.gd" id="1_0mwgc"]
 [ext_resource type="FontFile" uid="uid://c81w0mhdyyg8m" path="res://assets/background/upheavtt.ttf" id="2_hqnrr"]
 [ext_resource type="PackedScene" uid="uid://dg6dmdmfequqc" path="res://scenes/ui/options_menu.tscn" id="3_8qguk"]
 [ext_resource type="AudioStream" uid="uid://c4mk7ejuw1n7m" path="res://sound/sfx/menu/menu_startGame.wav" id="3_136eg"]
 [ext_resource type="AudioStream" uid="uid://bbdnglrmugaw0" path="res://sound/sfx/menu/menu_select.wav" id="3_bo48s"]
 [ext_resource type="AudioStream" uid="uid://r57qitilmyb4" path="res://sound/sfx/menu/menu_back.wav" id="4_oj5la"]
-[ext_resource type="Script" uid="uid://2si3tisxfba1" path="res://scripts/track_radar_minimap.gd" id="7_gss2c"]
+[ext_resource type="Script" uid="uid://2si3tisxfba1" path="res://scripts/ui/track_radar_minimap.gd" id="7_gss2c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dj1m"]
 font = ExtResource("2_hqnrr")

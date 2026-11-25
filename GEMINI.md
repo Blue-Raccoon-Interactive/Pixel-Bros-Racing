@@ -2,7 +2,7 @@
 
 - **Linguagem:** GDScript (Godot 4.7).
 - **Estrutura de Arquivos:**
-  - Scripts: `res://scripts/`
+  - Scripts: `res://scripts/{vehicles,race,drift,tracks,ui,audio}/`
   - Cenas: `res://scenes/`
 - **Manipulação de Cenas:**
   - Alterar cenas **exclusivamente** através das ferramentas integradas do Godot (`godot-ai` MCP).

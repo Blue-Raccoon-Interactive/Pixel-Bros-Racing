@@ -19,7 +19,7 @@ No modo `TRAVEL` a marca acompanha o caminho do pneu e o rastro sai contínuo:
 
 ## 1. Como funciona em 30 segundos
 
-1. O `Kart` (scripts/Kart.gd) olha o próprio movimento a cada frame de física.
+1. O `Kart` (scripts/vehicles/Kart.gd) olha o próprio movimento a cada frame de física.
 2. Se o movimento é "derrapagem", o kart pede uma marca para **cada pneu traseiro**.
 3. As marcas vão para o nó `DriftMarks`, que fica **na cena** (irmão do kart), e
    não dentro do kart. Por isso elas ficam no chão: não andam com o carro nem
@@ -104,7 +104,7 @@ Cuidados para o pixel art:
 | `orientation_mode` | `VEHICLE` | `VEHICLE` = a marca acompanha a orientação do kart (o desenho do pneu). `TRAVEL` = a marca acompanha o caminho do pneu e o rastro sai contínuo (ver seção 0). |
 | `mark_sets` | 4 conjuntos | Lista de `DriftMarkSet` (uma por superfície). |
 
-### `scripts/drift_detector.gd` (quando é derrapagem)
+### `scripts/drift/drift_detector.gd` (quando é derrapagem)
 
 | Propriedade | Padrão | Para que serve |
 |---|---|---|
@@ -132,7 +132,7 @@ Cuidados para o pixel art:
 ## 5. Superfícies (asfalto, grama, terra, neve)
 
 O sistema reaproveita as **zonas de piso** que já existiam no jogo
-(`scripts/grass_zone.gd`). Cada zona tem agora um campo `surface_name`:
+(`scripts/tracks/grass_zone.gd`). Cada zona tem agora um campo `surface_name`:
 
 | Zona | `surface_name` | Efeito |
 |---|---|---|

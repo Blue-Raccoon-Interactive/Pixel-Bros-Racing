@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ci0ei4x0fokq1"]
 
-[ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_6d3gk"]
+[ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/tracks/grass_zone.gd" id="1_6d3gk"]
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="2_yjyj3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cl38"]

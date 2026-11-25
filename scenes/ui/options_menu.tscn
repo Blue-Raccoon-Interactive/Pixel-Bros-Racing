@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dg6dmdmfequqc"]
 
-[ext_resource type="Script" uid="uid://b2nfttl1p763q" path="res://scripts/options_menu.gd" id="1_ovlcw"]
+[ext_resource type="Script" uid="uid://b2nfttl1p763q" path="res://scripts/ui/options_menu.gd" id="1_ovlcw"]
 [ext_resource type="Texture2D" uid="uid://db6ewa3im5ebe" path="res://assets/sprites/ui/menu/botao_slider.png" id="1_sfb4o"]
 [ext_resource type="Texture2D" uid="uid://buploq4wew0jy" path="res://assets/sprites/ui/menu/fundo_slider.png" id="2_71n78"]
 [ext_resource type="Texture2D" uid="uid://bhl0gn4jf4g46" path="res://assets/sprites/ui/menu/barra_slider.png" id="3_qpfpk"]
-[ext_resource type="Script" uid="uid://ikcmjerxhtgs" path="res://scripts/sound_controller.gd" id="4_11dj2"]
+[ext_resource type="Script" uid="uid://ikcmjerxhtgs" path="res://scripts/audio/sound_controller.gd" id="4_11dj2"]
 [ext_resource type="Texture2D" uid="uid://b0hhbtevkbdat" path="res://assets/sprites/ui/menu/State=On.png" id="5_ute1y"]
 [ext_resource type="Texture2D" uid="uid://crxhqa031mt4p" path="res://assets/sprites/ui/menu/State=Off.png" id="6_74m6v"]
-[ext_resource type="Script" uid="uid://o55vggxoe2gl" path="res://scripts/full_screen_control.gd" id="7_juqdq"]
+[ext_resource type="Script" uid="uid://o55vggxoe2gl" path="res://scripts/ui/full_screen_control.gd" id="7_juqdq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_001j1"]
 bg_color = Color(0.08627451, 0.101960786, 0.2, 0.9490196)
