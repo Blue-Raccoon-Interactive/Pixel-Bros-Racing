@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cleruqcye7jp8"]
 
-[ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/grass_zone.gd" id="1_lxbkj"]
+[ext_resource type="Script" uid="uid://b2f5yfq5xf07o" path="res://scripts/tracks/grass_zone.gd" id="1_lxbkj"]
 [ext_resource type="PackedScene" uid="uid://bgx7pyngcawp2" path="res://scenes/race_components/checkpoint.tscn" id="2_tldlq"]
 [ext_resource type="PackedScene" uid="uid://xajx7fi7oihb" path="res://scenes/karts/kart_base.tscn" id="3_tldlq"]
-[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race_manager.gd" id="4_rgicp"]
+[ext_resource type="Script" uid="uid://dbilpd2dltikj" path="res://scripts/race/race_manager.gd" id="4_rgicp"]
 [ext_resource type="PackedScene" uid="uid://758i5vi4dbj2" path="res://scenes/ui/hud.tscn" id="5_bkf63"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qa7hb"]
